@@ -1,0 +1,15 @@
+<ion-view view-title="Sale List">
+
+	<ion-nav-buttons side="left">
+		<button ui-sref="tab.sale-create" class="button icon ion-android-add-circle"></button>
+	</ion-nav-buttons>
+
+	<ion-content padding="true">
+		<ion-list>
+			<ion-item ui-sref="tab.sale-detail({ id: sale.id })" ng-repeat="sale in sales">
+				<h2>{{ sale.customer }}</h2>
+				<h2>{{ sale.product }}</h2>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
