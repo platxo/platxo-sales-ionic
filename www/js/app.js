@@ -6,9 +6,11 @@
 var sales = angular.module('sales', [
   'ionic',
   'ngCordova',
-  'salesControllers',
-  'salesServices',
-  'salesRoutes'
+  'saleControllers',
+  'saleServices',
+  'productServices',
+  'serviceServices',
+  'saleRoutes'
 ])
 
 sales.run(function($ionicPlatform) {

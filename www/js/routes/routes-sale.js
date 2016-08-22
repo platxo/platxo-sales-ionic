@@ -1,6 +1,6 @@
-var salesRoutes = angular.module('salesRoutes', []);
+var saleRoutes = angular.module('saleRoutes', []);
 
-salesRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('tab', {
       url: '/tab',
@@ -8,16 +8,16 @@ salesRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
       templateUrl: 'templates/tabs.html'
     })
     // Sales
-  	.state('tab.sale-list', {
-  	  url: '/sale-list',
+    .state('tab.sale-list', {
+      url: '/sale-list',
       views: {
         'tab-sales': {
           templateUrl: 'templates/sale/sale-list.html',
           controller: 'saleController'
         }
       }
-  	})
-  	.state('tab.sale-detail', {
+    })
+    .state('tab.sale-detail', {
       url: '/sale-detail/:id',
       views: {
         'tab-sales': {
