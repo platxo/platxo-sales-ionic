@@ -1,0 +1,14 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Select Product</h1><button class="button icon ion-android-cancel" ng-click="productCloseModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-checkbox 
+      ng-repeat="product in products"
+      ng-value="product.name"
+      ng-model="product.test"
+      ng-click="selectProduct(product)">
+      {{product.name}}
+    </ion-checkbox>
+  </ion-content>
+</ion-modal-view>
