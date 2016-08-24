@@ -24,7 +24,6 @@ saleControllers.controller('saleController', [
     $scope.services = serviceService.list();
 
     $scope.create = function () {
-      debugger
       saleService.create($scope.sale);
       $scope.sales = saleService.list();
       $state.go('tab.sale-list');
@@ -99,6 +98,10 @@ saleControllers.controller('saleController', [
     $scope.selectService = function(service) {
       $scope.sale.services.push(service.url)
     };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.sales = saleService.list();
+    })
 
   }
 ]);
