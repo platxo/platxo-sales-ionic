@@ -7,12 +7,23 @@
       </label>
       <label class="item item-input item-select" ng-click="productOpenModal()">
         <span class="input-label">Product</span>
-        <input ng-model="salename" type="text" value="{{product.url}}">
       </label>
+      <div class="list card">
+        <a href="#" ng-repeat="select in productsSelected" class="item item-icon-left">
+          <i class="icon ion-ios-checkmark-empty"></i>
+          {{select}}
+        </a>
+      </div>
       <label class="item item-input item-select" ng-click="serviceOpenModal()">
         <span class="input-label">Service</span>
-        <input ng-model="salename" type="text" value="{{service.url}}">
       </label>
+      <div class="list card">
+        <a href="#" ng-repeat="select in servicesSelected" class="item item-icon-left">
+          <i class="icon ion-ios-checkmark-empty"></i>
+          {{select}}
+        </a>
+      </div>
+        <!-- <input ng-model="salename" type="text" value="{{service.url}}"> -->
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

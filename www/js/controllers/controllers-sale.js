@@ -70,8 +70,11 @@ saleControllers.controller('saleController', [
     });
 
     $scope.sale.products = [];
+    $scope.productsSelected = [];
     $scope.selectProduct = function(product) {
+      // debugger
       $scope.sale.products.push(product.url)
+      $scope.productsSelected.push(product.name)
     };
 
     //Modal Service List
@@ -95,8 +98,10 @@ saleControllers.controller('saleController', [
     });
 
     $scope.sale.services = [];
+    $scope.servicesSelected = [];
     $scope.selectService = function(service) {
       $scope.sale.services.push(service.url)
+      $scope.servicesSelected.push(service.name)
     };
 
     $scope.$on('$stateChangeSuccess', function() {
