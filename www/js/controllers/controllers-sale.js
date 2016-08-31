@@ -30,6 +30,7 @@ saleControllers.controller('saleController', [
 
     $scope.create = function () {
       $scope.sale.user = $rootScope.currentUser.url
+      $scope.sale.total = 45000;
       saleService.create($scope.sale);
       $scope.sales = saleService.list();
       $state.go('tab.sale-list');
