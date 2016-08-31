@@ -25,6 +25,7 @@ saleControllers.controller('saleController', [
     $scope.sales = saleService.list();
     $scope.sale = saleService.detail({id: $stateParams.id});
     $scope.customers = customerService.list();
+    // $scope.customer = customerService.list();
     $scope.products = productService.list();
     $scope.services = serviceService.list();
 
