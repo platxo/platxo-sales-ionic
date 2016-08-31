@@ -4,9 +4,14 @@
 		<button ui-sref="tab.sale-create" class="button icon ion-android-add-circle"></button>
 	</ion-nav-buttons>
 
+	<ion-nav-buttons side="right">
+	  <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+	</ion-nav-buttons>
+
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="tab.sale-detail({ id: sale.id })" ng-repeat="sale in sales" class="item item-button-right item-thumbnail-left">
+			<search></search>
+			<ion-item ui-sref="tab.sale-detail({ id: sale.id })" ng-repeat="sale in sales | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
 				<h2>{{ sale.customer }}</h2>
 				<h2>{{ sale.product }}</h2>
 

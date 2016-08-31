@@ -2,9 +2,10 @@
   <ion-header-bar class="bar-balanced">
     <h1 class="title">Select Service</h1><button class="button icon ion-android-cancel" ng-click="serviceCloseModal()"></button>
   </ion-header-bar>
-  <ion-content>
+  <ion-content padding="true">
+    <search></search>
     <ion-checkbox 
-      ng-repeat="service in services"
+      ng-repeat="service in services | orderBy:'name' | filter:search.value"
       ng-value="service.name"
       ng-click="selectService(service)">
       {{service.name}}

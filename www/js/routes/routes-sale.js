@@ -2,11 +2,6 @@ var saleRoutes = angular.module('saleRoutes', []);
 
 saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('tab', {
-      url: '/tab',
-      abstract: true,
-      templateUrl: 'templates/tabs.html'
-    })
     // Sales
     .state('tab.sale-list', {
       url: '/sale-list',
@@ -53,7 +48,5 @@ saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
         }
       }
     })
-
-  $urlRouterProvider.otherwise('/tab/sale-list');
 
 }]);

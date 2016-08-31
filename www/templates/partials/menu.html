@@ -1,0 +1,14 @@
+<ion-popover-view style="height: 120px">
+  <ion-content>
+    <ion-list>
+      <ion-item href="#/profile">
+        <i class="icon ion-person"></i>
+        {{currentUser.username}}
+      </ion-item>
+      <ion-item ng-click="closeMenu(true)">
+        <i class="icon ion-power"></i>
+        Logout
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-popover-view>

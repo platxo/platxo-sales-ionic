@@ -3,8 +3,9 @@
     <h1 class="title">Select Product</h1><button class="button icon ion-android-cancel" ng-click="productCloseModal()"></button>
   </ion-header-bar>
   <ion-content>
+    <search></search>
     <ion-checkbox 
-      ng-repeat="product in products"
+      ng-repeat="product in products | orderBy:'name' | filter:search.value"
       ng-value="product.name"
       ng-click="selectProduct(product)">
       {{product.name}}

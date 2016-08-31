@@ -1,0 +1,5 @@
+<label class="item item-input">
+  <i class="icon ion-search placeholder-icon"></i>
+  <input ng-model="search.value" type="search" placeholder="Search" ng-change="scrollTop()">
+  <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close"></button>
+</label>

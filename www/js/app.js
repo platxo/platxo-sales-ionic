@@ -10,11 +10,24 @@ var sales = angular.module('sales', [
   'saleServices',
   'productServices',
   'serviceServices',
-  'saleRoutes'
+  'saleRoutes',
+  'authControllers',
+  'authServices',
+  'authRoutes'
 ])
 
-sales.run(function($ionicPlatform) {
+sales.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
+    $rootScope.token = JSON.parse(localStorage.getItem("token"));
+    $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+
+    $rootScope.logout = function() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      $location.path('/login');
+    };
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -29,4 +42,51 @@ sales.run(function($ionicPlatform) {
       StatusBar.styleDefault();
     }
   });
+})
+
+.directive('popoverMenu', [ '$ionicPopover', '$rootScope', function ($ionicPopover, $rootScope) {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/partials/menu.html',
+    controller: function ($scope) {
+      $ionicPopover.fromTemplateUrl('templates/partials/menu.html', {
+        scope: $scope,
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+      $scope.menu = function($event) {
+        // debugger
+        $scope.popover.show($event);
+      };
+
+      $scope.closeMenu = function(logout) {
+        $scope.popover.hide();
+        if (logout) {
+          $rootScope.logout();
+        }
+      };
+
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+      // Execute action on hide popover
+      $scope.$on('popover.hidden', function() {
+        // Execute action
+      });
+      // Execute action on remove popover
+      $scope.$on('popover.removed', function() {
+        // Execute action
+      });
+
+    }
+  }
+}])
+
+.directive('search', function () {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/partials/search.html'
+  }
 })
