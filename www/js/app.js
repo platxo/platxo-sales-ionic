@@ -44,7 +44,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
   });
 })
 
-.directive('popoverMenu', [ '$ionicPopover', '$rootScope', function ($ionicPopover, $rootScope) {
+.directive('menu', [ '$ionicPopover', '$rootScope', function ($ionicPopover, $rootScope) {
   return {
     restrict: 'E',
     templateUrl: 'templates/partials/menu.html',

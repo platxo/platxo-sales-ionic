@@ -12,15 +12,18 @@
 		<ion-list>
 			<search></search>
 			<ion-item ui-sref="tab.sale-detail({ id: sale.id })" ng-repeat="sale in sales | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
-				<h2>{{ sale.customer }}</h2>
+				<h2>{{ sale.usercustomer }}</h2>
 				<h2>{{ sale.product }}</h2>
-
+				<h2>{{ sale.total }}</h2>
 				<div class="buttons">
 				  <ion-option-button ui-sref="tab.sale-update({id: sale.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="tab.sale-delete({id: sale.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
 				</div>
 			</ion-item>
 		</ion-list>
+		<!-- <div ng-repeat="sale in sales">
+				<h1></h1>{{ sale }}
+		</div> -->
 	</ion-content>
 	<ion-footer-bar align-title="left" keyboard-attach class="bar-dark">
 	  <h1 class="title">Platxo Sales</h1>
