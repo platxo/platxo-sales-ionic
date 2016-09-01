@@ -48,5 +48,23 @@ saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
         }
       }
     })
+    .state('tab.product-list', {
+      url: '/product-list',
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-list.html',
+          controller: 'productController'
+        }
+      }
+    })
+    .state('tab.product-detail', {
+      url: '/product-detail/:id',
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-detail.html',
+          controller: 'productController'
+        }
+      }
+    })
 
 }]);

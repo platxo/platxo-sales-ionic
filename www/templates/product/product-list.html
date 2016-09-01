@@ -1,0 +1,20 @@
+<ion-view view-title="Products List">
+
+	<ion-nav-buttons side="right">
+	  <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+	</ion-nav-buttons>
+
+	<ion-content padding="true">
+		<ion-list>
+			<search></search>
+			<ion-item ng-repeat="product in products | orderBy:'name' | filter:search.value"
+								class="item item-button-right item-thumbnail-left"
+								ui-sref="tab.product-detail({ id: product.id })" >
+				<h2>{{product.name}}</h2>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+	<ion-footer-bar align-title="left" keyboard-attach class="bar-dark">
+	  <h1 class="title">Platxo Sales</h1>
+	</ion-footer-bar>
+</ion-view>

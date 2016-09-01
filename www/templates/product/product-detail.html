@@ -1,0 +1,21 @@
+<ion-view view-title="Product Detail">
+	<ion-content padding="true">
+    <div class="list card">
+      <div class="item item-divider">{{product.name}}</div>
+      <div class="item item-body">
+        <h2>Id: {{product.id}}</h2>
+        <h2>Name: {{product.name}}</h2>
+        <h2>Description: {{product.description}}</h2>
+        <h2>Supplier: {{product.supplier}}</h2>
+        <h2>Location: {{product.location}}</h2>
+        <h2 ng-repeat="category in categories | filter: product.product_category">Category: {{category.name}}</h2>
+        <h2 ng-repeat="type in types | filter: product.product_type">Type: {{type.name}}</h2>
+        <h2>Price: {{product.price | currency }}</h2>
+        <h2>Stock: {{product.stock }}</h2>
+        <h2>Quantity: {{product.quantity}}</h2>
+        <h2>Created: {{product.created}}</h2>
+        <h2>Updated: {{product.updated}}</h2>
+      </div>
+    </div>
+	</ion-content>
+</ion-view>

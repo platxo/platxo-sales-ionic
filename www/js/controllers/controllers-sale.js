@@ -81,7 +81,7 @@ saleControllers.controller('saleController', [
     //Modal Product List
     $ionicModal.fromTemplateUrl('templates/sale/select-product.html', {
       scope: $scope,
-      controller: 'saleController',
+      controller: 'productController',
       animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
       focusFirstInput: true
     }).then(function(modal) {
