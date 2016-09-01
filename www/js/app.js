@@ -11,8 +11,6 @@ var sales = angular.module('sales', [
   'productControllers',
   'productServices',
   'serviceServices',
-  'categoryServices',
-  'typeServices',
   'saleRoutes',
   'authControllers',
   'authServices',
