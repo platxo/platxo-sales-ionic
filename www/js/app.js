@@ -7,11 +7,12 @@ var sales = angular.module('sales', [
   'ionic',
   'ngCordova',
   'saleControllers',
+  'saleRoutes',
   'saleServices',
   'productControllers',
   'productServices',
+  'serviceControllers',
   'serviceServices',
-  'saleRoutes',
   'authControllers',
   'authServices',
   'authRoutes'

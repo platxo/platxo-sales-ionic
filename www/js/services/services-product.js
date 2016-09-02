@@ -13,14 +13,14 @@ productServices.service('productService', [ '$resource', '$rootScope', function 
   });
 }]);
 
-productServices.service('categoryService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+productServices.service('productCategoriesService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
 	var headers = { 'Authorization': 'JWT ' + $rootScope.token}
   return $resource(version + baseUrl + categoriesUrl +':id/?format=json', {id: '@id'},{
     list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
   });
 }]);
 
-productServices.service('typeService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+productServices.service('productTypesService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   return $resource(version + baseUrl + typesUrl +':id/?format=json', {id: '@id'},{
     list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
   });

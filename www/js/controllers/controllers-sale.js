@@ -108,7 +108,7 @@ saleControllers.controller('saleController', [
     //Modal Service List
     $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
       scope: $scope,
-      controller: 'saleController',
+      controller: 'serviceController',
       animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
       focusFirstInput: true
     }).then(function(modal) {

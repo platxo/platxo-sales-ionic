@@ -7,8 +7,8 @@ productControllers.controller('productController', [
   '$ionicModal',
   '$rootScope',
   'productService',
-  'categoryService',
-  'typeService',
+  'productCategoriesService',
+  'productTypesService',
   function (
     $scope,
     $stateParams,
@@ -16,14 +16,14 @@ productControllers.controller('productController', [
     $ionicModal,
     $rootScope,
     productService,
-    categoryService,
-    typeService
+    productCategoriesService,
+    productTypesService
   )
   {
     $scope.products = productService.list();
-    $scope.categories = categoryService.list();
-    $scope.types = typeService.list();
     $scope.product = productService.detail({id: $stateParams.id})
+    $scope.categories = productCategoriesService.list();
+    $scope.types = productTypesService.list();
 
     $scope.cancel = function () {
       $state.go('tab.product-list');

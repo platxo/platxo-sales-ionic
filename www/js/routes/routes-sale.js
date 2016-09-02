@@ -66,5 +66,23 @@ saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
         }
       }
     })
+    .state('tab.service-list', {
+      url: '/service-list',
+      views: {
+        'tab-services': {
+          templateUrl: 'templates/service/service-list.html',
+          controller: 'serviceController'
+        }
+      }
+    })
+    .state('tab.service-detail', {
+      url: '/service-detail/:id',
+      views: {
+        'tab-services': {
+          templateUrl: 'templates/service/service-detail.html',
+          controller: 'serviceController'
+        }
+      }
+    })
 
 }]);

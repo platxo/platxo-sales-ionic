@@ -1,0 +1,21 @@
+<ion-view view-title="Service Detail">
+	<ion-content padding="true">
+    <div class="list card">
+      <div class="item item-divider">{{service.name}}</div>
+      <div class="item item-body">
+        <h2>Id: {{service.id}}</h2>
+        <h2>Name: {{service.name}}</h2>
+        <h2>Description: {{service.description}}</h2>
+        <h2>Supplier: {{service.supplier}}</h2>
+        <h2>Location: {{service.location}}</h2>
+        <h2 ng-repeat="category in categories | filter: service.service_category">Category: {{category.name}}</h2>
+        <h2 ng-repeat="type in types | filter: service.service_type">Type: {{type.name}}</h2>
+        <h2>Price: {{service.price | currency }}</h2>
+        <h2>Stock: {{service.stock }}</h2>
+        <h2>Quantity: {{service.quantity}}</h2>
+        <h2>Created: {{service.created}}</h2>
+        <h2>Updated: {{service.updated}}</h2>
+      </div>
+    </div>
+	</ion-content>
+</ion-view>
