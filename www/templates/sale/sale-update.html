@@ -1,9 +1,9 @@
 <ion-view view-title="Sale Create">
   <ion-content padding="true">
-    <form ng-submit="update()" class="list">
+    <form ng-submit="update(null,true)" class="list">
       <label class="item item-input">
         <span class="input-label">Name</span>
-        <input ng-model="sale.customer" type="text" placeholder="" value="">
+        <input ng-model="selectedSale.customer" type="text" placeholder="" value="">
       </label>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Update</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>

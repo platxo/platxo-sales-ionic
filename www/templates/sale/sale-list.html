@@ -16,8 +16,8 @@
 				<h2>{{ sale.total }}</h2>
 				<h2>{{ sale.created }}</h2>
 				<div class="buttons">
-				  <ion-option-button ui-sref="tab.sale-update({id: sale.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
-				  <ion-option-button ui-sref="tab.sale-delete({id: sale.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
+				  <ion-option-button ng-click="update(sale,false)" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
+				  <ion-option-button ng-click="delete(sale,false)" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
 				</div>
 			</ion-item>
 		</ion-list>

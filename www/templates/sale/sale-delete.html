@@ -3,9 +3,9 @@
 
     <div class="list">
       <p>
-        Are you sure you want to delete the sale: {{sale.id}}?
+        Are you sure you want to delete the sale: {{selectedSale.id}}?
       </p>
-      <button ng-click="delete()" class="button button-assertive  button-block button-outline icon-left ion-android-cancel">Delete</button>
+      <button ng-click="delete(null,true)" class="button button-assertive  button-block button-outline icon-left ion-android-cancel">Delete</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </div>
 

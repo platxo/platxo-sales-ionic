@@ -36,16 +36,26 @@ saleControllers.controller('saleController', [
       $state.go('tab.sale-list');
     }
 
-    $scope.update = function () {
-      saleService.update($scope.sale);
-      $scope.sales = saleService.list();
-      $state.go('tab.sale-list');
+    $scope.update = function (sale, confirm) {
+      if (!confirm) {
+        $rootScope.selectedSale = sale;
+        $state.go('tab.sale-update', {'id': sale.id});
+      } else {
+        saleService.update($rootScope.selectedSale);
+        $scope.sales = saleService.list();
+        $state.go('tab.sale-list');
+      }
     }
 
-    $scope.delete = function () {
-      saleService.delete($scope.sale);
-      $scope.sales = saleService.list();
-      $state.go('tab.sale-list');
+    $scope.delete = function (sale, confirm) {
+      if (!confirm) {
+        $rootScope.selectedSale = sale;
+        $state.go('tab.sale-delete', {'id': sale.id});
+      } else {
+        saleService.delete($rootScope.selectedSale);
+        $scope.sales = saleService.list();
+        $state.go('tab.sale-list');
+      }
     }
 
     $scope.cancel = function () {
@@ -54,7 +64,7 @@ saleControllers.controller('saleController', [
 
     $scope.detail = function (sale) {
       $rootScope.selectedSale = sale;
-      $state.go('tab.sale-detail', { 'id': sale.id });
+      $state.go('tab.sale-detail', {'id': sale.id});
     }
 
     //Modal customer List
@@ -107,7 +117,7 @@ saleControllers.controller('saleController', [
     $scope.productsSelected = [];
     $scope.selectProduct = function(product) {
       $scope.sale.products.push(product.url)
-      $scope.productsSelected.push(product.name)
+      $scope.productsSelected.push(product)
     };
 
     //Modal Service List
