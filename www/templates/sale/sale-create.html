@@ -5,23 +5,35 @@
         <span class="input-label">Customer</span>
         <input type="text" value="{{sale.customerName}}">
       </label> -->
-      <label class="item item-input item-select" ng-click="productOpenModal()">
-        <span class="input-label">Product</span>
+      <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
+        <span class="input-label">Products</span>
       </label>
-      <div class="list card">
-        <a href="#" ng-repeat="select in productsSelected" class="item item-icon-left">
-          <i class="icon ion-ios-checkmark-empty"></i>
+      <div ng-repeat="select in productsSelected" class="item row">
+        <div class="col col-50">
           {{select}}
-        </a>
+        </div>
+        <div class="col">
+          <div></div>
+        </div>
+        <div class="col">              
+          <button class="button icon ion-plus-circled"></button>
+          <button class="button icon ion-minus-circled"></button>
+        </div>
       </div>
-      <label class="item item-input item-select" ng-click="serviceOpenModal()">
-        <span class="input-label">Service</span>
+      <label class="item item-input item-select item-divider" ng-click="serviceOpenModal()">
+        <span class="input-label">Services</span>
       </label>
-      <div class="list card">
-        <a href="#" ng-repeat="select in servicesSelected" class="item item-icon-left">
-          <i class="icon ion-ios-checkmark-empty"></i>
+      <div ng-repeat="select in servicesSelected" class="item row">
+        <div class="col col-50">
           {{select}}
-        </a>
+        </div>
+        <div class="col">
+          <div></div>
+        </div>
+        <div class="col">              
+          <button class="button icon ion-plus-circled"></button>
+          <button class="button icon ion-minus-circled"></button>
+        </div>
       </div>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
