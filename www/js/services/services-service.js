@@ -8,8 +8,7 @@ var typesServiceUrl = '/api/service-types/';
 
 serviceServices.service('serviceService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   return $resource(version + baseUrl + servicesUrl +':id/?format=json', {id: '@id'},{
-    list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
-    detail: { method: 'GET', headers: $rootScope.headersJWT }
+    list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT }
   });
 }]);
 

@@ -9,7 +9,7 @@
 			<search></search>
 			<ion-item ng-repeat="service in services | orderBy:'name' | filter:search.value"
 								class="item item-button-right item-thumbnail-left"
-								ui-sref="tab.service-detail({ id: service.id })" >
+								ng-click="detail(service)" >
 				<h2>{{service.name}}</h2>
 			</ion-item>
 		</ion-list>

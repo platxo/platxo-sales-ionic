@@ -21,9 +21,13 @@ serviceControllers.controller('serviceController', [
   )
   {
     $scope.services = serviceService.list();
-    $scope.service = serviceService.detail({id: $stateParams.id})
     $scope.categories = serviceCategoriesService.list();
     $scope.types = serviceTypesService.list();
+
+    $scope.detail = function (service) {
+      $rootScope.selectedService = service;
+      $state.go('tab.service-detail', { 'id': service.id });
+    }
 
     $scope.cancel = function () {
       $state.go('tab.service-list');
