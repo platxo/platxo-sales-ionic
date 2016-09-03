@@ -21,9 +21,13 @@ productControllers.controller('productController', [
   )
   {
     $scope.products = productService.list();
-    $scope.product = productService.detail({id: $stateParams.id})
     $scope.categories = productCategoriesService.list();
     $scope.types = productTypesService.list();
+
+    $scope.detail = function (product) {
+      $rootScope.selectedProduct = product;
+      $state.go('tab.product-detail', { 'id': product.id });
+    }
 
     $scope.cancel = function () {
       $state.go('tab.product-list');

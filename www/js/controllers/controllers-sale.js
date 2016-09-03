@@ -23,10 +23,10 @@ saleControllers.controller('saleController', [
   )
   {
     $scope.sales = saleService.list();
-    $scope.sale = saleService.detail({id: $stateParams.id});
     $scope.customers = customerService.list();
     $scope.products = productService.list();
     $scope.services = serviceService.list();
+    $scope.sale = {}
 
     $scope.create = function () {
       $scope.sale.user = $rootScope.currentUser.url
@@ -50,6 +50,11 @@ saleControllers.controller('saleController', [
 
     $scope.cancel = function () {
       $state.go('tab.sale-list');
+    }
+
+    $scope.detail = function (sale) {
+      $rootScope.selectedSale = sale;
+      $state.go('tab.sale-detail', { 'id': sale.id });
     }
 
     //Modal customer List
