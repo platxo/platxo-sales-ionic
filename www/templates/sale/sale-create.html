@@ -1,6 +1,6 @@
 <ion-view view-title="Sale Create">
 	<ion-content padding="true">
-		<form ng-submit="create()" class="list">
+		<form name="formCreateSale" ng-submit="create()" class="list">
       <!-- <label class="item item-input item-select" ng-click="customerOpenModal()">
         <span class="input-label">Customer</span>
         <input type="text" value="{{sale.customerName}}">
@@ -8,35 +8,35 @@
       <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
         <span class="input-label">Products</span>
       </label>
-      <div ng-repeat="select in productsSelected" class="item row">
+      <div ng-repeat="item in productsSelected" class="item row">
         <div class="col col-50">
-          {{select.name}}
+          {{item.name}}
         </div>
         <div class="col">
           <div></div>
         </div>
         <div class="col">              
-          <button class="button icon ion-plus-circled"></button>
-          <button class="button icon ion-minus-circled"></button>
+          <button type="button" class="button icon ion-plus-circled" ng-click="addItem(item)"></button>
+          <button type="button" class="button icon ion-minus-circled" ng-click="removeItem(item)"></button>
         </div>
       </div>
       <label class="item item-input item-select item-divider" ng-click="serviceOpenModal()">
         <span class="input-label">Services</span>
       </label>
-      <div ng-repeat="select in servicesSelected" class="item row">
+      <div ng-repeat="item in servicesSelected" class="item row">
         <div class="col col-50">
-          {{select}}
+          {{item}}
         </div>
         <div class="col">
           <div></div>
         </div>
         <div class="col">              
-          <button class="button icon ion-plus-circled"></button>
-          <button class="button icon ion-minus-circled"></button>
+          <button type="button" class="button icon ion-plus-circled" ng-click="addItem(item)"></button>
+          <button type="button" class="button icon ion-minus-circled" ng-click="removeItem(item)"></button>
         </div>
       </div>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
-      <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
+      <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
 	</ion-content>
 </ion-view>

@@ -27,8 +27,12 @@ saleControllers.controller('saleController', [
     $scope.products = productService.list();
     $scope.services = serviceService.list();
     $scope.sale = {}
+    var servicio = {};
+        servicio.cart = [];
+
 
     $scope.create = function () {
+      debugger
       $scope.sale.user = $rootScope.currentUser.url
       $scope.sale.total = 45000;
       saleService.create($scope.sale);
@@ -119,6 +123,57 @@ saleControllers.controller('saleController', [
       $scope.sale.products.push(product.url)
       $scope.productsSelected.push(product)
     };
+
+    // BUTTON ADD
+    $scope.addItem = function (item) {
+      $scope.currentItem = item;
+      var selectActual = filterCartById(item)
+      if (!selectActual) {
+        servicio.cart.push({ itemCart: item, quantity: 1 });
+      } else selectActual.quantity++;
+
+      // $scope.products++;
+      $scope.currentItem.quantity--;
+      console.log(servicio.cart);
+    }
+
+    // BUTTON REMOVE
+    $scope.removeItem = function (item) {
+      $scope.currentItem = item;
+      var selectActual = filterCartById(item)
+      if (selectActual) {
+        if (selectActual.quantity === 1) {
+          if (filterCartByIndex(item) != undefined) {
+            servicio.cart.splice(filterCartByIndex(item),1);
+          }
+        } else selectActual.quantity--;
+      } else {
+        servicio.cart.splice(filterCartByIndex(item),1);
+      }
+      // $scope.products--;
+      $scope.currentItem.quantity++;
+      console.log(servicio.cart);
+    }
+
+    // FILTER IF THERE ITEM IN CART
+    function filterCartById (item) {
+      for (var i = 0; i < servicio.cart.length; i++) {
+        if (servicio.cart[i].itemCart.id === item.id && servicio.cart[i].itemCart.name  === item.name)
+          return servicio.cart[i]
+      }
+      return null
+    }
+
+    // FILTER ITEM POSITION IN CART ARRAY
+    function filterCartByIndex (item) {
+      for (var i = 0; i < servicio.cart.length; i++)
+        if (servicio.cart[i].itemCart.id === item.id && servicio.cart[i].itemCart.name === item.name)
+          return i        
+    }
+
+
+
+
 
     //Modal Service List
     $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
