@@ -22,6 +22,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     $rootScope.token = JSON.parse(localStorage.getItem("token"));
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+    $rootScope.business = $rootScope.currentUser.business || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
@@ -92,3 +93,10 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     templateUrl: 'templates/partials/search.html'
   }
 })
+
+.controller('bsController', ['$scope','$state','$rootScope', function($scope,$state,$rootScope) {
+    $scope.selectBs = function(bs) {
+      $rootScope.currentBusiness = bs.id;
+      $state.go('tab.product-list');
+    }
+}])

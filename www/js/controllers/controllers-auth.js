@@ -53,8 +53,7 @@ authControllers.controller('loginController', [
     $ionicModal,
     $rootScope,
     $location
-  )
-  {
+  ) {
     $scope.user = {}
 
     $scope.create = function () {
@@ -67,16 +66,11 @@ authControllers.controller('loginController', [
             localStorage.setItem('user', JSON.stringify(response.user));
             $rootScope.currentUser = response.user;
             $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
-            $state.go('tab.sale-list');
+            $location.path('/business');
           }, function (reason) {
             $scope.user = {};
             $scope.errors = reason;
           })
     }
 
-    $scope.cancel = function () {
-      $state.go('tab.sale-list');
-    }
-
-  }
-]);
+}]);
