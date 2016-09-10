@@ -65,6 +65,8 @@ authControllers.controller('loginController', [
             $rootScope.token = response.token;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
             localStorage.setItem('user', JSON.stringify(response.user));
+            $rootScope.currentUser = response.user;
+            $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
             $state.go('tab.sale-list');
           }, function (reason) {
             $scope.user = {};
