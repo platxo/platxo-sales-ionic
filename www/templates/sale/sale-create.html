@@ -8,31 +8,30 @@
       <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
         <span class="input-label">Products</span>
       </label>
-      <div ng-repeat="item in productsSelected" class="item row">
-        <div class="col col-50">
-          {{item.name}}
-        </div>
-        <div class="col">
-          <div></div>
-        </div>
-        <div class="col">              
-          <button type="button" class="button icon ion-plus-circled" ng-click="addItem(item)"></button>
-          <button type="button" class="button icon ion-minus-circled" ng-click="removeItem(item)"></button>
+      <div class="" ng-repeat="item in cart.products">
+        <div class="row">
+          <div class="col col-50">
+            {{item.item.name}}
+          </div>
+          <div class="col">
+          </div>
+          <div class="col">
+            <span class="badge badge-assertive">{{item.qty}}</span>
+          </div>
         </div>
       </div>
       <label class="item item-input item-select item-divider" ng-click="serviceOpenModal()">
         <span class="input-label">Services</span>
       </label>
-      <div ng-repeat="item in servicesSelected" class="item row">
+      <div ng-repeat="item in cart.services" class="row">
         <div class="col col-50">
-          {{item}}
+          {{item.item.name}}
         </div>
         <div class="col">
           <div></div>
         </div>
-        <div class="col">              
-          <button type="button" class="button icon ion-plus-circled" ng-click="addItem(item)"></button>
-          <button type="button" class="button icon ion-minus-circled" ng-click="removeItem(item)"></button>
+        <div class="col">
+          <span class="badge badge-assertive">{{item.qty}}</span>
         </div>
       </div>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>

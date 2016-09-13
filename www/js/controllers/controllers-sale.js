@@ -27,8 +27,12 @@ saleControllers.controller('saleController', [
     $scope.products = productService.list();
     $scope.services = serviceService.list();
     $scope.sale = {}
-    var servicio = {};
-        servicio.cart = [];
+    // var servicio = {};
+        // servicio.cart = [];
+    $scope.cart = {}
+    $scope.cart.products = []
+    $scope.cart.services = []
+
 
 
     $scope.create = function () {
@@ -125,55 +129,108 @@ saleControllers.controller('saleController', [
     };
 
     // BUTTON ADD
-    $scope.addItem = function (item) {
-      $scope.currentItem = item;
-      var selectActual = filterCartById(item)
-      if (!selectActual) {
-        servicio.cart.push({ itemCart: item, quantity: 1 });
-      } else selectActual.quantity++;
-
-      // $scope.products++;
-      $scope.currentItem.quantity--;
-      console.log(servicio.cart);
+    $scope.addItem = function (product,service) {
+      debugger
+      if (product) {
+        $scope.currentProduct = product;
+        var selectActual = filterCartById(product,null)
+        if (!selectActual) {
+          product.qtySelected = 1;
+          $scope.cart.products.push({ item: product, qty: 1 });
+        } else {
+          selectActual.qty++;
+          product.qtySelected++;
+        }
+        // $scope.products++;
+        $scope.currentProduct.qty--;
+        console.log($scope.cart.products);
+      }
+      if (service) {
+        $scope.currentService = service;
+        var selectActual = filterCartById(null,service)
+        if (!selectActual) {
+          service.qtySelected = 1;
+          $scope.cart.services.push({ item: service, qty: 1 });
+        } else {
+          selectActual.qty++;
+          service.qtySelected++;
+        }
+        // $scope.services++;
+        $scope.currentService.qty--;
+        console.log($scope.cart.services);
+      }
     }
 
     // BUTTON REMOVE
-    $scope.removeItem = function (item) {
-      $scope.currentItem = item;
-      var selectActual = filterCartById(item)
-      if (selectActual) {
-        if (selectActual.quantity === 1) {
-          if (filterCartByIndex(item) != undefined) {
-            servicio.cart.splice(filterCartByIndex(item),1);
+    $scope.removeItem = function (product,service) {
+      debugger
+      if (product) {
+        $scope.currentProduct = product;
+        var selectActual = filterCartById(product,null)
+        if (selectActual) {
+          if (selectActual.qty === 1) {
+            if (filterCartByIndex(product,null) != undefined) {
+              product.qtySelected = 0;
+              $scope.cart.products.splice(filterCartByIndex(product,null),1);
+            }
+          } else {
+            selectActual.qty--;
+            product.qtySelected--;
           }
-        } else selectActual.quantity--;
-      } else {
-        servicio.cart.splice(filterCartByIndex(item),1);
+        } 
+        $scope.currentProduct.qty++;
+        console.log($scope.cart.products);
       }
-      // $scope.products--;
-      $scope.currentItem.quantity++;
-      console.log(servicio.cart);
+      if (service) {
+        $scope.currentService = service;
+        var selectActual = filterCartById(null,service)
+        if (selectActual) {
+          if (selectActual.qty === 1) {
+            if (filterCartByIndex(null,service) != undefined) {
+              service.qtySelected = 0;
+              $scope.cart.products.splice(filterCartByIndex(null,service),1);
+            }
+          } else {
+            selectActual.qty--;
+            service.qtySelected--;
+          }
+        } 
+        $scope.currentService.qty++;
+        console.log($scope.cart.products);
+      }
     }
 
     // FILTER IF THERE ITEM IN CART
-    function filterCartById (item) {
-      for (var i = 0; i < servicio.cart.length; i++) {
-        if (servicio.cart[i].itemCart.id === item.id && servicio.cart[i].itemCart.name  === item.name)
-          return servicio.cart[i]
+    function filterCartById (product,service) {
+      if (product) {
+        for (var i = 0; i < $scope.cart.products.length; i++) {
+          if ($scope.cart.products[i].item.id === product.id && $scope.cart.products[i].item.name  === product.name)
+            return $scope.cart.products[i]
+        }
+        return null
       }
-      return null
+      if (service) {
+        for (var i = 0; i < $scope.cart.services.length; i++) {
+          if ($scope.cart.services[i].item.id === service.id && $scope.cart.services[i].item.name  === service.name)
+            return $scope.cart.services[i]
+        }
+        return null
+      }
     }
 
     // FILTER ITEM POSITION IN CART ARRAY
-    function filterCartByIndex (item) {
-      for (var i = 0; i < servicio.cart.length; i++)
-        if (servicio.cart[i].itemCart.id === item.id && servicio.cart[i].itemCart.name === item.name)
-          return i        
+    function filterCartByIndex (product,service) {
+      if (product) {
+        for (var i = 0; i < $scope.cart.products.length; i++)
+          if ($scope.cart.products[i].item.id === product.id && $scope.cart.products[i].item.name === product.name)
+            return i
+      }
+      if (service) {
+        for (var i = 0; i < $scope.cart.services.length; i++)
+          if ($scope.cart.services[i].item.id === service.id && $scope.cart.services[i].item.name === service.name)
+            return i
+      }
     }
-
-
-
-
 
     //Modal Service List
     $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {

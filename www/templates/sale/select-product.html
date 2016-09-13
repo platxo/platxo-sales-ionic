@@ -4,11 +4,19 @@
   </ion-header-bar>
   <ion-content>
     <search></search>
-    <ion-checkbox 
-      ng-repeat="product in products | orderBy:'name' | filter:search.value"
-      ng-value="product.name"
-      ng-click="selectProduct(product)">
-      {{product.name}}
-    </ion-checkbox>
+    <ion-list>
+      <ion-item class="item row" ng-repeat="product in products | orderBy:'name' | filter:search.value">
+        <div class="col col-50">
+          <p>{{product.name}}</p>
+        </div>
+        <div class="col">
+          <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(product,null)"></button>
+          <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(product,null)"></button>
+        </div>
+        <div class="col">
+          <span class="badge badge-assertive">{{product.qtySelected}}</span>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-modal-view>
