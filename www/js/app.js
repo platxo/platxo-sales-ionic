@@ -20,8 +20,9 @@ var sales = angular.module('sales', [
 
 sales.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
-    $rootScope.token = JSON.parse(localStorage.getItem("token"));
-    $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+    $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+    $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
+    $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
     $rootScope.business = $rootScope.currentUser.business || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 

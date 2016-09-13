@@ -33,13 +33,28 @@ saleControllers.controller('saleController', [
     $scope.cart.products = []
     $scope.cart.services = []
 
-
-
-    $scope.create = function () {
+    $scope.create = function (cart) {
+      // var products = cart.products
+      var products = cart.products.map(function (product) {
+        var obj = {id: product.item.id, qty: product.qty}
+        return obj
+      })
+      var services = cart.services.map(function (service) {
+        var obj = {id: service.item.id, qty: service.qty}
+        return obj
+      })
       debugger
-      $scope.sale.user = $rootScope.currentUser.url
-      $scope.sale.total = 45000;
-      saleService.create($scope.sale);
+      var order = {
+        payment_method : "cash",
+        business: $rootScope.currentBusiness,
+        employee:  $rootScope.currentEmployee,
+        products: products,
+        services: services
+      }
+      // debugger
+      // $scope.sale.user = $rootScope.currentUser.url
+      // $scope.sale.total = 45000;
+      saleService.create(order);
       $scope.sales = saleService.list();
       $state.go('tab.sale-list');
     }
@@ -130,7 +145,7 @@ saleControllers.controller('saleController', [
 
     // BUTTON ADD
     $scope.addItem = function (product,service) {
-      debugger
+      // debugger
       if (product) {
         $scope.currentProduct = product;
         var selectActual = filterCartById(product,null)
@@ -163,7 +178,7 @@ saleControllers.controller('saleController', [
 
     // BUTTON REMOVE
     $scope.removeItem = function (product,service) {
-      debugger
+      // debugger
       if (product) {
         $scope.currentProduct = product;
         var selectActual = filterCartById(product,null)
