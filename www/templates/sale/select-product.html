@@ -8,6 +8,7 @@
       <ion-item class="item row" ng-repeat="product in products | orderBy:'name' | filter:search.value">
         <div class="col col-50">
           <p>{{product.name}}</p>
+          <p>{{product.price | currency : $ : 0}}</p>
         </div>
         <div class="col">
           <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(product,null)"></button>
