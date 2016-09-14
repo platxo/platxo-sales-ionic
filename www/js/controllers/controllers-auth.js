@@ -3,16 +3,12 @@ var authControllers = angular.module('authControllers', []);
 authControllers.controller('signupController', [
   '$scope',
   '$stateParams',
-  '$state',
   'signupService',
-  '$ionicModal',
   '$location',
   function(
     $scope,
     $stateParams,
-    $state,
     signupService,
-    $ionicModal,
     $location
   )
   {
@@ -30,27 +26,17 @@ authControllers.controller('signupController', [
           })
     }
 
-    $scope.cancel = function () {
-      $state.go('tab.sale-list');
-    }
-
   }
 ]);
 
 authControllers.controller('loginController', [
   '$scope',
-  '$stateParams',
-  '$state',
   'loginService',
-  '$ionicModal',
   '$rootScope',
   '$location',
   function(
     $scope,
-    $stateParams,
-    $state,
     loginService,
-    $ionicModal,
     $rootScope,
     $location
   ) {

@@ -36,7 +36,7 @@ saleControllers.controller('saleController', [
     $scope.create = function (cart) {
       // var products = cart.products
       var products = cart.products.map(function (product) {
-        var obj = {id: product.item.id, qty: product.qty}
+        var obj = {id: product.item.id, qty: product.qty, discount: 0}
         return obj
       })
       var services = cart.services.map(function (service) {
@@ -44,13 +44,13 @@ saleControllers.controller('saleController', [
         return obj
       })
       debugger
-      var order = {
+      var order = { order: {
         payment_method : "cash",
         business: $rootScope.currentBusiness,
         employee:  $rootScope.currentEmployee,
         products: products,
         services: services
-      }
+      }}
       // debugger
       // $scope.sale.user = $rootScope.currentUser.url
       // $scope.sale.total = 45000;

@@ -20,10 +20,13 @@ var sales = angular.module('sales', [
 
 sales.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
+    $rootScope.version = 'http://feature-jc-sales.';
+    $rootScope.baseUrl = 'platxo-bi.appspot.com';
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
     $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
     $rootScope.business = $rootScope.currentUser.business || '';
+    $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
@@ -98,6 +101,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
 .controller('bsController', ['$scope','$state','$rootScope', function($scope,$state,$rootScope) {
     $scope.selectBs = function(bs) {
       $rootScope.currentBusiness = bs.id;
-      $state.go('tab.product-list');
+      localStorage.setItem("currentBusiness", JSON.stringify($rootScope.currentBusiness));
+      $state.go('tab.sale-list');
     }
 }])
