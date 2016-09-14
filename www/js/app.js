@@ -63,7 +63,6 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
       });
 
       $scope.menu = function($event) {
-        // debugger
         $scope.popover.show($event);
       };
 

@@ -1,7 +1,7 @@
 var saleServices = angular.module('saleServices', ['ngResource']);
 
 var salesUrl = '/api/sales/';
-var customerUrl = '/api/users/';
+var customerUrl = '/api/customers/';
 
 saleServices.service('saleService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   return $resource($rootScope.version + $rootScope.baseUrl + salesUrl +':id/?format=json', {id: '@id'},{

@@ -1,10 +1,10 @@
 <ion-view view-title="Sale Create">
 	<ion-content padding="true">
 		<form name="formCreateSale" ng-submit="create(cart)" class="list">
-      <!-- <label class="item item-input item-select" ng-click="customerOpenModal()">
+      <label class="item item-input item-select" ng-click="customerOpenModal()">
         <span class="input-label">Customer</span>
         <input type="text" value="{{sale.customerName}}">
-      </label> -->
+      </label>
       <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
         <span class="input-label">Products</span>
       </label>
@@ -16,7 +16,7 @@
           <div class="col">
           </div>
           <div class="col">
-            <span class="badge badge-assertive">{{item.qty}}</span>
+            <span class="badge badge-positive">{{item.qty}}</span>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <div></div>
         </div>
         <div class="col">
-          <span class="badge badge-assertive">{{item.qty}}</span>
+          <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>

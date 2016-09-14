@@ -27,14 +27,12 @@ saleControllers.controller('saleController', [
     $scope.products = productService.list();
     $scope.services = serviceService.list();
     $scope.sale = {}
-    // var servicio = {};
-        // servicio.cart = [];
     $scope.cart = {}
     $scope.cart.products = []
     $scope.cart.services = []
 
     $scope.create = function (cart) {
-      // var products = cart.products
+      // MAP ARRAYS CLEAN FIELDS
       var products = cart.products.map(function (product) {
         var obj = {id: product.item.id, qty: product.qty, discount: 0}
         return obj
@@ -43,20 +41,25 @@ saleControllers.controller('saleController', [
         var obj = {id: service.item.id, qty: service.qty}
         return obj
       })
-      debugger
-      var order = { order: {
-        payment_method : "cash",
-        business: $rootScope.currentBusiness,
-        employee:  $rootScope.currentEmployee,
-        products: products,
-        services: services
-      }}
-      // debugger
-      // $scope.sale.user = $rootScope.currentUser.url
-      // $scope.sale.total = 45000;
-      saleService.create(order);
-      $scope.sales = saleService.list();
-      $state.go('tab.sale-list');
+      // CONSTRUCT ORDER POST
+      var order = { 
+        order: {
+          payment_method : "cash",
+          business: $rootScope.currentBusiness,
+          employee:  $rootScope.currentEmployee,
+          products: products,
+          services: services
+        }
+      }
+      // CREATE ORDER
+      saleService.create(order)
+        .$promise
+          .then(function(res) {
+            $scope.sales = saleService.list();
+            $state.go('tab.sale-list');
+          }, function (error) {
+
+          })
     }
 
     $scope.update = function (sale, confirm) {
@@ -64,9 +67,14 @@ saleControllers.controller('saleController', [
         $rootScope.selectedSale = sale;
         $state.go('tab.sale-update', {'id': sale.id});
       } else {
-        saleService.update($rootScope.selectedSale);
-        $scope.sales = saleService.list();
-        $state.go('tab.sale-list');
+        saleService.update($rootScope.selectedSale)
+          .$promise
+            .then(function(res) {
+              $scope.sales = saleService.list();
+              $state.go('tab.sale-list');
+            }, function (error) {
+
+            })
       }
     }
 
@@ -75,9 +83,14 @@ saleControllers.controller('saleController', [
         $rootScope.selectedSale = sale;
         $state.go('tab.sale-delete', {'id': sale.id});
       } else {
-        saleService.delete($rootScope.selectedSale);
-        $scope.sales = saleService.list();
-        $state.go('tab.sale-list');
+        saleService.delete($rootScope.selectedSale)
+          .$promise
+            .then(function(res) {
+              $scope.sales = saleService.list();
+              $state.go('tab.sale-list');
+            }, function (error) {
+
+            })
       }
     }
 
