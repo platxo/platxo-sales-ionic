@@ -1,10 +1,10 @@
 <ion-view view-title="Sale Create">
 	<ion-content padding="true">
 		<form name="formCreateSale" ng-submit="create(cart)" class="list">
-      <label class="item item-input item-select" ng-click="customerOpenModal()">
+      <div class="item item-input item-select" ng-click="customerOpenModal()">
         <span class="input-label">Customer</span>
-        <input type="text" value="{{sale.customerName}}">
-      </label>
+        <p>{{sale.customerName}}</p>
+      </div>
       <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
         <span class="input-label">Products</span>
       </label>
@@ -34,8 +34,8 @@
           <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
-      <div class="row item">          
-        <div class="col col-75">
+      <div class="row item item-positive">
+        <div class="col col-80">
           Total
         </div>
         <div class="col">

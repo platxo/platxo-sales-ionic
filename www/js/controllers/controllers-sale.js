@@ -30,6 +30,7 @@ saleControllers.controller('saleController', [
     $scope.cart = {}
     $scope.cart.products = []
     $scope.cart.services = []
+    $scope.cart.totalCart = 0;
 
     $scope.create = function (cart) {
       // MAP ARRAYS CLEAN FIELDS
@@ -45,6 +46,7 @@ saleControllers.controller('saleController', [
       var order = { 
         order: {
           payment_method : "cash",
+          customer: $rootScope.currentCustomer,
           business: $rootScope.currentBusiness,
           employee:  $rootScope.currentEmployee,
           products: products,
@@ -124,8 +126,8 @@ saleControllers.controller('saleController', [
     });
 
     $scope.selectCustomer = function(customer) {
-      $scope.sale.customerName = customer.username;
-      // $scope.sale.customer = customer.url;
+      $scope.sale.customerName = customer.user;
+      $rootScope.currentCustomer = customer.id;
       $scope.customerModal.hide();
     };
 
@@ -148,13 +150,6 @@ saleControllers.controller('saleController', [
     $scope.$on('$destroy', function() {
       $scope.productmodal.remove();
     });
-
-    $scope.sale.products = [];
-    $scope.productsSelected = [];
-    $scope.selectProduct = function(product) {
-      $scope.sale.products.push(product.url)
-      $scope.productsSelected.push(product)
-    };
 
     // BUTTON ADD
     $scope.addItem = function (product,service) {
@@ -227,6 +222,7 @@ saleControllers.controller('saleController', [
         $scope.currentService.qty++;
         console.log($scope.cart.products);
       }
+      getCartTotal();
     }
 
     // FILTER IF THERE ITEM IN CART
@@ -264,7 +260,6 @@ saleControllers.controller('saleController', [
     // TOTAL PRICE CART
     function getCartTotal () {
       $scope.cart.totalCart = 0;
-      $scope.cart.acumComponent = undefined;
       for (var i = 0; i < $scope.cart.products.length; i++) {
         $scope.cart.acum = $scope.cart.products[i].item.price * $scope.cart.products[i].qty;
         $scope.cart.totalCart += $scope.cart.acum;
@@ -291,13 +286,6 @@ saleControllers.controller('saleController', [
     $scope.$on('$destroy', function() {
       $scope.servicemodal.remove();
     });
-
-    $scope.sale.services = [];
-    $scope.servicesSelected = [];
-    $scope.selectService = function(service) {
-      $scope.sale.services.push(service.url)
-      $scope.servicesSelected.push(service.name)
-    };
 
     $scope.$on('$stateChangeSuccess', function() {
       $scope.sales = saleService.list();

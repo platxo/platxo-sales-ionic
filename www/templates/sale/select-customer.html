@@ -6,7 +6,6 @@
     <search></search>
     <ion-radio
       ng-repeat="customer in customers | filter:business = currentBusiness | filter:search.value"
-      ng-model="sale.usercustomer"
       ng-click="selectCustomer(customer)"
       ng-value="customer.url"
       name="{{customer.username}}">
