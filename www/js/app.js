@@ -20,7 +20,7 @@ var sales = angular.module('sales', [
 
 sales.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
-    $rootScope.version = 'http://feature-jc-sales.';
+    $rootScope.version = 'http://development.';
     $rootScope.baseUrl = 'platxo-bi.appspot.com';
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';

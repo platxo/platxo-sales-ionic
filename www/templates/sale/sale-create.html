@@ -34,6 +34,14 @@
           <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
+      <div class="row item">          
+        <div class="col col-75">
+          Total
+        </div>
+        <div class="col">
+          {{cart.totalCart | currency : $ : 0}}
+        </div>
+      </div>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

@@ -187,6 +187,7 @@ saleControllers.controller('saleController', [
         $scope.currentService.qty--;
         console.log($scope.cart.services);
       }
+      getCartTotal();
     }
 
     // BUTTON REMOVE
@@ -258,6 +259,17 @@ saleControllers.controller('saleController', [
           if ($scope.cart.services[i].item.id === service.id && $scope.cart.services[i].item.name === service.name)
             return i
       }
+    }
+
+    // TOTAL PRICE CART
+    function getCartTotal () {
+      $scope.cart.totalCart = 0;
+      $scope.cart.acumComponent = undefined;
+      for (var i = 0; i < $scope.cart.products.length; i++) {
+        $scope.cart.acum = $scope.cart.products[i].item.price * $scope.cart.products[i].qty;
+        $scope.cart.totalCart += $scope.cart.acum;
+      }
+      return  $scope.cart.totalCart
     }
 
     //Modal Service List
