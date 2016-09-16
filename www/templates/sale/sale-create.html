@@ -1,7 +1,10 @@
 <ion-view view-title="Sale Create">
-	<ion-content padding="true">
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-person-add" ng-click="customerOpenModal(false)"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true">
 		<form name="formCreateSale" ng-submit="create(cart)" class="list">
-      <div class="item item-input item-select" ng-click="customerOpenModal()">
+      <div class="item item-input item-select" ng-click="customerOpenModal(true)">
         <span class="input-label">Customer</span>
         <p>{{sale.customerName}}</p>
       </div>

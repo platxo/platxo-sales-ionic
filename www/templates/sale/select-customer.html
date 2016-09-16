@@ -5,8 +5,17 @@
   <ion-content padding="true">
     <search></search>
     <ion-radio
-      ng-repeat="customer in customers | filter:business = currentBusiness | filter:search.value"
+      ng-if="filterCustomers"
+      ng-repeat="customer in customers | filter:currentBusiness | filter:search.value"
       ng-click="selectCustomer(customer)"
+      ng-value="customer.url"
+      name="{{customer.username}}">
+      {{customer.user}}
+    </ion-radio>
+    <ion-radio
+      ng-if="!filterCustomers"
+      ng-repeat="customer in customers | filter:search.value"
+      ng-click="addCustomer({id: customer.id})"
       ng-value="customer.url"
       name="{{customer.username}}">
       {{customer.user}}

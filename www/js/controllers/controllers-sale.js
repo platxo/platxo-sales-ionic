@@ -9,6 +9,7 @@ saleControllers.controller('saleController', [
   'serviceService',
   '$ionicModal',
   'customerService',
+  'businessService',
   '$rootScope',
   function (
     $scope,
@@ -19,6 +20,7 @@ saleControllers.controller('saleController', [
     serviceService,
     $ionicModal,
     customerService,
+    businessService,
     $rootScope
   )
   {
@@ -114,7 +116,11 @@ saleControllers.controller('saleController', [
     }).then(function(modal) {
       $scope.customerModal = modal;
     });
-    $scope.customerOpenModal = function() {
+    $scope.customerOpenModal = function(applyFilter) {
+      if (applyFilter)
+        $scope.filterCustomers = true;
+      else
+        $scope.filterCustomers = false;
       $scope.customerModal.show();
     };
     $scope.customerCloseModal = function() {

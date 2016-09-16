@@ -2,6 +2,7 @@ var saleServices = angular.module('saleServices', ['ngResource']);
 
 var salesUrl = '/api/sales/';
 var customerUrl = '/api/customers/';
+var businessUrl = '/api/business/';
 
 saleServices.service('saleService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   return $resource($rootScope.version + $rootScope.baseUrl + salesUrl +':id/?format=json', {id: '@id'},{
@@ -16,5 +17,11 @@ saleServices.service('customerService', [ '$resource', '$rootScope', function ($
   return $resource($rootScope.version + $rootScope.baseUrl + customerUrl +'?format=json', {},{
     list: { method: 'GET', isArray:true, headers:  $rootScope.headersJWT},
     detail: { method: 'GET', headers: $rootScope.headersJWT }
+  });
+}]);
+
+saleServices.service('businessService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+  return $resource($rootScope.version + $rootScope.baseUrl + businessUrl +':id/?format=json', {id: '@id'},{
+    update: { method: 'PUT', headers: $rootScope.headersJWT }
   });
 }]);
