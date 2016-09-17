@@ -13,6 +13,9 @@ var sales = angular.module('sales', [
   'productServices',
   'serviceControllers',
   'serviceServices',
+  'businessControllers',
+  'businessRoutes',
+  'businessServices',
   'authControllers',
   'authServices',
   'authRoutes'
@@ -25,7 +28,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
     $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
-    $rootScope.business = $rootScope.currentUser.business || '';
+    $rootScope.business = $rootScope.currentEmployee.business || '';
     $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
@@ -96,11 +99,3 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     templateUrl: 'templates/partials/search.html'
   }
 })
-
-.controller('bsController', ['$scope','$state','$rootScope', function($scope,$state,$rootScope) {
-    $scope.selectBs = function(bs) {
-      $rootScope.currentBusiness = bs.id;
-      localStorage.setItem("currentBusiness", JSON.stringify($rootScope.currentBusiness));
-      $state.go('tab.sale-list');
-    }
-}])

@@ -17,11 +17,6 @@ authRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       templateUrl: 'templates/auth/auth-login.html',
       controller: 'loginController'
     })
-    .state('business', {
-      url: '/business',
-      templateUrl: 'templates/select-business.html',
-      controller: 'bsController'
-    })
 
   $urlRouterProvider.otherwise('/login');
 

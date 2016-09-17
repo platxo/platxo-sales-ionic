@@ -52,7 +52,7 @@ authControllers.controller('loginController', [
             localStorage.setItem('user', JSON.stringify(response.user));
             $rootScope.currentUser = response.user;
             $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
-            $location.path('/business');
+            $location.path('/business-list');
           }, function (reason) {
             $scope.user = {};
             $scope.errors = reason;
