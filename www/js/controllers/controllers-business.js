@@ -18,7 +18,14 @@ businessControllers.controller('businessController', [
     businessService
   )
   {
-	  // $scope.business = businessService.list();
+    businessService.list()
+      .$promise
+        .then(function(res) {
+          $rootScope.business = res;
+          localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
+        }, function () {
+          debugger
+        })
 	  // $scope.bs = businessService.detail({id: $stateParams.id});
 
 	  $scope.update = function () {

@@ -137,6 +137,27 @@ saleControllers.controller('saleController', [
       $scope.customerModal.hide();
     };
 
+    // ADD CUSTOMER TO BUSINESS
+    $scope.addCustomer = function (customer) {
+      $rootScope.business = $rootScope.business || JSON.parse(localStorage.getItem("allBusiness"));
+      for (x in $rootScope.business) {
+        if ($rootScope.currentBusiness === $rootScope.business[x].id) {
+          var businessToUpdate = $rootScope.business[x];
+        }
+      }
+      businessToUpdate.customers.push(customer.id)
+
+      businessService.update({id: $rootScope.currentBusiness}, businessToUpdate)
+        .$promise
+          .then(function(res) {
+            $scope.sales = saleService.list();
+            $scope.customerModal.hide();
+            $state.go('tab.sale-list');
+          }, function (error) {
+            $scope.customerModal.hide();
+          })
+    }
+
     //Modal Product List
     $ionicModal.fromTemplateUrl('templates/sale/select-product.html', {
       scope: $scope,
