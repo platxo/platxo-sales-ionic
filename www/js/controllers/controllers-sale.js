@@ -24,10 +24,32 @@ saleControllers.controller('saleController', [
     $rootScope
   )
   {
-    $scope.sales = saleService.list();
+    saleService.list()
+      .$promise
+        .then(function (res) {
+          $scope.sales = res
+        }, function (error) {
+          $scope.sales = []
+        })
     $scope.customers = customerService.list();
-    $scope.products = productService.list();
-    $scope.services = serviceService.list();
+    productService.list()
+      .$promise
+        .then(function (res) {
+          $scope.products = res
+          for (x in $scope.products)
+            $scope.products[x].qtySelected = 0
+        }, function (error) {
+
+        })
+    serviceService.list()
+      .$promise
+        .then(function (res) {
+          $scope.services = res
+          for (x in $scope.services)
+            $scope.services[x].qtySelected = 0
+        }, function (error) {
+          
+        })
     $scope.sale = {}
     $scope.cart = {}
     $scope.cart.products = []
@@ -182,7 +204,6 @@ saleControllers.controller('saleController', [
     $scope.addItem = function (product,service) {
       // debugger
       if (product) {
-        $scope.currentProduct = product;
         var selectActual = filterCartById(product,null)
         if (!selectActual) {
           product.qtySelected = 1;
@@ -191,12 +212,10 @@ saleControllers.controller('saleController', [
           selectActual.qty++;
           product.qtySelected++;
         }
-        // $scope.products++;
-        $scope.currentProduct.qty--;
+        product.qty--;
         console.log($scope.cart.products);
       }
       if (service) {
-        $scope.currentService = service;
         var selectActual = filterCartById(null,service)
         if (!selectActual) {
           service.qtySelected = 1;
@@ -205,8 +224,7 @@ saleControllers.controller('saleController', [
           selectActual.qty++;
           service.qtySelected++;
         }
-        // $scope.services++;
-        $scope.currentService.qty--;
+        service.qty--;
         console.log($scope.cart.services);
       }
       getCartTotal();
@@ -216,7 +234,6 @@ saleControllers.controller('saleController', [
     $scope.removeItem = function (product,service) {
       // debugger
       if (product) {
-        $scope.currentProduct = product;
         var selectActual = filterCartById(product,null)
         if (selectActual) {
           if (selectActual.qty === 1) {
@@ -229,11 +246,10 @@ saleControllers.controller('saleController', [
             product.qtySelected--;
           }
         } 
-        $scope.currentProduct.qty++;
+        product.qty++;
         console.log($scope.cart.products);
       }
       if (service) {
-        $scope.currentService = service;
         var selectActual = filterCartById(null,service)
         if (selectActual) {
           if (selectActual.qty === 1) {
@@ -246,7 +262,7 @@ saleControllers.controller('saleController', [
             service.qtySelected--;
           }
         } 
-        $scope.currentService.qty++;
+        service.qty++;
         console.log($scope.cart.products);
       }
       getCartTotal();
