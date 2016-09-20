@@ -9,10 +9,10 @@
         <div class="col col-50">
           <p>{{service.name}}</p>
         </div>
-        <div class="col center" ng-if="service.quantity > 0">
+        <div class="col col-10 center" ng-if="service.quantity > 0">
           <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(null,service)"></button>
         </div>
-        <div class="col center" ng-if="service.qtySelected > 0">
+        <div class="col col-10 center" ng-if="service.qtySelected > 0">
           <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(null,service)"></button>
         </div>
         <div class="col">

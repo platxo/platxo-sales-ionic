@@ -24,112 +24,30 @@ saleControllers.controller('saleController', [
     $rootScope
   )
   {
-    saleService.list()
-      .$promise
-        .then(function (res) {
-          $scope.sales = res
-        }, function (error) {
-          $scope.sales = []
-        })
-    $scope.customers = customerService.list();
-    productService.list()
-      .$promise
-        .then(function (res) {
-          $scope.products = res
-          for (x in $scope.products)
-            $scope.products[x].qtySelected = 0
-        }, function (error) {
 
-        })
-    serviceService.list()
-      .$promise
-        .then(function (res) {
-          $scope.services = res
-          for (x in $scope.services)
-            $scope.services[x].qtySelected = 0
-        }, function (error) {
-          
-        })
     $scope.sale = {}
     $scope.cart = {}
     $scope.cart.products = []
     $scope.cart.services = []
     $scope.cart.totalCart = 0;
 
-    $scope.create = function (cart) {
-      // MAP ARRAYS CLEAN FIELDS
-      var products = cart.products.map(function (product) {
-        var obj = {id: product.item.id, qty: product.qty, discount: 0}
-        return obj
-      })
-      var services = cart.services.map(function (service) {
-        var obj = {id: service.item.id, qty: service.qty}
-        return obj
-      })
-      // CONSTRUCT ORDER POST
-      var order = { 
-        order: {
-          payment_method : "cash",
-          customer: $rootScope.currentCustomer,
-          business: $rootScope.currentBusiness,
-          employee:  $rootScope.currentEmployee,
-          products: products,
-          services: services
-        }
-      }
-      // CREATE ORDER
-      saleService.create(order)
-        .$promise
-          .then(function(res) {
-            $scope.sales = saleService.list();
-            $state.go('tab.sale-list');
-          }, function (error) {
 
-          })
-    }
+/*
+ *
+ * CUSTOMERS
+ *
+ */
 
-    $scope.update = function (sale, confirm) {
-      if (!confirm) {
-        $rootScope.selectedSale = sale;
-        $state.go('tab.sale-update', {'id': sale.id});
-      } else {
-        saleService.update($rootScope.selectedSale)
-          .$promise
-            .then(function(res) {
-              $scope.sales = saleService.list();
-              $state.go('tab.sale-list');
-            }, function (error) {
+    /* LIST CUSTOMERS */
+    customerService.list()
+      .$promise
+        .then(function (res) {
+          $scope.customers = res
+        }, function (error) {
 
-            })
-      }
-    }
+        })
 
-    $scope.delete = function (sale, confirm) {
-      if (!confirm) {
-        $rootScope.selectedSale = sale;
-        $state.go('tab.sale-delete', {'id': sale.id});
-      } else {
-        saleService.delete($rootScope.selectedSale)
-          .$promise
-            .then(function(res) {
-              $scope.sales = saleService.list();
-              $state.go('tab.sale-list');
-            }, function (error) {
-
-            })
-      }
-    }
-
-    $scope.cancel = function () {
-      $state.go('tab.sale-list');
-    }
-
-    $scope.detail = function (sale) {
-      $rootScope.selectedSale = sale;
-      $state.go('tab.sale-detail', {'id': sale.id});
-    }
-
-    //Modal customer List
+    /* MODAL CUSTOMER LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-customer.html', {
       scope: $scope,
       controller: 'saleController',
@@ -148,7 +66,6 @@ saleControllers.controller('saleController', [
     $scope.customerCloseModal = function() {
       $scope.customerModal.hide();
     };
-    // Cleanup the modal when we're done with it! detecta cambios
     $scope.$on('$destroy', function() {
       $scope.customerModal.remove();
     });
@@ -159,7 +76,7 @@ saleControllers.controller('saleController', [
       $scope.customerModal.hide();
     };
 
-    // ADD CUSTOMER TO BUSINESS
+    /* ADD CUSTOMER TO BUSINESS */
     $scope.addCustomer = function (customer) {
       $rootScope.business = $rootScope.business || JSON.parse(localStorage.getItem("allBusiness"));
       for (x in $rootScope.business) {
@@ -180,7 +97,25 @@ saleControllers.controller('saleController', [
           })
     }
 
-    //Modal Product List
+
+/*
+ *
+ * PRODUCTS 
+ *
+ */
+
+    /* LIST PRODUCTS */
+    productService.list()
+      .$promise
+        .then(function (res) {
+          $scope.products = res
+          for (x in $scope.products)
+            $scope.products[x].qtySelected = 0
+        }, function (error) {
+
+        })
+
+    /* MODAL PRODUCT LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-product.html', {
       scope: $scope,
       controller: 'productController',
@@ -195,14 +130,146 @@ saleControllers.controller('saleController', [
     $scope.productCloseModal = function() {
       $scope.productmodal.hide();
     };
-    // Cleanup the modal when we're done with it! detecta cambios
     $scope.$on('$destroy', function() {
       $scope.productmodal.remove();
     });
 
-    // BUTTON ADD
+/*
+ *
+ * SERVICES 
+ *
+ */
+
+    /* LIST SERVICES */
+    serviceService.list()
+      .$promise
+        .then(function (res) {
+          $scope.services = res
+          for (x in $scope.services)
+            $scope.services[x].qtySelected = 0
+        }, function (error) {
+          
+        })
+
+    /* MODAL SERVICE LIST */
+    $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
+      scope: $scope,
+      controller: 'serviceController',
+      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.servicemodal = modal;
+    });
+    $scope.serviceOpenModal = function() {
+      $scope.servicemodal.show();
+    };
+    $scope.serviceCloseModal = function() {
+      $scope.servicemodal.hide();
+    };
+    $scope.$on('$destroy', function() {
+      $scope.servicemodal.remove();
+    });
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.sales = saleService.list();
+    })
+
+/*
+ *
+ * SALE 
+ *
+ */
+
+    /* LIST SALES */
+    saleService.list()
+      .$promise
+        .then(function (res) {
+          $scope.sales = res
+        }, function (error) {
+          $scope.sales = []
+        })
+
+    /* CREATE SALE */
+    $scope.create = function (cart) {
+      // Parser products
+      var products = cart.products.map(function (product) {
+        var obj = {id: product.item.id, qty: product.qty, discount: 0}
+        return obj
+      })
+      // Parser services
+      var services = cart.services.map(function (service) {
+        var obj = {id: service.item.id, qty: service.qty}
+        return obj
+      })
+      // Construct order post
+      var order = { 
+        order: {
+          payment_method : "cash",
+          customer: $rootScope.currentCustomer,
+          business: $rootScope.currentBusiness,
+          employee:  $rootScope.currentEmployee,
+          products: products,
+          services: services
+        }
+      }
+      // Create order
+      saleService.create(order)
+        .$promise
+          .then(function(res) {
+            $scope.sales = saleService.list();
+            $state.go('tab.sale-list');
+          }, function (error) {
+
+          })
+    }
+
+    /* UPDATE SALE */
+    $scope.update = function (sale, confirm) {
+      if (!confirm) {
+        $rootScope.selectedSale = sale;
+        $state.go('tab.sale-update', {'id': sale.id});
+      } else {
+        saleService.update($rootScope.selectedSale)
+          .$promise
+            .then(function(res) {
+              $scope.sales = saleService.list();
+              $state.go('tab.sale-list');
+            }, function (error) {
+
+            })
+      }
+    }
+
+    /* DELETE SALE */
+    $scope.delete = function (sale, confirm) {
+      if (!confirm) {
+        $rootScope.selectedSale = sale;
+        $state.go('tab.sale-delete', {'id': sale.id});
+      } else {
+        saleService.delete($rootScope.selectedSale)
+          .$promise
+            .then(function(res) {
+              $scope.sales = saleService.list();
+              $state.go('tab.sale-list');
+            }, function (error) {
+
+            })
+      }
+    }
+
+    /* DETAIL SALE */
+    $scope.detail = function (sale) {
+      $rootScope.selectedSale = sale;
+      $state.go('tab.sale-detail', {'id': sale.id});
+    }
+
+    $scope.cancel = function () {
+      $state.go('tab.sale-list');
+    }
+
+
+    /* BUTTON ADD */
     $scope.addItem = function (product,service) {
-      // debugger
       if (product) {
         var selectActual = filterCartById(product,null)
         if (!selectActual) {
@@ -230,9 +297,8 @@ saleControllers.controller('saleController', [
       getCartTotal();
     }
 
-    // BUTTON REMOVE
+    /* BUTTON REMOVE */
     $scope.removeItem = function (product,service) {
-      // debugger
       if (product) {
         var selectActual = filterCartById(product,null)
         if (selectActual) {
@@ -268,7 +334,7 @@ saleControllers.controller('saleController', [
       getCartTotal();
     }
 
-    // FILTER IF THERE ITEM IN CART
+    /* FILTER IF THERE ITEM IN CART */
     function filterCartById (product,service) {
       if (product) {
         for (var i = 0; i < $scope.cart.products.length; i++) {
@@ -286,7 +352,7 @@ saleControllers.controller('saleController', [
       }
     }
 
-    // FILTER ITEM POSITION IN CART ARRAY
+    /* FILTER ITEM POSITION IN CART ARRAY */
     function filterCartByIndex (product,service) {
       if (product) {
         for (var i = 0; i < $scope.cart.products.length; i++)
@@ -300,7 +366,7 @@ saleControllers.controller('saleController', [
       }
     }
 
-    // TOTAL PRICE CART
+    /* TOTAL PRICE CART */
     function getCartTotal () {
       $scope.cart.totalCart = 0;
       for (var i = 0; i < $scope.cart.products.length; i++) {
@@ -309,30 +375,6 @@ saleControllers.controller('saleController', [
       }
       return  $scope.cart.totalCart
     }
-
-    //Modal Service List
-    $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
-      scope: $scope,
-      controller: 'serviceController',
-      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
-    }).then(function(modal) {
-      $scope.servicemodal = modal;
-    });
-    $scope.serviceOpenModal = function() {
-      $scope.servicemodal.show();
-    };
-    $scope.serviceCloseModal = function() {
-      $scope.servicemodal.hide();
-    };
-    // Cleanup the modal when we're done with it! detecta cambios
-    $scope.$on('$destroy', function() {
-      $scope.servicemodal.remove();
-    });
-
-    $scope.$on('$stateChangeSuccess', function() {
-      $scope.sales = saleService.list();
-    })
 
   }
 ]);

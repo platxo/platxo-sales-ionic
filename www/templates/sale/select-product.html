@@ -10,10 +10,10 @@
           <p>{{product.name}}</p>
           <p>{{product.price | currency : $ : 0}}</p>
         </div>
-        <div class="col center" ng-if="product.quantity > 0 && product.qtySelected < product.quantity">
+        <div class="col col-10 center" ng-if="product.quantity > 0 && product.qtySelected < product.quantity">
           <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(product,null)"></button>
         </div>
-        <div class="col center" ng-if="product.qtySelected > 0">
+        <div class="col col-10 center" ng-if="product.qtySelected > 0">
           <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(product,null)"></button>
           </div>
         <div class="col">

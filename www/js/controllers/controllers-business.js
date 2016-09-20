@@ -26,23 +26,20 @@ businessControllers.controller('businessController', [
         }, function () {
           debugger
         })
-	  // $scope.bs = businessService.detail({id: $stateParams.id});
 
 	  $scope.update = function () {
       debugger
-	    businessService.update($scope.bs);
-	    // $scope.business = businessService.list();
-	    $state.go('business-list');
+	    businessService.update($scope.bs)
+        .$promise
+          .then(function (res) {
+      	    $scope.business = businessService.list();
+      	    $state.go('business-list');
+          })
 	  }
 
 	  $scope.cancel = function () {
 	    $state.go('business-list');
 	  }
-
-
-	  $scope.$on('$stateChangeSuccess', function() {
-	    // $scope.business = businessService.list();
-	  })
 
     $scope.selectBs = function(bs) {
       $rootScope.currentBusiness = bs.id;
@@ -51,7 +48,7 @@ businessControllers.controller('businessController', [
     }
 
     $scope.$on('$stateChangeSuccess', function() {
-	    // $scope.business = businessService.list();
+	    $scope.business = businessService.list();
 	  })
 
 	}

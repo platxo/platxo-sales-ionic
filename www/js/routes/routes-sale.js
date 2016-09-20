@@ -2,7 +2,6 @@ var saleRoutes = angular.module('saleRoutes', []);
 
 saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
-    // Sales
     .state('tab.sale-list', {
       url: '/sale-list',
       views: {

@@ -20,17 +20,25 @@ serviceControllers.controller('serviceController', [
     serviceTypesService
   )
   {
-    $scope.services = serviceService.list();
-    $scope.categories = serviceCategoriesService.list();
-    $scope.types = serviceTypesService.list();
+    serviceService.list()
+      .$promise
+        .then(function (res) {
+          $scope.services = res;
+        })
+    serviceCategoriesService.list()
+      .$promise
+        .then(function (res) {
+          $scope.categories = res;
+        })
+    serviceTypesService.list()
+      .$promise
+        .then(function (res) {
+          $scope.types = res;
+        })
 
     $scope.detail = function (service) {
       $rootScope.selectedService = service;
       $state.go('tab.service-detail', { 'id': service.id });
-    }
-
-    $scope.cancel = function () {
-      $state.go('tab.service-list');
     }
 
     $scope.$on('$stateChangeSuccess', function() {

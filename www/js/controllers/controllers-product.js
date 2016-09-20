@@ -20,17 +20,25 @@ productControllers.controller('productController', [
     productTypesService
   )
   {
-    $scope.products = productService.list();
-    $scope.categories = productCategoriesService.list();
-    $scope.types = productTypesService.list();
+    productService.list()
+      .$promise
+        .then(function (res) {
+          $scope.products = res;
+        })
+    productCategoriesService.list()
+      .$promise
+        .then(function (res) {
+          $scope.categories = res;
+        })
+    productTypesService.list()
+      .$promise
+        .then(function (res) {
+          $scope.types = res;
+        })
 
     $scope.detail = function (product) {
       $rootScope.selectedProduct = product;
       $state.go('tab.product-detail', { 'id': product.id });
-    }
-
-    $scope.cancel = function () {
-      $state.go('tab.product-list');
     }
 
     $scope.$on('$stateChangeSuccess', function() {
