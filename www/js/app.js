@@ -22,14 +22,15 @@ var sales = angular.module('sales', [
 ])
 
 sales.run(function($ionicPlatform, $rootScope, $location) {
+  $rootScope.version = 'http://development.';
+  $rootScope.baseUrl = 'platxo-bi.appspot.com';
+  $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+  $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
+  $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
+  $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
+  $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+
   $ionicPlatform.ready(function() {
-    $rootScope.version = 'http://development.';
-    $rootScope.baseUrl = 'platxo-bi.appspot.com';
-    $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
-    $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
-    $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
-    $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
-    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
       localStorage.removeItem('token');
