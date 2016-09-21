@@ -29,7 +29,8 @@ saleControllers.controller('saleController', [
     $scope.cart = {}
     $scope.cart.products = []
     $scope.cart.services = []
-    $scope.cart.totalCart = 0;
+    $scope.cart.discount = 0
+    $scope.cart.totalCart = 0
 
 
 /*
@@ -185,6 +186,7 @@ saleControllers.controller('saleController', [
       .$promise
         .then(function (res) {
           $scope.sales = res
+          console.log($scope.sales)
         }, function (error) {
           $scope.sales = []
         })
@@ -198,16 +200,16 @@ saleControllers.controller('saleController', [
       })
       // Parser services
       var services = cart.services.map(function (service) {
-        var obj = {id: service.item.id, qty: service.qty}
+        var obj = {id: service.item.id, qty: service.qty, discount: 0}
         return obj
       })
       // Construct order post
-      var order = { 
+      var order = {
         order: {
           payment_method : "cash",
           customer: $rootScope.currentCustomer,
           business: $rootScope.currentBusiness,
-          employee:  $rootScope.currentEmployee,
+          employee:  $rootScope.currentEmployee.id,
           products: products,
           services: services
         }
@@ -230,23 +232,6 @@ saleControllers.controller('saleController', [
         $state.go('tab.sale-update', {'id': sale.id});
       } else {
         saleService.update($rootScope.selectedSale)
-          .$promise
-            .then(function(res) {
-              $scope.sales = saleService.list();
-              $state.go('tab.sale-list');
-            }, function (error) {
-
-            })
-      }
-    }
-
-    /* DELETE SALE */
-    $scope.delete = function (sale, confirm) {
-      if (!confirm) {
-        $rootScope.selectedSale = sale;
-        $state.go('tab.sale-delete', {'id': sale.id});
-      } else {
-        saleService.delete($rootScope.selectedSale)
           .$promise
             .then(function(res) {
               $scope.sales = saleService.list();
@@ -371,6 +356,10 @@ saleControllers.controller('saleController', [
       $scope.cart.totalCart = 0;
       for (var i = 0; i < $scope.cart.products.length; i++) {
         $scope.cart.acum = $scope.cart.products[i].item.price * $scope.cart.products[i].qty;
+        $scope.cart.totalCart += $scope.cart.acum;
+      }
+      for (var i = 0; i < $scope.cart.services.length; i++) {
+        $scope.cart.acum = $scope.cart.services[i].item.price * $scope.cart.services[i].qty;
         $scope.cart.totalCart += $scope.cart.acum;
       }
       return  $scope.cart.totalCart

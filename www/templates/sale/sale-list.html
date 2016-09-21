@@ -11,13 +11,12 @@
 	<ion-content padding="true">
 		<ion-list>
 			<search></search>
-			<ion-item ng-click="detail(sale)" ng-repeat="sale in sales | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
-				<h2>{{customers[0].username}}</h2>
-				<h2>{{ sale.total }}</h2>
-				<h2>{{ sale.created }}</h2>
+			<ion-item ng-click="detail(sale)" ng-repeat="sale in sales | orderBy:'name' | filter:search.value" class="item item-button-right">
+				<h2>{{sale.customer_username}}</h2>
+				<h2>{{ sale.total | currency : $ : 0 }}</h2>
+				<h2>{{ sale.created_at | date:'medium' }}</h2>
 				<div class="buttons">
 				  <ion-option-button ng-click="update(sale,false)" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
-				  <ion-option-button ng-click="delete(sale,false)" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
 				</div>
 			</ion-item>
 		</ion-list>

@@ -37,6 +37,13 @@
           <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
+      <br>
+      <label class="">Discount: {{cart.discount}}</label>
+      <div class="range range-positive">
+        <i>0</i>
+        <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.discount">
+        <i>100</i>
+      </div>
       <div class="row item item-positive">
         <div class="col col-80">
           Total

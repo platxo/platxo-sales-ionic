@@ -1,11 +1,50 @@
 <ion-view view-title="Sale Detail">
 	<ion-content padding="true">
     <div class="list card">
-      <div class="item item-divider">{{sale.customer}}</div>
+      <div class="item item-divider">{{selectedSale.customer_username}}</div>
       <div class="item item-body">
-        <h2>Id: {{selectedSale.id}}</h2>
-        <h2>Total: {{selectedSale.total}}</h2>
-        <h2>Created: {{selectedSale.created}}</h2>
+        <label class="item-divider"">
+          <span class="input-label">Porducts</span>
+        </label>
+        <div ng-repeat="item in selectedSale.products">
+          <div>
+            Category : {{item.details.product_category_name}}
+          </div>
+          <div>
+            Type: {{item.details.product_type_name}}
+          </div>
+          <div>
+            Name: {{item.details.name}}
+          </div>
+          <div>
+            Price: {{item.details.price}}
+          </div>
+          <div>
+            Quantity: {{item.qty}}
+          </div>
+        </div>
+        <label class="item-divider"">
+          <span class="input-label">Services</span>
+        </label>
+        <div ng-repeat="item in selectedSale.services">
+          <div>
+            Category : {{item.details.service_category_name}}
+          </div>
+          <div>
+            Type: {{item.details.service_type_name}}
+          </div>
+          <div>
+            Name: {{item.details.name}}
+          </div>
+          <div>
+            Price: {{item.details.price}}
+          </div>
+          <div>
+            Quantity: {{item.qty}}
+          </div>
+        </div>
+        <h2>Created: {{selectedSale.created_at | date:'medium'}}</h2>
+        <h2>Total: {{selectedSale.total | currency : $ : 0}}</h2>
       </div>
     </div>
 	</ion-content>
