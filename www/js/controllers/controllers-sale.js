@@ -31,6 +31,7 @@ saleControllers.controller('saleController', [
     $scope.cart.services = []
     $scope.cart.discount = 0
     $scope.cart.totalCart = 0
+    $scope.filters = {}
 
 
 /*
@@ -185,7 +186,7 @@ saleControllers.controller('saleController', [
     saleService.list()
       .$promise
         .then(function (res) {
-          $scope.sales = res
+          $rootScope.sales = res
           console.log($scope.sales)
         }, function (error) {
           $scope.sales = []

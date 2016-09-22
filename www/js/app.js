@@ -93,3 +93,13 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     templateUrl: 'templates/partials/search.html'
   }
 })
+
+.filter('weekFilter', function() {
+    return function(input, startDay, endDay) {
+        debugger
+        var filterFunction = function (item) {
+            return item.days >= startDay && item.days <= endDay;
+        };
+      return input.filter(filterFunction);
+    };
+});
