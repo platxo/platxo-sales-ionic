@@ -94,12 +94,21 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
   }
 })
 
-.filter('weekFilter', function() {
-    return function(input, startDay, endDay) {
-        debugger
-        var filterFunction = function (item) {
-            return item.days >= startDay && item.days <= endDay;
-        };
-      return input.filter(filterFunction);
+.filter('weekFilter', function($filter) {
+    return function(input, type) {
+        if (type === 'day') {
+          debugger
+          var currentDate = new Date()
+          var currentDay = currentDate.getDay()
+          var currentMonth = currentDate.getMonth()
+          for (x in input) {
+            var dateEvaluate = new Date(input[x].created_at)
+            // debugger
+            if (dateEvaluate.getDay() === currentDay) {
+              var test = input[x].id
+            }
+          }
+        }
+        return test;
     };
 });
