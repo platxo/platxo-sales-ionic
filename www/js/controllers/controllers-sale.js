@@ -408,7 +408,7 @@ saleControllers.controller('saleController', [
         $scope.cart.totalCart += $scope.cart.acum;
       }
       for (var i = 0; i < $scope.cart.services.length; i++) {
-        $scope.cart.acum = $scope.cart.services[i].item.price * $scope.cart.services[i].qty;
+        $scope.cart.acum = $scope.cart.services[i].item.price * $scope.cart.services[i].item.qtySelected;
         $scope.cart.totalCart += $scope.cart.acum;
       }
       return  $scope.cart.totalCart
