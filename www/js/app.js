@@ -94,3 +94,23 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     templateUrl: 'templates/partials/search.html'
   }
 })
+
+.directive('expired', [ '$ionicPopup', '$rootScope', function ($ionicPopup, $rootScope) {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/partials/expired.html',
+    controller: function ($scope) {
+      debugger
+      $scope.showAlert = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Don\'t eat that!',
+          template: 'It might taste good'
+        });
+
+        alertPopup.then(function(res) {
+          console.log('Thank you for not eating my delicious ice cream cone');
+        })
+      }
+    }
+  }
+}])

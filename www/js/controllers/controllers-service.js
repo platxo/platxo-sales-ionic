@@ -24,16 +24,28 @@ serviceControllers.controller('serviceController', [
       .$promise
         .then(function (res) {
           $scope.services = res;
+        }, function (err) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
     serviceCategoriesService.list()
       .$promise
         .then(function (res) {
           $scope.categories = res;
+        }, function (err) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
     serviceTypesService.list()
       .$promise
         .then(function (res) {
           $scope.types = res;
+        }, function (err) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
 
     $scope.detail = function (service) {

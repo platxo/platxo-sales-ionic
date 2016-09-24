@@ -45,7 +45,10 @@ saleControllers.controller('saleController', [
         .then(function (res) {
           $scope.customers = res
         }, function (error) {
-
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+            $scope.showAlert()
+          }
         })
 
     /* MODAL CUSTOMER LIST */
@@ -94,6 +97,10 @@ saleControllers.controller('saleController', [
             $scope.customerModal.hide();
             $state.go('tab.sale-list');
           }, function (error) {
+            if (error.data.detail === "Signature has expired.") {
+              debugger
+            }
+            debugger
             $scope.customerModal.hide();
           })
     }
@@ -113,7 +120,10 @@ saleControllers.controller('saleController', [
           for (x in $scope.products)
             $scope.products[x].qtySelected = 0
         }, function (error) {
-
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+            $scope.showAlert()
+          }
         })
 
     /* MODAL PRODUCT LIST */
@@ -149,7 +159,10 @@ saleControllers.controller('saleController', [
           for (x in $scope.services)
             $scope.services[x].qtySelected = 0
         }, function (error) {
-          
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+            $scope.showAlert()
+          }
         })
 
     /* MODAL SERVICE LIST */
@@ -188,6 +201,9 @@ saleControllers.controller('saleController', [
           $rootScope.sales = res
           $rootScope.listSales = res
         }, function (error) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
           $scope.sales = []
         })
 
@@ -278,7 +294,9 @@ saleControllers.controller('saleController', [
             $scope.sales = saleService.list();
             $state.go('tab.sale-list');
           }, function (error) {
-
+            if (error.data.detail === "Signature has expired.") {
+              debugger
+            }
           })
     }
 
@@ -294,7 +312,9 @@ saleControllers.controller('saleController', [
               $scope.sales = saleService.list();
               $state.go('tab.sale-list');
             }, function (error) {
-
+              if (error.data.detail === "Signature has expired.") {
+                debugger
+              }
             })
       }
     }

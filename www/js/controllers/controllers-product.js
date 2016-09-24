@@ -24,16 +24,28 @@ productControllers.controller('productController', [
       .$promise
         .then(function (res) {
           $scope.products = res;
+        }, function (err) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
     productCategoriesService.list()
       .$promise
         .then(function (res) {
           $scope.categories = res;
+        }, function (err) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
     productTypesService.list()
       .$promise
         .then(function (res) {
           $scope.types = res;
+        }, function (err) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
 
     $scope.detail = function (product) {

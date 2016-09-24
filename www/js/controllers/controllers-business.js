@@ -23,8 +23,10 @@ businessControllers.controller('businessController', [
         .then(function(res) {
           $rootScope.business = res;
           localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
-        }, function () {
-          debugger
+        }, function (error) {
+          if (error.data.detail === "Signature has expired.") {
+            debugger
+          }
         })
 
 	  $scope.update = function () {
@@ -34,6 +36,10 @@ businessControllers.controller('businessController', [
           .then(function (res) {
       	    $scope.business = businessService.list();
       	    $state.go('business-list');
+          }, function (res) {
+            if (error.data.detail === "Signature has expired.") {
+              debugger
+            }
           })
 	  }
 
