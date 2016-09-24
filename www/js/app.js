@@ -102,8 +102,8 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     controller: function ($scope) {
       $scope.showAlert = function() {
         var alertPopup = $ionicPopup.alert({
-          title: 'Don\'t eat that!',
-          template: 'It might taste good'
+          title: 'Expired Session!',
+          template: 'Login Please'
         });
 
         alertPopup.then(function(res) {
