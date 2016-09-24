@@ -187,7 +187,6 @@ saleControllers.controller('saleController', [
         .then(function (res) {
           $rootScope.sales = res
           $rootScope.listSales = res
-          console.log($scope.sales)
         }, function (error) {
           $scope.sales = []
         })
@@ -329,12 +328,8 @@ saleControllers.controller('saleController', [
         var selectActual = filterCartById(null,service)
         if (!selectActual) {
           service.qtySelected = 1;
-          $scope.cart.services.push({ item: service, qty: 1 });
-        } else {
-          selectActual.qty++;
-          service.qtySelected++;
-        }
-        service.qty--;
+          $scope.cart.services.push({ item: service});
+        } else service.qtySelected++;
         console.log($scope.cart.services);
       }
       getCartTotal();
@@ -361,18 +356,14 @@ saleControllers.controller('saleController', [
       if (service) {
         var selectActual = filterCartById(null,service)
         if (selectActual) {
-          if (selectActual.qty === 1) {
+          if (selectActual.item.qtySelected === 1) {
             if (filterCartByIndex(null,service) != undefined) {
               service.qtySelected = 0;
-              $scope.cart.products.splice(filterCartByIndex(null,service),1);
+              $scope.cart.services.splice(filterCartByIndex(null,service),1);
             }
-          } else {
-            selectActual.qty--;
-            service.qtySelected--;
-          }
+          } else service.qtySelected--;
         } 
-        service.qty++;
-        console.log($scope.cart.products);
+        console.log($scope.cart.services);
       }
       getCartTotal();
     }
