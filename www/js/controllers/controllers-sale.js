@@ -252,12 +252,12 @@ saleControllers.controller('saleController', [
     $scope.create = function (cart) {
       // Parser products
       var products = cart.products.map(function (product) {
-        var obj = {id: product.item.id, qty: product.qty, discount: 0}
+        var obj = {id: product.item.id, qty: product.qty}
         return obj
       })
       // Parser services
       var services = cart.services.map(function (service) {
-        var obj = {id: service.item.id, qty: service.qty, discount: 0}
+        var obj = {id: service.item.id, qty: service.qty}
         return obj
       })
       // Construct order post
@@ -268,7 +268,8 @@ saleControllers.controller('saleController', [
           business: $rootScope.currentBusiness,
           employee:  $rootScope.currentEmployee.id,
           products: products,
-          services: services
+          services: services,
+          discount: cart.discount
         }
       }
       // Create order
