@@ -59,6 +59,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
 .directive('menu', [ '$ionicPopover', '$rootScope', function ($ionicPopover, $rootScope) {
   return {
     restrict: 'E',
+    priority: 200,
     templateUrl: 'templates/partials/menu.html',
     controller: function ($scope) {
       $ionicPopover.fromTemplateUrl('templates/partials/menu.html', {
@@ -68,6 +69,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
       });
 
       $scope.menu = function($event) {
+        $scope.popover.modalEl.className = "popover"
         $scope.popover.show($event);
       };
 
