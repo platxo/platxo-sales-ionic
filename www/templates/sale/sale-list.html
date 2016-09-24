@@ -12,11 +12,11 @@
 		<ion-list>
 			<search></search>
 			<div class="button-bar">
-			  <button class="button button-balanced button-outline button-small" ng-click="filters.type = 'day'">Day</button>
-			  <button class="button button-balanced button-outline button-small" ng-click="filters.type = 'week'">Week</button>
-			  <button class="button button-balanced button-outline button-small" ng-click="filters.type = 'month'">Month</button>
+			  <button class="button button-balanced button-outline button-small" ng-click="dayFilter(sales)">Day</button>
+			  <button class="button button-balanced button-outline button-small" ng-click="weekFilter(sales)">Week</button>
+			  <button class="button button-balanced button-outline button-small" ng-click="monthFilter(sales)">Month</button>
 			</div>
-			<ion-item ng-click="detail(sale)" ng-repeat="sale in sales | orderBy:'name' | filter:search.value | weekFilter: created_at" class="item item-button-right">
+			<ion-item ng-click="detail(sale)" ng-repeat="sale in listSales | orderBy:'name' | filter:search.value" class="item item-button-right">
 				<h2>{{sale.customer_username}}</h2>
 				<h2>{{ sale.total | currency : $ : 0 }}</h2>
 				<h2>{{ sale.created_at | date:'medium' }}</h2>

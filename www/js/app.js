@@ -93,22 +93,3 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     templateUrl: 'templates/partials/search.html'
   }
 })
-
-.filter('weekFilter', function($filter) {
-    return function(input, type) {
-        if (type === 'day') {
-          debugger
-          var currentDate = new Date()
-          var currentDay = currentDate.getDay()
-          var currentMonth = currentDate.getMonth()
-          for (x in input) {
-            var dateEvaluate = new Date(input[x].created_at)
-            // debugger
-            if (dateEvaluate.getDay() === currentDay) {
-              var test = input[x].id
-            }
-          }
-        }
-        return test;
-    };
-});
