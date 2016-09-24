@@ -37,19 +37,28 @@
           <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
-      <br>
-      <label class="">Discount: {{cart.discount}}</label>
       <div class="range range-positive">
         <i>0</i>
         <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.discount">
         <i>100</i>
       </div>
+      <div class="row item item-light">
+        <div class="col col-50">
+          Discount
+        </div>
+        <div class="col col-25">
+          {{cart.discount}} %
+        </div>
+        <div class="col col-25">
+          {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+        </div>
+      </div>
       <div class="row item item-positive">
-        <div class="col col-80">
+        <div class="col col-75">
           Total
         </div>
-        <div class="col">
-          {{cart.totalCart | currency : $ : 0}}
+        <div class="col col-25">
+          {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
         </div>
       </div>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
