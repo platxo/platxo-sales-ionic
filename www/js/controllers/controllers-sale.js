@@ -33,23 +33,53 @@ saleControllers.controller('saleController', [
     $scope.cart.totalCart = 0
     $scope.filters = {}
 
+
+    /* LIST SALES */
+    saleService.list()
+      .$promise
+        .then(function (res) {
+          $rootScope.sales = res
+          $rootScope.listSales = res
+          /* LIST CUSTOMERS */
+          customerService.list()
+            .$promise
+              .then(function (res) {
+                $scope.customers = res
+
+                /* LIST PRODUCTS */
+                productService.list()
+                  .$promise
+                    .then(function (res) {
+                      $scope.products = res
+                      for (x in $scope.products)
+                        $scope.products[x].qtySelected = 0
+                      /* LIST SERVICES */
+                      serviceService.list()
+                        .$promise
+                          .then(function (res) {
+                            $scope.services = res
+                            for (x in $scope.services)
+                              $scope.services[x].qtySelected = 0
+                          }, function (error) {
+
+                          })
+                    }, function (error) {
+
+                    })
+              }, function (error) {
+
+              })
+        }, function (error) {
+          if (error.data.detail === "Signature has expired.")
+            $scope.showAlert()
+          $scope.sales = []
+        })
+
 /*
  *
  * CUSTOMERS
  *
  */
-
-    /* LIST CUSTOMERS */
-    customerService.list()
-      .$promise
-        .then(function (res) {
-          $scope.customers = res
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-            $scope.showAlert()
-          }
-        })
 
     /* MODAL CUSTOMER LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-customer.html', {
@@ -112,19 +142,7 @@ saleControllers.controller('saleController', [
  *
  */
 
-    /* LIST PRODUCTS */
-    productService.list()
-      .$promise
-        .then(function (res) {
-          $scope.products = res
-          for (x in $scope.products)
-            $scope.products[x].qtySelected = 0
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-            $scope.showAlert()
-          }
-        })
+    
 
     /* MODAL PRODUCT LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-product.html', {
@@ -151,19 +169,6 @@ saleControllers.controller('saleController', [
  *
  */
 
-    /* LIST SERVICES */
-    serviceService.list()
-      .$promise
-        .then(function (res) {
-          $scope.services = res
-          for (x in $scope.services)
-            $scope.services[x].qtySelected = 0
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-            $scope.showAlert()
-          }
-        })
 
     /* MODAL SERVICE LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
@@ -194,18 +199,6 @@ saleControllers.controller('saleController', [
  *
  */
 
-    /* LIST SALES */
-    saleService.list()
-      .$promise
-        .then(function (res) {
-          $rootScope.sales = res
-          $rootScope.listSales = res
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-          }
-          $scope.sales = []
-        })
 
     $scope.dayFilter = function () {
       $rootScope.salesDay = []

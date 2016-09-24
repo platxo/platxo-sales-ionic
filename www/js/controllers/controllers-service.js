@@ -24,7 +24,7 @@ serviceControllers.controller('serviceController', [
       .$promise
         .then(function (res) {
           $scope.services = res;
-        }, function (err) {
+        }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
           }
@@ -33,7 +33,7 @@ serviceControllers.controller('serviceController', [
       .$promise
         .then(function (res) {
           $scope.categories = res;
-        }, function (err) {
+        }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
           }
@@ -42,7 +42,7 @@ serviceControllers.controller('serviceController', [
       .$promise
         .then(function (res) {
           $scope.types = res;
-        }, function (err) {
+        }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
           }

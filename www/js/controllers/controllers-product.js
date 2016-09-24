@@ -24,7 +24,7 @@ productControllers.controller('productController', [
       .$promise
         .then(function (res) {
           $scope.products = res;
-        }, function (err) {
+        }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
           }
@@ -33,7 +33,7 @@ productControllers.controller('productController', [
       .$promise
         .then(function (res) {
           $scope.categories = res;
-        }, function (err) {
+        }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
           }
@@ -42,7 +42,7 @@ productControllers.controller('productController', [
       .$promise
         .then(function (res) {
           $scope.types = res;
-        }, function (err) {
+        }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
           }

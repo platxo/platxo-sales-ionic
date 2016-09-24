@@ -100,7 +100,6 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
     restrict: 'E',
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
-      debugger
       $scope.showAlert = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Don\'t eat that!',
