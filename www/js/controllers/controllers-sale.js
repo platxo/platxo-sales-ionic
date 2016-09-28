@@ -71,7 +71,7 @@ saleControllers.controller('saleController', [
               })
         }, function (error) {
           if (error.data.detail === "Signature has expired.")
-            $scope.showAlert()
+            $scope.showAlertExpired()
           $scope.sales = []
         })
 
@@ -105,6 +105,20 @@ saleControllers.controller('saleController', [
     });
 
     $scope.selectCustomer = function(customer) {
+      // debugger
+      var haveCRMcount = function () {
+        if(customer.points.length > 0) {
+          for (x in customer.points) {
+            if (customer.points[x].business === $rootScope.currentBusiness)
+              return true;
+          }
+        } else {
+          // debugger
+          $scope.showAlertCreateAccountCRM()
+          return false;
+        }
+      }
+      $scope.showRangePoints = haveCRMcount()
       $scope.sale.customerName = customer.user;
       $rootScope.currentCustomer = customer.id;
       $scope.customerModal.hide();
@@ -429,3 +443,4 @@ saleControllers.controller('saleController', [
 
   }
 ]);
+

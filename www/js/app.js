@@ -95,12 +95,13 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
   }
 })
 
-.directive('expired', [ '$ionicPopup', '$rootScope', function ($ionicPopup, $rootScope) {
+.directive('expired', [ '$ionicPopup', '$rootScope', '$location', function ($ionicPopup, $rootScope, $location) {
   return {
     restrict: 'E',
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
-      $scope.showAlert = function() {
+        // debugger
+      $scope.showAlertExpired = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Expired Session!',
           template: 'Login Please'
@@ -108,6 +109,28 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
 
         alertPopup.then(function(res) {
           console.log('Thank you for not eating my delicious ice cream cone');
+          $location.path('/login');
+        })
+      }
+    }
+  }
+}])
+
+
+.directive('created', [ '$ionicPopup', '$rootScope', '$location', function ($ionicPopup, $rootScope, $location) {
+  return {
+    restrict: 'E',
+    controller: function ($scope) {
+        // debugger
+      $scope.showAlertCreateAccountCRM = function() {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Create account CRM',
+          template: 'Add account CRM'
+        });
+
+        alertPopup.then(function(res) {
+          // POST api/points
+          console.log('Has created account CRM');
         })
       }
     }

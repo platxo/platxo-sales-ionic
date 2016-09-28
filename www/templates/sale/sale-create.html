@@ -53,6 +53,11 @@
           {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
         </div>
       </div>
+      <div class="range range-positive" ng-if="showRangePoints">
+        <i>0</i>
+        <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.points">
+        <i>100</i>
+      </div>
       <div class="row item item-positive">
         <div class="col col-75">
           Total
@@ -64,5 +69,6 @@
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
+    <!-- <created-account-crm></created-account-crm> -->
 	</ion-content>
 </ion-view>
