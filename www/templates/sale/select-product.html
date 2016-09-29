@@ -4,22 +4,34 @@
   </ion-header-bar>
   <ion-content>
     <search></search>
-    <ion-list>
-      <ion-item class="item row" ng-repeat="product in products | orderBy:'name' | filter:search.value">
-        <div class="col col-50">
-          <p>{{product.name}}</p>
-          <p>{{product.price | currency : $ : 0}}</p>
-        </div>
-        <div class="col col-10 center" ng-if="product.quantity > 0 && product.qtySelected < product.quantity">
-          <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(product,null)"></button>
-        </div>
-        <div class="col col-10 center" ng-if="product.qtySelected > 0">
-          <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(product,null)"></button>
+    <!-- <ul class="list">
+      <li ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-checkbox">
+        <div class="row">
+           <p>{{product.name}}</p>
+          <div class="col col-50">
+           <label class="checkbox">
+             <input type="checkbox" ng-click="addItem(product)">
+           </label>
           </div>
-        <div class="col">
-          <span class="badge badge-positive">{{product.qtySelected}}</span>
+          <div class="col">
+            <p>{{product.location}}</p>
+          </div>
+          <div class="col">
+            <p>{{product.section}}</p>
+          </div>
         </div>
-      </ion-item>
+      </li>
+    </ul> -->
+
+
+    <ion-list>
+      <div ng-repeat="product in products | orderBy:'name' | filter:search.value">
+        <!-- <div class="col col-50"> -->
+          <ion-checkbox ng-click="addItem(product)">
+            <p>{{product.name}}</p>
+          </ion-checkbox>
+        <!-- </div> -->
+      </div>
     </ion-list>
   </ion-content>
 </ion-modal-view>

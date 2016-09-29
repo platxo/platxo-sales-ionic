@@ -4,39 +4,48 @@
   </ion-nav-buttons>
   <ion-content padding="true">
 		<form name="formCreateSale" ng-submit="create(cart)" class="list">
+      <!-- SELECT CUSTOMER -->
       <div class="item item-input item-select" ng-click="customerOpenModal(true)">
         <span class="input-label">Customer</span>
         <p>{{sale.customerName}}</p>
       </div>
+      <!-- PRODUCTS -->
       <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
         <span class="input-label">Products</span>
       </label>
-      <div class="" ng-repeat="item in cart.products">
-        <div class="row">
-          <div class="col col-50">
-            {{item.item.name}}
-          </div>
-          <div class="col">
-          </div>
-          <div class="col">
-            <span class="badge badge-positive">{{item.qty}}</span>
-          </div>
+      <div class="item row" ng-repeat="item in cart.products">
+        <div class="col col-40">
+          {{item.item.name}}
+        </div>
+        <div class="col col-15 center" ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">
+          <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(item.item,null)"></button>
+        </div>
+        <div class="col col-15 center" ng-if="item.item.qtySelected > 0">
+          <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(item.item,null)"></button>
+        </div>
+        <div class="col">
+          <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
+      <!-- SERVICES -->
       <label class="item item-input item-select item-divider" ng-click="serviceOpenModal()">
         <span class="input-label">Services</span>
       </label>
-      <div ng-repeat="item in cart.services" class="row">
-        <div class="col col-50">
+      <div class=" item row" ng-repeat="item in cart.services">
+        <div class="col col-40">
           {{item.item.name}}
         </div>
-        <div class="col">
-          <div></div>
+        <div class="col col-15 center">
+          <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(null,item.item)"></button>
+        </div>
+        <div class="col col-15 center" ng-if="item.item.qtySelected > 0">
+          <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(null,item.item)"></button>
         </div>
         <div class="col">
           <span class="badge badge-positive">{{item.item.qtySelected}}</span>
         </div>
       </div>
+      <!-- RANGE DISCOUNT -->
       <div class="range range-positive">
         <i>0</i>
         <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.discount">
