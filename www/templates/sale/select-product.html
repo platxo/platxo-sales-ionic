@@ -29,6 +29,7 @@
         <!-- <div class="col col-50"> -->
           <ion-checkbox ng-click="addItem(product)">
             <p>{{product.name}}</p>
+            <p>{{product.retail_price | currency : $ : 0}}</p>
           </ion-checkbox>
         <!-- </div> -->
       </div>

@@ -4,11 +4,13 @@
   </ion-nav-buttons>
   <ion-content padding="true">
 		<form name="formCreateSale" ng-submit="create(cart)" class="list">
+
       <!-- SELECT CUSTOMER -->
       <div class="item item-input item-select" ng-click="customerOpenModal(true)">
         <span class="input-label">Customer</span>
         <p>{{sale.customerName}}</p>
       </div>
+
       <!-- PRODUCTS -->
       <label class="item item-input item-select item-divider" ng-click="productOpenModal()">
         <span class="input-label">Products</span>
@@ -27,6 +29,7 @@
           <span class="badge badge-positive">{{item.qty}}</span>
         </div>
       </div>
+
       <!-- SERVICES -->
       <label class="item item-input item-select item-divider" ng-click="serviceOpenModal()">
         <span class="input-label">Services</span>
@@ -45,12 +48,20 @@
           <span class="badge badge-positive">{{item.item.qtySelected}}</span>
         </div>
       </div>
-      <!-- RANGE DISCOUNT -->
-      <div class="range range-positive">
-        <i>0</i>
-        <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.discount">
-        <i>100</i>
+
+      <div class="spacer" style="height:20px;"></div>
+
+      <!-- SUBTOTAL -->
+      <div class="row item item-positive">
+        <div class="col col-75">
+          SubTotal
+        </div>
+        <div class="col col-25">
+          {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+        </div>
       </div>
+
+      <!-- DISCOUNT -->
       <div class="row item item-light">
         <div class="col col-50">
           Discount
@@ -62,19 +73,61 @@
           {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
         </div>
       </div>
-      <div class="range range-positive" ng-if="showRangePoints">
+
+      <!-- RANGE DISCOUNT -->
+      <div class="item range range-positive">
         <i>0</i>
-        <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.points">
+        <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.discount">
         <i>100</i>
       </div>
+
+      <div class="spacer" style="height:20px;"></div>
+
+      <div ng-if="showRangePoints">
+        <!-- POINTS -->
+        <div class="row item item-light">
+          <div class="col col-50">
+            Points
+          </div>
+          <div class="col col-25">
+            {{cart.discount}} %
+          </div>
+          <div class="col col-25">
+            {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+          </div>
+        </div>
+
+        <!-- RANGE POINT CRM -->
+        <div class="item range range-positive">
+          <i>0</i>
+          <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.points">
+          <i>100</i>
+        </div>
+      </div>
+
+      <div class="spacer" style="height:20px;"></div>
+
+      <!-- TAX -->
+      <div class="row item item-light">
+        <div class="col col-75">
+          Tax
+        </div>
+        <div class="col col-25">
+          {{ cart.tax | currency : $ : 0 }}
+        </div>
+      </div>
+
+      <!-- TOTAL -->
       <div class="row item item-positive">
         <div class="col col-75">
           Total
         </div>
         <div class="col col-25">
-          {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+          {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 + cart.tax | currency : $ : 0 }}
         </div>
       </div>
+
+      <!-- SUBMIT FORM -->
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
