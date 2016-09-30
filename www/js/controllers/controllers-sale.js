@@ -441,16 +441,21 @@ saleControllers.controller('saleController', [
       $scope.cart.totalCart = 0;
       $scope.cart.tax = 0;
       for (var i = 0; i < $scope.cart.products.length; i++) {
-        $scope.cart.acum = $scope.cart.products[i].item.retail_price * $scope.cart.products[i].qty
-        $scope.cart.totalCart += $scope.cart.acum
-        $scope.cart.acumTax = ($scope.cart.acum * 10) / 100
+        var acum = $scope.cart.products[i].item.retail_price * $scope.cart.products[i].qty
+        $scope.cart.totalCart += acum
+        if ($scope.cart.products[i].item.extra)
+          var tax =  $scope.cart.products[i].item.extra.tax_rate || 0
+        else  var tax = 0
+        $scope.cart.acumTax = (acum * tax) / 100
         $scope.cart.tax += $scope.cart.acumTax
       }
       for (var i = 0; i < $scope.cart.services.length; i++) {
-        $scope.cart.acum = $scope.cart.services[i].item.price * $scope.cart.services[i].item.qtySelected;
-        $scope.cart.totalCart += $scope.cart.acum
-        // $scope.cart.acumTax = ($scope.cart.acum * 10) / 100
-        $scope.cart.acumTax = 0
+        var acum = $scope.cart.services[i].item.price * $scope.cart.services[i].item.qtySelected;
+        $scope.cart.totalCart += acum
+        if ($scope.cart.services[i].item.extra)
+          var tax =  $scope.cart.services[i].item.extra.tax_rate || 0
+        else  var tax = 0
+        $scope.cart.acumTax = (acum * tax) / 100
         $scope.cart.tax += $scope.cart.acumTax
       }
       return true
