@@ -7,7 +7,7 @@
     <ion-list>
       <div ng-repeat="service in services | orderBy:'name' | filter:search.value">
         <!-- <div class="col col-50"> -->
-          <ion-checkbox ng-click="addItem(null,service)">
+          <ion-checkbox ng-click="addItem(null,service)" ng-model="service.isChecked">
             <p>{{service.name}}</p>
             <p>{{service.price | currency : $ : 0}}</p>
           </ion-checkbox>

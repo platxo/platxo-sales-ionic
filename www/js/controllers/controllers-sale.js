@@ -52,15 +52,19 @@ saleControllers.controller('saleController', [
                   .$promise
                     .then(function (res) {
                       $scope.products = res
-                      for (x in $scope.products)
+                      for (x in $scope.products) {
                         $scope.products[x].qtySelected = 0
+                        $scope.products[x].isChecked = false
+                      }
                       /* LIST SERVICES */
                       serviceService.list()
                         .$promise
                           .then(function (res) {
                             $scope.services = res
-                            for (x in $scope.services)
+                            for (x in $scope.services) {
                               $scope.services[x].qtySelected = 0
+                              $scope.services[x].isChecked = false
+                            }
                           }, function (error) {
 
                           })
@@ -344,6 +348,7 @@ saleControllers.controller('saleController', [
         var selectActual = filterCartById(product,null)
         if (!selectActual) {
           product.qtySelected = 1;
+          product.isChecked = true;
           $scope.cart.products.push({ item: product, qty: 1 });
         } else {
           selectActual.qty++;
@@ -356,6 +361,7 @@ saleControllers.controller('saleController', [
         var selectActual = filterCartById(null,service)
         if (!selectActual) {
           service.qtySelected = 1;
+          service.isChecked = true;
           $scope.cart.services.push({ item: service});
         } else service.qtySelected++;
         console.log($scope.cart.services);
@@ -371,6 +377,7 @@ saleControllers.controller('saleController', [
           if (selectActual.qty === 1) {
             if (filterCartByIndex(product,null) != undefined) {
               product.qtySelected = 0;
+              product.isChecked = false;
               $scope.cart.products.splice(filterCartByIndex(product,null),1);
             }
           } else {
@@ -387,6 +394,7 @@ saleControllers.controller('saleController', [
           if (selectActual.item.qtySelected === 1) {
             if (filterCartByIndex(null,service) != undefined) {
               service.qtySelected = 0;
+              service.isChecked = false;
               $scope.cart.services.splice(filterCartByIndex(null,service),1);
             }
           } else service.qtySelected--;
@@ -430,7 +438,6 @@ saleControllers.controller('saleController', [
 
     /* TOTAL PRICE CART */
     function getCartTotal () {
-      debugger
       $scope.cart.totalCart = 0;
       $scope.cart.tax = 0;
       for (var i = 0; i < $scope.cart.products.length; i++) {
