@@ -42,7 +42,7 @@ authControllers.controller('loginController', [
     $location,
     $state
   ) {
-    if (localStorage.item != '' || localStorage.length === 0) $state.go('tab.sale-list');
+    if (localStorage.token) $state.go('tab.sale-list');
     $scope.user = {}
 
     $scope.create = function () {

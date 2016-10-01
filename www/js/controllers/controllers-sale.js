@@ -69,9 +69,10 @@ saleControllers.controller('saleController', [
                     })
               })
         }, function (error) {
-          if (error.data.detail === "Signature has expired.")
-            $rootScope.logout()
+          if (error.data.detail === "Signature has expired.") {
+            $rootScope.logout(true)
             $scope.showAlertExpired()
+          }
           $scope.sales = []
         })
 
@@ -105,7 +106,7 @@ saleControllers.controller('saleController', [
     });
 
     $scope.selectCustomer = function(customer) {
-      // debugger
+      debugger
       var haveCRMcount = function () {
         if(customer.points.length > 0) {
           for (x in customer.points) {

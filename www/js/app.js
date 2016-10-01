@@ -21,7 +21,7 @@ var sales = angular.module('sales', [
   'authRoutes'
 ])
 
-sales.run(function($ionicPlatform, $rootScope, $location) {
+sales.run(function($ionicPlatform, $rootScope, $location, $state) {
   $rootScope.version = 'http://development.';
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
   $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
@@ -32,13 +32,12 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
 
   $ionicPlatform.ready(function() {
 
-    $rootScope.logout = function() {
-      debugger
+    $rootScope.logout = function(forced) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('allBusiness');
       localStorage.removeItem('currentBusiness');
-      $location.path('/login');
+      if (!forced) $location.path('/login');
     };
 
     if(window.cordova && window.cordova.plugins.Keyboard) {
