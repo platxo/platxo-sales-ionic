@@ -7,15 +7,12 @@
         <h2>Name: {{selectedService.name}}</h2>
         <h2>Description: {{selectedService.description}}</h2>
         <h2>Supplier: {{selectedService.supplier}}</h2>
-        <h2>Location: {{selectedService.location}}</h2>
-        <h2 ng-repeat="category in categories | filter: selectedService.service_category">Category: {{category.name}}</h2>
-        <h2 ng-repeat="type in types | filter: selectedService.service_type">Type: {{type.name}}</h2>
-        <h2>Price: {{selectedService.price | currency }}</h2>
-        <h2>Stock: {{selectedService.stock }}</h2>
-        <h2>Quantity: {{selectedService.quantity}}</h2>
-        <h2>Created: {{selectedService.created}}</h2>
-        <h2>Updated: {{selectedService.updated}}</h2>
+        <h2>Category: {{selectedService.extra.service_category_name}}</h2>
+        <h2>Type: {{selectedService.extra.service_type_name}}</h2>
+        <h2>Price: {{selectedService.price | currency : $ : 0 }}</h2>
+        <h2>Created: {{selectedService.created | date:'medium'}}</h2>
+        <h2>Updated: {{selectedService.updated | date:'medium'}}</h2>
       </div>
     </div>
-	</ion-content>
+  </ion-content>
 </ion-view>
