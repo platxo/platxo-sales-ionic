@@ -2,46 +2,20 @@ var productControllers = angular.module('productControllers', []);
 
 productControllers.controller('productController', [
   '$scope',
-  '$stateParams',
   '$state',
-  '$ionicModal',
   '$rootScope',
   'productService',
-  'productCategoriesService',
-  'productTypesService',
   function (
     $scope,
-    $stateParams,
     $state,
-    $ionicModal,
     $rootScope,
-    productService,
-    productCategoriesService,
-    productTypesService
+    productService
   )
   {
     productService.list()
       .$promise
         .then(function (res) {
           $scope.products = res;
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-          }
-        })
-    productCategoriesService.list()
-      .$promise
-        .then(function (res) {
-          $scope.categories = res;
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-          }
-        })
-    productTypesService.list()
-      .$promise
-        .then(function (res) {
-          $scope.types = res;
         }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger

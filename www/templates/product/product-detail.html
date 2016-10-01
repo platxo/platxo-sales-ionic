@@ -7,14 +7,15 @@
         <h2>Name: {{selectedProduct.name}}</h2>
         <h2>Description: {{selectedProduct.description}}</h2>
         <h2>Supplier: {{selectedProduct.supplier}}</h2>
-        <h2>Location: {{selectedProduct.location}}</h2>
-        <h2 ng-repeat="category in categories | filter: selectedProduct.product_category">Category: {{category.name}}</h2>
-        <h2 ng-repeat="type in types | filter: selectedProduct.product_type">Type: {{type.name}}</h2>
-        <h2>Price: {{selectedProduct.price | currency }}</h2>
-        <h2>Stock: {{selectedProduct.stock }}</h2>
+        <h2>Location: {{selectedProduct.extra.location_name}}</h2>
+        <h2>Section: {{selectedProduct.extra.section_name}}</h2>
+        <h2>Category: {{selectedProduct.extra.product_category_name}}</h2>
+        <h2>Type: {{selectedProduct.extra.product_type_name}}</h2>
+        <h2>Price: {{selectedProduct.retail_price | currency : $ : 0 }}</h2>
+        <h2>Inventory: {{selectedProduct.inventory }}</h2>
         <h2>Quantity: {{selectedProduct.quantity}}</h2>
-        <h2>Created: {{selectedProduct.created}}</h2>
-        <h2>Updated: {{selectedProduct.updated}}</h2>
+        <h2>Created: {{selectedProduct.created | date:'medium'}}</h2>
+        <h2>Updated: {{selectedProduct.updated | date:'medium'}}</h2>
       </div>
     </div>
 	</ion-content>
