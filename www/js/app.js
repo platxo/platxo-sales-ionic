@@ -33,6 +33,7 @@ sales.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
 
     $rootScope.logout = function() {
+      debugger
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('allBusiness');

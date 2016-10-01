@@ -65,17 +65,12 @@ saleControllers.controller('saleController', [
                               $scope.services[x].qtySelected = 0
                               $scope.services[x].isChecked = false
                             }
-                          }, function (error) {
-
                           })
-                    }, function (error) {
-
                     })
-              }, function (error) {
-
               })
         }, function (error) {
           if (error.data.detail === "Signature has expired.")
+            $rootScope.logout()
             $scope.showAlertExpired()
           $scope.sales = []
         })

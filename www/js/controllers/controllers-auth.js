@@ -34,12 +34,15 @@ authControllers.controller('loginController', [
   'loginService',
   '$rootScope',
   '$location',
+  '$state',
   function(
     $scope,
     loginService,
     $rootScope,
-    $location
+    $location,
+    $state
   ) {
+    if (localStorage.item != '' || localStorage.length === 0) $state.go('tab.sale-list');
     $scope.user = {}
 
     $scope.create = function () {
