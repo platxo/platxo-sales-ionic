@@ -106,7 +106,6 @@ saleControllers.controller('saleController', [
     });
 
     $scope.selectCustomer = function(customer) {
-      debugger
       var haveCRMcount = function () {
         if(customer.points.length > 0) {
           for (x in customer.points) {
@@ -120,9 +119,9 @@ saleControllers.controller('saleController', [
         }
       }
       $scope.showRangePoints = haveCRMcount()
-      $scope.sale.customerName = customer.user;
-      $rootScope.currentCustomer = customer.id;
-      $scope.customerModal.hide();
+      $scope.sale.customerName = customer.extra.customer_name
+      $rootScope.currentCustomer = customer.id
+      $scope.customerModal.hide()
     };
 
     /* ADD CUSTOMER TO BUSINESS */
