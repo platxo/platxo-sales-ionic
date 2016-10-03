@@ -30,7 +30,6 @@ businessControllers.controller('businessController', [
         })
 
 	  $scope.update = function () {
-      debugger
 	    businessService.update($scope.bs)
         .$promise
           .then(function (res) {
@@ -48,6 +47,8 @@ businessControllers.controller('businessController', [
 	  }
 
     $scope.selectBs = function(bs) {
+      $rootScope.maxPercentPoints = bs.crm_points
+      localStorage.setItem("maxPercentPoints", JSON.stringify($rootScope.maxPercentPoints));
       $rootScope.currentBusiness = bs.id;
       localStorage.setItem("currentBusiness", JSON.stringify($rootScope.currentBusiness));
       $state.go('tab.sale-list');

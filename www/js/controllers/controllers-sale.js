@@ -32,6 +32,8 @@ saleControllers.controller('saleController', [
     $scope.cart.discount = 0
     $scope.cart.tax = 0
     $scope.cart.totalCart = 0
+    $scope.cart.points = 0
+    $scope.points = 0
     $scope.filters = {}
 
 
@@ -106,11 +108,18 @@ saleControllers.controller('saleController', [
     });
 
     $scope.selectCustomer = function(customer) {
+      $rootScope.currentCustomer = customer
       var haveCRMcount = function () {
         if(customer.points.length > 0) {
           for (x in customer.points) {
-            if (customer.points[x].business === $rootScope.currentBusiness)
+            if (customer.points[x].business === $rootScope.currentBusiness) {
+              $scope.points = customer.points[x].balance
+              $rootScope.maxPercentPoints = $rootScope.maxPercentPoints || JSON.parse(localStorage.getItem("maxPercentPoints"))
+              $scope.maxRangePoints = $scope.cart.totalCart * $rootScope.maxPercentPoints /100
+              if ($scope.maxRangePoints > $scope.points)
+                $scope.maxRangePoints = $scope.points
               return true;
+            }
           }
         } else {
           // debugger
@@ -453,6 +462,10 @@ saleControllers.controller('saleController', [
         $scope.cart.acumTax = (acum * tax) / 100
         $scope.cart.tax += $scope.cart.acumTax
       }
+      $rootScope.maxPercentPoints = $rootScope.maxPercentPoints || JSON.parse(localStorage.getItem("maxPercentPoints"))
+      $scope.maxRangePoints = $scope.cart.totalCart * $rootScope.maxPercentPoints /100
+      if ($scope.maxRangePoints > $scope.points)
+        $scope.maxRangePoints = $scope.points
       return true
     }
 

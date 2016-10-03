@@ -90,18 +90,18 @@
             Points
           </div>
           <div class="col col-25">
-            {{cart.discount}} %
+            <!-- {{cart.points}} -->
           </div>
           <div class="col col-25">
-            {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+            {{ cart.points | currency : $ : 0 }}
           </div>
         </div>
 
         <!-- RANGE POINT CRM -->
-        <div class="item range range-positive">
+        <div class="item range range-balanced">
           <i>0</i>
-          <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.points">
-          <i>100</i>
+          <input type="range" name="points" min="0.00" max="{{maxRangePoints}}" value="0" ng-model="cart.points">
+          <i>{{points}}</i>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
           Total
         </div>
         <div class="col col-25">
-          {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 + cart.tax | currency : $ : 0 }}
+          {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 + cart.tax - cart.points | currency : $ : 0 }}
         </div>
       </div>
 

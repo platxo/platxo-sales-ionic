@@ -37,6 +37,7 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
       localStorage.removeItem('user');
       localStorage.removeItem('allBusiness');
       localStorage.removeItem('currentBusiness');
+      localStorage.removeItem('maxPercentPoints');
       if (!forced) $location.path('/login');
     };
 
