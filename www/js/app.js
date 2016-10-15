@@ -28,6 +28,7 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
   }
+  debugger
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';

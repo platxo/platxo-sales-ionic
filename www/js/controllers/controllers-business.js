@@ -57,7 +57,6 @@ businessControllers.controller('businessController', [
 	  }
 
     $scope.selectBs = function(bs) {
-      debugger
       $rootScope.maxPercentPoints = bs.crm_points
       localStorage.setItem("maxPercentPoints", JSON.stringify($rootScope.maxPercentPoints));
       $rootScope.currentBusiness = bs.id;
