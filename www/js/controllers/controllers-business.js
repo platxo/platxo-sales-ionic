@@ -22,6 +22,13 @@ businessControllers.controller('businessController', [
       .$promise
         .then(function(res) {
           $rootScope.business = res;
+          for (var i = $rootScope.business.length - 1; i >= 0; i--) {
+            for (var j = $rootScope.businessUser.length - 1; j >= 0; j--) {
+              if (!($rootScope.business[i].id === $rootScope.businessUser[j].id) && !($rootScope.business[i].name === $rootScope.businessUser[j].name)) {
+                $rootScope.business.splice(i,1)
+              }
+            }
+          }
           localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
         }, function (error) {
           if (error.data.detail === "Signature has expired.") {
@@ -47,6 +54,7 @@ businessControllers.controller('businessController', [
 	  }
 
     $scope.selectBs = function(bs) {
+      debugger
       $rootScope.maxPercentPoints = bs.crm_points
       localStorage.setItem("maxPercentPoints", JSON.stringify($rootScope.maxPercentPoints));
       $rootScope.currentBusiness = bs.id;

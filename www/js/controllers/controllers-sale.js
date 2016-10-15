@@ -292,6 +292,7 @@ saleControllers.controller('saleController', [
         return obj
       })
       // Construct order post
+      debugger
       var order = {
         order: {
           payment_method : "cash",
@@ -300,7 +301,8 @@ saleControllers.controller('saleController', [
           employee:  $rootScope.currentEmployee.id,
           products: products,
           services: services,
-          discount: cart.discount
+          total_discount: cart.discount,
+          customer_points: cart.points
         }
       }
       // Create order

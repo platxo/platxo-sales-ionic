@@ -32,12 +32,14 @@ authControllers.controller('signupController', [
 authControllers.controller('loginController', [
   '$scope',
   'loginService',
+  'signupService',
   '$rootScope',
   '$location',
   '$state',
   function(
     $scope,
     loginService,
+    signupService,
     $rootScope,
     $location,
     $state
@@ -52,8 +54,15 @@ authControllers.controller('loginController', [
             $scope.user = {};
             $rootScope.token = response.token;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
-            localStorage.setItem('user', JSON.stringify(response.user));
+            debugger
+            if (response.user.is_employee) {
+              $rootScope.businessUser = response.user.employee.business
+            } else if (!response.user.is_employee) {
+              response.user.is_employee = true;
+              signupService.update(response.user)
+            }
             $rootScope.currentUser = response.user;
+            localStorage.setItem('user', JSON.stringify(response.user));
             $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
             $location.path('/business-list');
           }, function (reason) {

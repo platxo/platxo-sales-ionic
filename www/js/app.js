@@ -26,6 +26,7 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
   $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
+  debugger
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
   $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}

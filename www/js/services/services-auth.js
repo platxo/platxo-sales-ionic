@@ -5,7 +5,8 @@ var loginUrl = '/api-token-auth/';
 
 authServices.service('signupService', [ '$resource', '$rootScope', function ($resource,$rootScope) {
   return $resource($rootScope.version + $rootScope.baseUrl + signupUrl +'?format=json', {},{
-    create: { method: 'POST' }
+    create: { method: 'POST' },
+    update: { method: 'PUT', headers: $rootScope.headersJWT }
   })
 }])
 
