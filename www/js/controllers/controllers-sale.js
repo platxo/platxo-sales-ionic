@@ -135,6 +135,7 @@ saleControllers.controller('saleController', [
 
     /* ADD CUSTOMER TO BUSINESS */
     $scope.addCustomer = function (customer) {
+      debugger
       $rootScope.business = $rootScope.business || JSON.parse(localStorage.getItem("allBusiness"));
       for (x in $rootScope.business) {
         if ($rootScope.currentBusiness === $rootScope.business[x].id) {

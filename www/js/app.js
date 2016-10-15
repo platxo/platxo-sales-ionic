@@ -6,6 +6,9 @@
 var sales = angular.module('sales', [
   'ionic',
   'ngCordova',
+  'authControllers',
+  'authServices',
+  'authRoutes',
   'saleControllers',
   'saleRoutes',
   'saleServices',
@@ -15,21 +18,19 @@ var sales = angular.module('sales', [
   'serviceServices',
   'businessControllers',
   'businessRoutes',
-  'businessServices',
-  'authControllers',
-  'authServices',
-  'authRoutes'
+  'businessServices'
 ])
 
 sales.run(function($ionicPlatform, $rootScope, $location, $state) {
   $rootScope.version = 'http://development.';
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
-  $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+  if (localStorage.token) {
+    $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+  }
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
-  debugger
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
-  $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
   $ionicPlatform.ready(function() {
 

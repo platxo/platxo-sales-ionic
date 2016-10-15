@@ -21,14 +21,17 @@ businessControllers.controller('businessController', [
     businessService.list()
       .$promise
         .then(function(res) {
-          $rootScope.business = res;
-          for (var i = $rootScope.business.length - 1; i >= 0; i--) {
-            for (var j = $rootScope.businessUser.length - 1; j >= 0; j--) {
-              if (!($rootScope.business[i].id === $rootScope.businessUser[j].id) && !($rootScope.business[i].name === $rootScope.businessUser[j].name)) {
-                $rootScope.business.splice(i,1)
+          if($rootScope.businessUser.length > 0) {
+            $rootScope.business = res;
+            for (var i = $rootScope.business.length - 1; i >= 0; i--) {
+              for (var j = $rootScope.businessUser.length - 1; j >= 0; j--) {
+                if (!($rootScope.business[i].id === $rootScope.businessUser[j].id) && !($rootScope.business[i].name === $rootScope.businessUser[j].name)) {
+                  $rootScope.business.splice(i,1)
+                }
               }
             }
-          }
+          } else if ($rootScope.businessUser.length === 0) $rootScope.business = []
+
           localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
         }, function (error) {
           if (error.data.detail === "Signature has expired.") {
@@ -42,7 +45,7 @@ businessControllers.controller('businessController', [
           .then(function (res) {
       	    $scope.business = businessService.list();
       	    $state.go('business-list');
-          }, function (res) {
+          }, function (error) {
             if (error.data.detail === "Signature has expired.") {
               debugger
             }
