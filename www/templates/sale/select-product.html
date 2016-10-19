@@ -4,34 +4,13 @@
   </ion-header-bar>
   <ion-content>
     <search></search>
-    <!-- <ul class="list">
-      <li ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-checkbox">
-        <div class="row">
-           <p>{{product.name}}</p>
-          <div class="col col-50">
-           <label class="checkbox">
-             <input type="checkbox" ng-click="addItem(product)">
-           </label>
-          </div>
-          <div class="col">
-            <p>{{product.location}}</p>
-          </div>
-          <div class="col">
-            <p>{{product.section}}</p>
-          </div>
-        </div>
-      </li>
-    </ul> -->
-
-
     <ion-list>
       <div ng-repeat="product in products | orderBy:'name' | filter:search.value">
-        <!-- <div class="col col-50"> -->
-          <ion-checkbox ng-click="addItem(product)" ng-model="product.isChecked">
-            <p>{{product.name}}</p>
-            <p>{{product.retail_price | currency : $ : 0}}</p>
-          </ion-checkbox>
-        <!-- </div> -->
+        <ion-checkbox ng-click="addItem(product)" ng-model="product.isChecked">
+          <p>{{product.extra.product_type_name}}</p>
+          <p>{{product.name}}</p>
+          <p>{{product.retail_price | currency : $ : 0}}</p>
+        </ion-checkbox>
       </div>
     </ion-list>
   </ion-content>

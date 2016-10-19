@@ -58,6 +58,7 @@ saleControllers.controller('saleController', [
                         $scope.products[x].qtySelected = 0
                         $scope.products[x].isChecked = false
                       }
+                      debugger
                       /* LIST SERVICES */
                       serviceService.list()
                         .$promise
