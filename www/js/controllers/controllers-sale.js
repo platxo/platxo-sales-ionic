@@ -30,6 +30,7 @@ saleControllers.controller('saleController', [
     $scope.cart.products = []
     $scope.cart.services = []
     $scope.cart.discount = 0
+    $scope.cart.discountValue = 0
     $scope.cart.tax = 0
     $scope.cart.totalCart = 0
     $scope.cart.points = 0
@@ -58,7 +59,7 @@ saleControllers.controller('saleController', [
                         $scope.products[x].qtySelected = 0
                         $scope.products[x].isChecked = false
                       }
-                      debugger
+                      // debugger
                       /* LIST SERVICES */
                       serviceService.list()
                         .$promise
@@ -73,7 +74,7 @@ saleControllers.controller('saleController', [
               })
         }, function (error) {
           if (error.data.detail === "Signature has expired.") {
-            $rootScope.logout(true)
+            // $rootScope.logout(true)
             $scope.showAlertExpired()
           }
           $scope.sales = []
@@ -136,7 +137,6 @@ saleControllers.controller('saleController', [
 
     /* ADD CUSTOMER TO BUSINESS */
     $scope.addCustomer = function (customer) {
-      debugger
       $rootScope.business = $rootScope.business || JSON.parse(localStorage.getItem("allBusiness"));
       for (x in $rootScope.business) {
         if ($rootScope.currentBusiness === $rootScope.business[x].id) {
@@ -294,7 +294,7 @@ saleControllers.controller('saleController', [
         return obj
       })
       // Construct order post
-      debugger
+      // debugger
       var order = {
         order: {
           payment_method : "cash",

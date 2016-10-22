@@ -28,7 +28,6 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
   }
-  debugger
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
@@ -104,7 +103,6 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
     restrict: 'E',
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
-        // debugger
       $scope.showAlertExpired = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Expired Session!',
@@ -113,7 +111,7 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
 
         alertPopup.then(function(res) {
           console.log('Thank you for not eating my delicious ice cream cone');
-          $location.path('/login');
+          $rootScope.logout()
         })
       }
     }
@@ -125,7 +123,6 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
   return {
     restrict: 'E',
     controller: function ($scope) {
-        // debugger
       $scope.showAlertCreateAccountCRM = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Create account CRM',

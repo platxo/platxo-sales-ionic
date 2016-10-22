@@ -30,3 +30,38 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .hidden {
 	display: none;
 }
+
+.qty-acum {
+  top: 33% !important;
+}
+
+.sale-button-add, .sale-button-remove {
+  top: 6px !important;
+}
+
+.toggle-sales {
+  position: absolute !important;
+  top: 24% !important;
+}
+
+.boxDiscount-cashPercent {
+	position: absolute;
+	background: #2196F3;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 40px;
+	text-align: center;
+	color: white;
+	> div {
+		position: absolute;
+		top: 30%;
+		left: 34%;
+		font-weight: bold;
+		font-size: 1.2em;
+	}
+}
+
+.offPadding-bottom {
+	padding-bottom: 0;
+}

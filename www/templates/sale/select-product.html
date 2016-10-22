@@ -6,10 +6,17 @@
     <search></search>
     <ion-list>
       <div ng-repeat="product in products | orderBy:'name' | filter:search.value">
+        <!-- <img ng-src="{{product.extra.picture_url}}"> -->
         <ion-checkbox ng-click="addItem(product)" ng-model="product.isChecked">
           <p>{{product.extra.product_type_name}} {{product.name}} {{product.extra.brand_name}}</p>
           <p>{{product.retail_price | currency : $ : 0}}</p>
         </ion-checkbox>
+        <!-- <li class="item item-checkbox">
+          <p>{{product.extra.product_type_name}} {{product.name}} {{product.extra.brand_name}}</p>
+          <label class="checkbox">
+            <input type="checkbox">
+          </label>
+        </li> -->
       </div>
     </ion-list>
   </ion-content>

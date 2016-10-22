@@ -19,6 +19,8 @@
         <div class="col col-40">
           <div>
             {{item.item.extra.product_type_name}}
+          </div>
+          <div>
             {{item.item.name}}
           </div>
           <div>
@@ -26,13 +28,13 @@
           </div>
         </div>
         <div class="col col-15 center" ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">
-          <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(item.item,null)"></button>
+          <button type="button" class="button icon ion-plus-circled button-light sale-button-remove" ng-click="addItem(item.item,null)"></button>
         </div>
         <div class="col col-15 center" ng-if="item.item.qtySelected > 0">
-          <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(item.item,null)"></button>
+          <button type="button" class="button icon ion-minus-circled button-light sale-button-add" ng-click="removeItem(item.item,null)"></button>
         </div>
         <div class="col">
-          <span class="badge badge-positive">{{item.qty}}</span>
+          <span class="badge badge-positive sale-qty-acum">{{item.qty}}</span>
         </div>
       </div>
 
@@ -72,24 +74,53 @@
         <div class="col col-50">
           Discount
         </div>
-        <div class="col col-25">
+        <div class="col col-25" ng-if="toggleCashPercent">
           {{cart.discount}} %
+        </div>
+        <div class="col col-25" ng-if="!toggleCashPercent">
+          <div ng-if="cart.totalCart > 0">
+            {{ (cart.discountValue * 100) / cart.totalCart | currency : '' : 2 }} %
+          </div>
+          <div ng-if="cart.totalCart == 0">
+            0 %
+          </div>
         </div>
         <div class="col col-25">
           {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
         </div>
       </div>
 
-      <!-- RANGE DISCOUNT -->
-      <div class="item range range-positive">
-        <i>0</i>
-        <input type="range" name="discount" min="0" max="100" value="0" ng-model="cart.discount">
-        <i>100</i>
+      <!-- CASH OR PERCENT DISCOUNT -->
+      <div class="row item offPadding-bottom">
+        <div class="col col-20">
+          <!-- <div class="boxDiscount-cashPercent positive">
+            <div ng-if="toggleCashPercent">%</div>
+            <div ng-if="!toggleCashPercent">$</div>
+          </div> -->
+          <button ng-if="toggleCashPercent" class="button icon ">%</button>
+          <button ng-if="!toggleCashPercent" class="button icon ion-social-usd"></button>
+        </div>
+        <div class="col col-60">
+          <label ng-if="toggleCashPercent" class="item-input">
+            <input type="text" ng-model="cart.discount">
+          </label>
+          <label ng-if="!toggleCashPercent" class="item-input">
+            <input type="text" ng-model="cart.discountValue">
+          </label>
+        </div>
+        <div class="col col-20">
+          <label class="toggle toggle-sales">
+            <input type="checkbox" ng-model="toggleCashPercent">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
       </div>
 
       <div class="spacer" style="height:20px;"></div>
 
-      <div ng-if="showRangePoints">
+      <div ng-if="showCashPoints">
         <!-- POINTS -->
         <div class="row item item-light">
           <div class="col col-50">
