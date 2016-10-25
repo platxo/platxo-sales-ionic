@@ -75,29 +75,35 @@
           Discount
         </div>
         <div class="col col-25" ng-if="toggleCashPercent">
-          {{cart.discount}} %
+          {{cart.discount | currency : '' : 2}} %
         </div>
         <div class="col col-25" ng-if="!toggleCashPercent">
-          <div ng-if="cart.totalCart > 0">
+          <div ng-if="cart.totalCart > 0 && cart.discountValue < cart.totalCart">
             {{ (cart.discountValue * 100) / cart.totalCart | currency : '' : 2 }} %
           </div>
           <div ng-if="cart.totalCart == 0">
-            0 %
+            0.00 %
           </div>
         </div>
         <div class="col col-25">
-          {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+          <div ng-if="toggleCashPercent">
+            {{ (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+          </div>
+          <div ng-if="!toggleCashPercent">
+            <div ng-if="cart.totalCart > 0 && cart.discountValue < cart.totalCart">
+              {{ cart.discountValue | currency : $ : 0 }}
+            </div>
+            <div ng-if="cart.totalCart == 0">
+              $ 0
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- CASH OR PERCENT DISCOUNT -->
       <div class="row item offPadding-bottom">
         <div class="col col-20">
-          <!-- <div class="boxDiscount-cashPercent positive">
-            <div ng-if="toggleCashPercent">%</div>
-            <div ng-if="!toggleCashPercent">$</div>
-          </div> -->
-          <button ng-if="toggleCashPercent" class="button icon ">%</button>
+          <button ng-if="toggleCashPercent" class="button icon ion-percent">%</button>
           <button ng-if="!toggleCashPercent" class="button icon ion-social-usd"></button>
         </div>
         <div class="col col-60">
@@ -110,7 +116,7 @@
         </div>
         <div class="col col-20">
           <label class="toggle toggle-sales">
-            <input type="checkbox" ng-model="toggleCashPercent">
+            <input type="checkbox" ng-model="toggleCashPercent" ng-change="cashPercentToggle()">
             <div class="track">
               <div class="handle"></div>
             </div>

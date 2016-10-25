@@ -9821,8 +9821,8 @@ a.button {
 .hidden {
   display: none; }
 
-.qty-acum {
-  top: 33% !important; }
+.sale-qty-acum {
+  top: 40% !important; }
 
 .sale-button-add, .sale-button-remove {
   top: 6px !important; }
@@ -9830,6 +9830,10 @@ a.button {
 .toggle-sales {
   position: absolute !important;
   top: 24% !important; }
+
+.ion-percent {
+  font-weight: 700;
+  font-size: 1.45em; }
 
 .boxDiscount-cashPercent {
   position: absolute;

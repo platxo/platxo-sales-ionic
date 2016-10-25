@@ -24,7 +24,6 @@ saleControllers.controller('saleController', [
     $rootScope
   )
   {
-
     $scope.sale = {}
     $scope.cart = {}
     $scope.cart.products = []
@@ -36,7 +35,6 @@ saleControllers.controller('saleController', [
     $scope.cart.points = 0
     $scope.points = 0
     $scope.filters = {}
-
 
     /* LIST SALES */
     saleService.list()
@@ -59,7 +57,6 @@ saleControllers.controller('saleController', [
                         $scope.products[x].qtySelected = 0
                         $scope.products[x].isChecked = false
                       }
-                      // debugger
                       /* LIST SERVICES */
                       serviceService.list()
                         .$promise
@@ -74,7 +71,6 @@ saleControllers.controller('saleController', [
               })
         }, function (error) {
           if (error.data.detail === "Signature has expired.") {
-            // $rootScope.logout(true)
             $scope.showAlertExpired()
           }
           $scope.sales = []
@@ -279,6 +275,11 @@ saleControllers.controller('saleController', [
         }
       }
       $scope.listSales = $rootScope.salesWeek;
+    }
+
+    $scope.cashPercentToggle = function () {
+      $scope.cart.discount = 0
+      $scope.cart.discountValue = 0
     }
 
     /* CREATE SALE */
