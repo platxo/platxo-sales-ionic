@@ -21,13 +21,14 @@ var sales = angular.module('sales', [
   'businessServices'
 ])
 
-sales.run(function($ionicPlatform, $rootScope, $location, $state) {
+sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
   $rootScope.version = 'http://development.';
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
-  if (localStorage.token) {
-    $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
-    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
-  }
+  // if (localStorage.token) {
+  //   $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+  //   $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+  // }
+  $http.defaults.headers.common['Authorization'] = 'JWT ' + JSON.parse(localStorage.getItem("token"));
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
@@ -40,17 +41,16 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
       localStorage.removeItem('allBusiness');
       localStorage.removeItem('currentBusiness');
       localStorage.removeItem('maxPercentPoints');
-      if (!forced) $location.path('/login');
+      $http.defaults.headers.common['Authorization'] = undefined;
+      $ionicHistory.clearCache().then(function() {
+        $ionicHistory.clearHistory();
+        $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
+        $state.go('login');
+      })
     };
 
     if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
@@ -104,6 +104,7 @@ sales.run(function($ionicPlatform, $rootScope, $location, $state) {
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
       $scope.showAlertExpired = function() {
+        $rootScope.goToLogin = true;
         var alertPopup = $ionicPopup.alert({
           title: 'Expired Session!',
           template: 'Login Please'

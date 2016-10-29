@@ -14,6 +14,7 @@ authRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
     })
     .state('login', {
       url: '/login',
+      cache: 'false',
       templateUrl: 'templates/auth/auth-login.html',
       controller: 'loginController'
     })

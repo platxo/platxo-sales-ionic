@@ -36,13 +36,15 @@ authControllers.controller('loginController', [
   '$rootScope',
   '$location',
   '$state',
+  '$http',
   function(
     $scope,
     loginService,
     signupService,
     $rootScope,
     $location,
-    $state
+    $state,
+    $http
   ) {
     if (localStorage.token) $state.go('tab.sale-list');
     $scope.user = {}
@@ -51,13 +53,13 @@ authControllers.controller('loginController', [
       loginService.create($scope.user)
         .$promise
           .then(function (response) {
+            $rootScope.goToLogin = false;
             $scope.user = {};
             $rootScope.token = response.token;
-            $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
             localStorage.setItem("token", JSON.stringify($rootScope.token));
-            $rootScope.currentUser = response.user;
             localStorage.setItem('user', JSON.stringify($rootScope.currentUser));
-            debugger
+            $http.defaults.headers.common['Authorization'] = 'JWT ' + $rootScope.token;
+            $rootScope.currentUser = response.user;
             if (response.user.is_employee) {
               $rootScope.businessUser = response.user.employee.business
               $location.path('/business-list');
@@ -78,7 +80,7 @@ authControllers.controller('loginController', [
                   })
             }
           }, function (reason) {
-            $scope.user = {};
+            $scope.user.password = "";
             $scope.errors = reason;
           })
     }

@@ -18,28 +18,32 @@ businessControllers.controller('businessController', [
     businessService
   )
   {
-    businessService.list()
-      .$promise
-        .then(function(res) {
-          if ($rootScope.businessUser) {
-            if($rootScope.businessUser.length > 0) {
-              $rootScope.business = res;
-              for (var i = $rootScope.business.length - 1; i >= 0; i--) {
-                for (var j = $rootScope.businessUser.length - 1; j >= 0; j--) {
-                  if (!($rootScope.business[i].id === $rootScope.businessUser[j].id) && !($rootScope.business[i].name === $rootScope.businessUser[j].name)) {
-                    $rootScope.business.splice(i,1)
+    debugger
+    if(!$rootScope.goToLogin) {
+      businessService.list()
+        .$promise
+          .then(function(res) {
+            if ($rootScope.businessUser) {
+              if($rootScope.businessUser.length > 0) {
+                $rootScope.business = res;
+                for (var i = $rootScope.business.length - 1; i >= 0; i--) {
+                  for (var j = $rootScope.businessUser.length - 1; j >= 0; j--) {
+                    if (!($rootScope.business[i].id === $rootScope.businessUser[j].id) && !($rootScope.business[i].name === $rootScope.businessUser[j].name)) {
+                      $rootScope.business.splice(i,1)
+                    }
                   }
                 }
-              }
-            } else if ($rootScope.businessUser.length === 0) $rootScope.business = []
-          }
+              } else if ($rootScope.businessUser.length === 0) $rootScope.business = []
+            }
 
-          localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-          }
-        })
+            localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
+          }, function (error) {
+            if (error.data.detail === "Signature has expired.") {
+              debugger
+              if(!$rootScope.goToLogin) $scope.showAlertExpired()
+            }
+          })
+    }
 
 	  $scope.update = function () {
 	    businessService.update($scope.bs)
@@ -50,6 +54,9 @@ businessControllers.controller('businessController', [
           }, function (error) {
             if (error.data.detail === "Signature has expired.") {
               debugger
+              if(!$rootScope.goToLogin) {
+                $scope.showAlertExpired()
+              }
             }
           })
 	  }
@@ -66,8 +73,37 @@ businessControllers.controller('businessController', [
       $state.go('tab.sale-list');
     }
 
-    $scope.$on('$stateChangeSuccess', function() {
-	    $scope.business = businessService.list();
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+      debugger
+      if (toState.name === 'business-list') {
+        if (!$rootScope.goToLogin) {
+    	    businessService.list()
+            .$promise
+              .then(function(res) {
+                if ($rootScope.businessUser) {
+                  if($rootScope.businessUser.length > 0) {
+                    $rootScope.business = res;
+                    for (var i = $rootScope.business.length - 1; i >= 0; i--) {
+                      for (var j = $rootScope.businessUser.length - 1; j >= 0; j--) {
+                        if (!($rootScope.business[i].id === $rootScope.businessUser[j].id) && !($rootScope.business[i].name === $rootScope.businessUser[j].name)) {
+                          $rootScope.business.splice(i,1)
+                        }
+                      }
+                    }
+                  } else if ($rootScope.businessUser.length === 0) $rootScope.business = []
+                }
+
+                localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
+              }, function (error) {
+                if (error.data.detail === "Signature has expired.") {
+                  debugger
+                  if(!$rootScope.goToLogin) {
+                    $scope.showAlertExpired()
+                  }
+                }
+              })
+        }
+      }
 	  })
 
 	}

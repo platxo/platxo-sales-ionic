@@ -37,44 +37,48 @@ saleControllers.controller('saleController', [
     $scope.filters = {}
 
     /* LIST SALES */
-    saleService.list()
-      .$promise
-        .then(function (res) {
-          $rootScope.sales = res
-          $rootScope.listSales = res
-          /* LIST CUSTOMERS */
-          customerService.list()
-            .$promise
-              .then(function (res) {
-                $scope.customers = res
-
-                /* LIST PRODUCTS */
-                productService.list()
-                  .$promise
-                    .then(function (res) {
-                      $scope.products = res
-                      for (x in $scope.products) {
-                        $scope.products[x].qtySelected = 0
-                        $scope.products[x].isChecked = false
-                      }
-                      /* LIST SERVICES */
-                      serviceService.list()
-                        .$promise
-                          .then(function (res) {
-                            $scope.services = res
-                            for (x in $scope.services) {
-                              $scope.services[x].qtySelected = 0
-                              $scope.services[x].isChecked = false
-                            }
-                          })
-                    })
-              })
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            $scope.showAlertExpired()
-          }
-          $scope.sales = []
-        })
+    debugger
+    if(!$rootScope.goToLogin) {
+      saleService.list()
+        .$promise
+          .then(function (res) {
+            $rootScope.sales = res
+            $rootScope.listSales = res
+            /* LIST CUSTOMERS */
+            customerService.list()
+              .$promise
+                .then(function (res) {
+                  $scope.customers = res
+                  /* LIST PRODUCTS */
+                  productService.list()
+                    .$promise
+                      .then(function (res) {
+                        $scope.products = res
+                        for (x in $scope.products) {
+                          $scope.products[x].qtySelected = 0
+                          $scope.products[x].isChecked = false
+                        }
+                        /* LIST SERVICES */
+                        serviceService.list()
+                          .$promise
+                            .then(function (res) {
+                              $scope.services = res
+                              for (x in $scope.services) {
+                                $scope.services[x].qtySelected = 0
+                                $scope.services[x].isChecked = false
+                              }
+                            })
+                      })
+                })
+          }, function (error) {
+            if (error.data.detail === "Signature has expired.") {
+              if(!$rootScope.goToLogin) {
+                $scope.showAlertExpired()
+              }
+            }
+            $scope.sales = []
+          })
+    }
 
 /*
  *
@@ -211,7 +215,9 @@ saleControllers.controller('saleController', [
     });
 
     $scope.$on('$stateChangeSuccess', function() {
-      $scope.sales = saleService.list();
+      if (!$rootScope.goToLogin) {
+        $scope.sales = saleService.list();
+      }
     })
 
 /*
@@ -309,16 +315,18 @@ saleControllers.controller('saleController', [
         }
       }
       // Create order
-      saleService.create(order)
-        .$promise
-          .then(function(res) {
-            $scope.sales = saleService.list();
-            $state.go('tab.sale-list');
-          }, function (error) {
-            if (error.data.detail === "Signature has expired.") {
-              debugger
-            }
-          })
+      if(!$rootScope.goToLogin) {
+        saleService.create(order)
+          .$promise
+            .then(function(res) {
+              $scope.sales = saleService.list();
+              $state.go('tab.sale-list');
+            }, function (error) {
+              if (error.data.detail === "Signature has expired.") {
+                debugger
+              }
+            })
+      }
     }
 
     /* UPDATE SALE */
