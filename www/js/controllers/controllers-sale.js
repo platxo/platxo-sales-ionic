@@ -339,11 +339,18 @@ saleControllers.controller('saleController', [
         saleService.create(order)
           .$promise
             .then(function(res) {
-              $scope.sales = saleService.list();
+              saleService.list()
+                .$promise
+                  .then(function (res) {
+                    $rootScope.sales = res
+                    $rootScope.listSales = res
+                  })
               $state.go('tab.sale-list');
             }, function (error) {
               if (error.data.detail === "Signature has expired.") {
-                debugger
+                if(!$rootScope.goToLogin) {
+                  $scope.showAlertExpired()
+                }
               }
             })
       }
