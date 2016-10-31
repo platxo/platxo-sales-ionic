@@ -3,7 +3,7 @@
     <button class="button icon ion-person-add" ng-click="customerOpenModal(false)"></button>
   </ion-nav-buttons>
   <ion-content padding="true">
-		<form name="formCreateSale" ng-submit="create(cart)" class="list">
+		<form name="formCreateSale" ng-submit="validateOrder(cart) && create(cart)" class="list">
 
       <!-- SELECT CUSTOMER -->
       <div class="item item-input item-select" ng-click="customerOpenModal(true)">
@@ -180,7 +180,7 @@
       </div>
 
       <!-- SUBMIT FORM -->
-      <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
+      <button type="submit" ng-disabled="!formCreateSale.$valid" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
     <!-- <created-account-crm></created-account-crm> -->

@@ -168,8 +168,6 @@ saleControllers.controller('saleController', [
  *
  */
 
-    
-
     /* MODAL PRODUCT LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-product.html', {
       scope: $scope,
@@ -194,7 +192,6 @@ saleControllers.controller('saleController', [
  * SERVICES 
  *
  */
-
 
     /* MODAL SERVICE LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
@@ -296,6 +293,18 @@ saleControllers.controller('saleController', [
           cart.discount = (cart.discountValue * 100) / cart.totalCart
           // $scope.cart = cart;
         }
+      }
+    }
+
+    $scope.validateOrder = function (cart) {
+      debugger
+      if (cart.discount < 0 || cart.discount > 100) {
+        formCreateSale.$valid = false
+        return false
+      }
+      else {
+        formCreateSale.$valid = true
+        return true
       }
     }
 
