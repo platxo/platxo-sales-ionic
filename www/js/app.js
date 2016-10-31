@@ -24,10 +24,6 @@ var sales = angular.module('sales', [
 sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
   $rootScope.version = 'http://development.';
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
-  // if (localStorage.token) {
-  //   $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
-  //   $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
-  // }
   $http.defaults.headers.common['Authorization'] = 'JWT ' + JSON.parse(localStorage.getItem("token"));
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';

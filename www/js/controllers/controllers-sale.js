@@ -30,6 +30,7 @@ saleControllers.controller('saleController', [
     $scope.cart.services = []
     $scope.cart.discount = 0
     $scope.cart.discountValue = 0
+    $scope.toggleCashPercent = false
     $scope.cart.tax = 0
     $scope.cart.totalCart = 0
     $scope.cart.points = 0
@@ -226,7 +227,6 @@ saleControllers.controller('saleController', [
  *
  */
 
-
     $scope.dayFilter = function () {
       $rootScope.salesDay = []
       $rootScope.salesMonth = []
@@ -288,6 +288,17 @@ saleControllers.controller('saleController', [
       $scope.cart.discountValue = 0
     }
 
+    $scope.changeDiscount = function (toggleCashPercent, discount, cart) {
+      if (toggleCashPercent) {
+        cart.discount = discount
+      } else {
+        if(discount === cart.discountValue) {
+          cart.discount = (cart.discountValue * 100) / cart.totalCart
+          // $scope.cart = cart;
+        }
+      }
+    }
+
     /* CREATE SALE */
     $scope.create = function (cart) {
       // Parser products
@@ -301,7 +312,7 @@ saleControllers.controller('saleController', [
         return obj
       })
       // Construct order post
-      // debugger
+      debugger
       var order = {
         order: {
           payment_method : "cash",

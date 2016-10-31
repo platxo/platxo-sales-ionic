@@ -79,14 +79,9 @@
         <div class="col col-50">
           Discount
         </div>
-        <div class="col col-25" ng-if="toggleCashPercent">
-          <div ng-if="cart.totalCart > 0 && cart.discount < 100 && cart.discount > 0">
+        <div class="col col-25">
+          <div ng-if="cart.totalCart > 0 && cart.discount < cart.totalCart && cart.discount > 0 && !toggleCashPercent">
             {{cart.discount | currency : '' : 2}} %
-          </div>
-        </div>
-        <div class="col col-25" ng-if="!toggleCashPercent">
-          <div ng-if="cart.totalCart > 0 && cart.discountValue < cart.totalCart && cart.discountValue > 0">
-            {{ (cart.discountValue * 100) / cart.totalCart | currency : '' : 2 }} %
           </div>
           <div ng-if="cart.totalCart == 0">
             0.00 %
@@ -102,7 +97,7 @@
             </div>
           </div>
           <div ng-if="!toggleCashPercent">
-            <div ng-if="cart.totalCart > 0 && cart.discountValue < 100 && cart.discountValue > 0">
+            <div ng-if="cart.totalCart > 0 && cart.discount < 100 && cart.discount > 0">
               {{ cart.discountValue | currency : $ : 0 }}
             </div>
             <div ng-if="cart.totalCart == 0">
@@ -119,16 +114,13 @@
           <button ng-if="!toggleCashPercent" class="button icon ion-social-usd"></button>
         </div>
         <div class="col col-60">
-          <label ng-if="toggleCashPercent" class="item-input">
-            <input type="text" ng-model="cart.discount">
-          </label>
-          <label ng-if="!toggleCashPercent" class="item-input">
-            <input type="text" ng-model="cart.discountValue">
+          <label class="item-input">
+            <input type="text" ng-change="changeDiscount(toggleCashPercent, cart.discountValue, cart)" ng-model="cart.discountValue">
           </label>
         </div>
         <div class="col col-20">
           <label class="toggle toggle-sales">
-            <input type="checkbox" ng-model="toggleCashPercent" ng-change="cashPercentToggle()">
+            <input type="checkbox" ng-model="toggleCashPercent" ng-change="cashPercentToggle(cart)">
             <div class="track">
               <div class="handle"></div>
             </div>

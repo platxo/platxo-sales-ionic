@@ -56,10 +56,10 @@ authControllers.controller('loginController', [
             $rootScope.goToLogin = false;
             $scope.user = {};
             $rootScope.token = response.token;
+            $rootScope.currentUser = response.user;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
             localStorage.setItem('user', JSON.stringify($rootScope.currentUser));
             $http.defaults.headers.common['Authorization'] = 'JWT ' + $rootScope.token;
-            $rootScope.currentUser = response.user;
             if (response.user.is_employee) {
               $rootScope.businessUser = response.user.employee.business
               $location.path('/business-list');
