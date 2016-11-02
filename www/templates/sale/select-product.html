@@ -5,7 +5,7 @@
   <ion-content>
     <search></search>
     <ion-list>
-      <div ng-repeat="product in products | orderBy:'name' | filter:search.value">
+      <div collection-repeat="product in products | orderBy:'name' | filter:search.value">
         <!-- <img ng-src="{{product.extra.picture_url}}"> -->
         <ion-checkbox ng-click="addItem(product)" ng-model="product.isChecked">
           <p>{{product.extra.product_type_name}} {{product.name}} {{product.extra.brand_name}}</p>

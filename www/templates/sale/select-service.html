@@ -5,7 +5,7 @@
   <ion-content padding="true">
     <search></search>
     <ion-list>
-      <div ng-repeat="service in services | orderBy:'name' | filter:search.value">
+      <div collection-repeat="service in services | orderBy:'name' | filter:search.value">
         <!-- <div class="col col-50"> -->
           <ion-checkbox ng-click="addItem(null,service)" ng-model="service.isChecked">
             <p>{{service.name}}</p>

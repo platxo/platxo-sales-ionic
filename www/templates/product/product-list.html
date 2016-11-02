@@ -7,7 +7,7 @@
 	<ion-content padding="true">
 		<ion-list>
 			<search></search>
-			<ion-item ng-repeat="product in products | orderBy:'name' | filter:search.value"
+			<ion-item collection-repeat="product in products | orderBy:'name' | filter:search.value"
 								class="item item-button-right item-thumbnail-left"
 								ng-click="detail(product)" >
 				<img ng-src="{{product.picture_url}}">

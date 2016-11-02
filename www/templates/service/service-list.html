@@ -7,7 +7,7 @@
 	<ion-content padding="true">
 		<ion-list>
 			<search></search>
-			<ion-item ng-repeat="service in services | orderBy:'name' | filter:search.value"
+			<ion-item collection-repeat="service in services | orderBy:'name' | filter:search.value"
 								class="item item-button-right item-thumbnail-left"
 								ng-click="detail(service)" >
 				<img ng-src="{{service.picture_url}}">
