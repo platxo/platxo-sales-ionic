@@ -66,7 +66,7 @@
         </div>
         <div class="col col-25">
           <div ng-if="cart.discount >= 0 && cart.discount <= 100">
-            {{ cart.totalCart - (cart.totalCart * cart.discount) / 100 | currency : $ : 0 }}
+            {{ cart.totalCart | currency : $ : 0 }}
           </div>
           <div ng-if="cart.discount < 0 || cart.discount > 100">
             $ 0

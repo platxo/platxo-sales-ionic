@@ -317,7 +317,7 @@ saleControllers.controller('saleController', [
       })
       // Parser services
       var services = cart.services.map(function (service) {
-        var obj = {id: service.item.id, qty: service.qty}
+        var obj = {id: service.item.id, qty: service.item.qtySelected}
         return obj
       })
       // Construct order post
@@ -339,6 +339,7 @@ saleControllers.controller('saleController', [
         saleService.create(order)
           .$promise
             .then(function(res) {
+              debugger
               saleService.list()
                 .$promise
                   .then(function (res) {
