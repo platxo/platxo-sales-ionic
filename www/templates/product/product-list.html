@@ -10,8 +10,11 @@
 			<ion-item ng-repeat="product in products | orderBy:'name' | filter:search.value"
 								class="item item-button-right item-thumbnail-left"
 								ng-click="detail(product)" >
-				<img ng-src="{{product.extra.picture_url}}">
+				<img ng-src="{{product.picture_url}}">
 				<h2>{{product.name}}</h2>
+				<h4>{{product.product_type_name}} | {{product.brand_name}}</h4>
+				<h4>{{product.product_category_name}}</h4>
+				<h4>{{product.quantity}}</h4>
 			</ion-item>
 		</ion-list>
 	</ion-content>
