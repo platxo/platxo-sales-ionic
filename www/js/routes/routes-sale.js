@@ -25,7 +25,7 @@ saleRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-sales': {
           templateUrl: 'templates/sale/sale-create.html',
-          controller: 'saleController'
+          controller: 'saleCreateCtrl'
         }
       }
     })

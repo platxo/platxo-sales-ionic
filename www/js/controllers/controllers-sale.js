@@ -2,7 +2,109 @@ var saleControllers = angular.module('saleControllers', []);
 
 saleControllers.controller('saleController', [
   '$scope',
-  '$stateParams',
+  '$state',
+  'saleService',
+  '$rootScope',
+  function (
+    $scope,
+    $state,
+    saleService,
+    $rootScope
+  )
+  {
+    $scope.filters = {}
+
+    /* LIST SALES */
+    saleService.list()
+      .$promise
+        .then(function (res) {
+          $rootScope.sales = res
+          $rootScope.listSales = res
+        }, function (error) {
+          if (error.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          }
+        })
+
+    $scope.dayFilter = function () {
+      $rootScope.salesDay = []
+      $rootScope.salesMonth = []
+      $rootScope.salesWeek = []
+      var currentDate = new Date()
+      var currentDay = currentDate.getDay()
+      for (x in $rootScope.sales) {
+        var dateEvaluate = new Date($rootScope.sales[x].created_at)
+        if (dateEvaluate.getDay() === currentDay) {
+          $rootScope.salesDay.push($rootScope.sales[x])
+        }
+      }
+      $scope.listSales = $rootScope.salesDay;
+    }
+
+    $scope.monthFilter = function () {
+      $rootScope.salesDay = []
+      $rootScope.salesMonth = []
+      $rootScope.salesWeek = []
+      var currentDate = new Date()
+      var currentMonth = currentDate.getMonth()
+      for (x in $rootScope.sales) {
+        var dateEvaluate = new Date($rootScope.sales[x].created_at)
+        if (dateEvaluate.getMonth() === currentMonth) {
+          $rootScope.salesMonth.push($rootScope.sales[x])
+        }
+      }
+      $scope.listSales = $rootScope.salesMonth;
+    }
+
+    $scope.weekFilter = function () {
+      $rootScope.salesDay = []
+      $rootScope.salesMonth = []
+      $rootScope.salesWeek = []
+      Date.prototype.getWeek = function() {
+        var date = new Date(this.getTime());
+        date.setHours(0, 0, 0, 0);
+        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+        var week1 = new Date(date.getFullYear(), 0, 4);
+        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+      };
+
+      var currentDate = new Date()
+      var currentWeek = currentDate.getWeek()
+      for (x in $rootScope.sales) {
+        var dateEvaluate = new Date($rootScope.sales[x].created_at)
+        if (dateEvaluate.getWeek() === currentWeek) {
+          $rootScope.salesWeek.push($rootScope.sales[x])
+        }
+      }
+      $scope.listSales = $rootScope.salesWeek;
+    }
+
+    /* DETAIL SALE */
+    $scope.detail = function (sale) {
+      $rootScope.selectedSale = sale;
+      $state.go('tab.sale-detail', {'id': sale.id});
+    }
+
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'tab.sale-list') {
+        saleService.list()
+          .$promise
+            .then(function (res) {
+              $scope.sales = res;
+            }, function (error) {
+              if (error.data.detail === "Signature has expired.") {
+                debugger
+                $scope.showAlertExpired()
+              }
+            })
+      }
+    })
+
+  }
+])
+
+saleControllers.controller('saleCreateCtrl', [
+  '$scope',
   '$state',
   'saleService',
   'productService',
@@ -13,7 +115,6 @@ saleControllers.controller('saleController', [
   '$rootScope',
   function (
     $scope,
-    $stateParams,
     $state,
     saleService,
     productService,
@@ -35,57 +136,45 @@ saleControllers.controller('saleController', [
     $scope.cart.totalCart = 0
     $scope.cart.points = 0
     $scope.points = 0
-    $scope.filters = {}
 
-    /* LIST SALES */
-    debugger
-    if(!$rootScope.goToLogin) {
-      saleService.list()
-        .$promise
-          .then(function (res) {
-            $rootScope.sales = res
-            $rootScope.listSales = res
-            /* LIST CUSTOMERS */
-            customerService.list()
-              .$promise
-                .then(function (res) {
-                  $scope.customers = res
-                  /* LIST PRODUCTS */
-                  productService.list()
-                    .$promise
-                      .then(function (res) {
-                        $scope.products = res
-                        for (x in $scope.products) {
-                          $scope.products[x].qtySelected = 0
-                          $scope.products[x].isChecked = false
-                        }
-                        /* LIST SERVICES */
-                        serviceService.list()
-                          .$promise
-                            .then(function (res) {
-                              $scope.services = res
-                              for (x in $scope.services) {
-                                $scope.services[x].qtySelected = 0
-                                $scope.services[x].isChecked = false
-                              }
-                            })
-                      })
-                })
-          }, function (error) {
-            if (error.data.detail === "Signature has expired.") {
-              if(!$rootScope.goToLogin) {
-                $scope.showAlertExpired()
-              }
-            }
-            $scope.sales = []
-          })
-    }
+    /* LIST CUSTOMERS */
+    customerService.list()
+      .$promise
+        .then(function (res) {
+          $scope.customers = res
+          /* LIST PRODUCTS */
+          productService.list()
+            .$promise
+              .then(function (res) {
+                $scope.products = res
+                for (var i = $scope.products.length - 1; i >= 0; i--) {
+                  $scope.products[i].qtySelected = 0
+                  $scope.products[i].isChecked = false
+                }
+                /* LIST SERVICES */
+                serviceService.list()
+                  .$promise
+                    .then(function (res) {
+                      $scope.services = res
+                      for (var i = $scope.services.length - 1; i >= 0; i--) {
+                        $scope.services[i].qtySelected = 0
+                        $scope.services[i].isChecked = false
+                      }
+                    })
+              })
+        }, function (error) {
+          debugger
+          if (error.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          }
+          $scope.sales = {}
+        })
 
-/*
- *
- * CUSTOMERS
- *
- */
+    /*
+     *
+     * CUSTOMERS
+     *
+     */
 
     /* MODAL CUSTOMER LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-customer.html', {
@@ -125,7 +214,6 @@ saleControllers.controller('saleController', [
             }
           }
         } else {
-          // debugger
           $scope.showAlertCreateAccountCRM()
           return false;
         }
@@ -138,7 +226,7 @@ saleControllers.controller('saleController', [
 
     /* ADD CUSTOMER TO BUSINESS */
     $scope.addCustomer = function (customer) {
-      $rootScope.business = $rootScope.business || JSON.parse(localStorage.getItem("allBusiness"));
+      $rootScope.business = $rootScope.business
       for (x in $rootScope.business) {
         if ($rootScope.currentBusiness === $rootScope.business[x].id) {
           var businessToUpdate = $rootScope.business[x];
@@ -156,17 +244,15 @@ saleControllers.controller('saleController', [
             if (error.data.detail === "Signature has expired.") {
               debugger
             }
-            debugger
             $scope.customerModal.hide();
           })
     }
 
-
-/*
- *
- * PRODUCTS 
- *
- */
+    /*
+     *
+     * PRODUCTS 
+     *
+     */
 
     /* MODAL PRODUCT LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-product.html', {
@@ -187,11 +273,11 @@ saleControllers.controller('saleController', [
       $scope.productmodal.remove();
     });
 
-/*
- *
- * SERVICES 
- *
- */
+    /*
+     *
+     * SERVICES 
+     *
+     */
 
     /* MODAL SERVICE LIST */
     $ionicModal.fromTemplateUrl('templates/sale/select-service.html', {
@@ -212,79 +298,19 @@ saleControllers.controller('saleController', [
       $scope.servicemodal.remove();
     });
 
-    $scope.$on('$stateChangeSuccess', function() {
-      if (!$rootScope.goToLogin) {
-        $scope.sales = saleService.list();
-      }
-    })
+    /*
+     *
+     * SALE 
+     *
+     */
 
-/*
- *
- * SALE 
- *
- */
-
-    $scope.dayFilter = function () {
-      $rootScope.salesDay = []
-      $rootScope.salesMonth = []
-      $rootScope.salesWeek = []
-      var currentDate = new Date()
-      var currentDay = currentDate.getDay()
-      for (x in $rootScope.sales) {
-        var dateEvaluate = new Date($rootScope.sales[x].created_at)
-        if (dateEvaluate.getDay() === currentDay) {
-          $rootScope.salesDay.push($rootScope.sales[x])
-        }
-      }
-      $scope.listSales = $rootScope.salesDay;
-    }
-
-    $scope.monthFilter = function () {
-      $rootScope.salesDay = []
-      $rootScope.salesMonth = []
-      $rootScope.salesWeek = []
-      var currentDate = new Date()
-      var currentMonth = currentDate.getMonth()
-      for (x in $rootScope.sales) {
-        var dateEvaluate = new Date($rootScope.sales[x].created_at)
-        if (dateEvaluate.getMonth() === currentMonth) {
-          $rootScope.salesMonth.push($rootScope.sales[x])
-        }
-      }
-      $scope.listSales = $rootScope.salesMonth;
-    }
-
-    $scope.weekFilter = function () {
-      $rootScope.salesDay = []
-      $rootScope.salesMonth = []
-      $rootScope.salesWeek = []
-      Date.prototype.getWeek = function() {
-        var date = new Date(this.getTime());
-        date.setHours(0, 0, 0, 0);
-        // Thursday in current week decides the year.
-        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-        // January 4 is always in week 1.
-        var week1 = new Date(date.getFullYear(), 0, 4);
-        // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
-      };
-
-      var currentDate = new Date()
-      var currentWeek = currentDate.getWeek()
-      for (x in $rootScope.sales) {
-        var dateEvaluate = new Date($rootScope.sales[x].created_at)
-        if (dateEvaluate.getWeek() === currentWeek) {
-          $rootScope.salesWeek.push($rootScope.sales[x])
-        }
-      }
-      $scope.listSales = $rootScope.salesWeek;
-    }
-
+    /*TOGGLE CASH TO PERCENT*/
     $scope.cashPercentToggle = function () {
       $scope.cart.discount = 0
       $scope.cart.discountValue = 0
     }
 
+    /*CHANGE VALUE DISCOUNT INPUT*/
     $scope.changeDiscount = function (toggleCashPercent, discount, cart) {
       if (toggleCashPercent) {
         cart.discount = discount
@@ -296,8 +322,8 @@ saleControllers.controller('saleController', [
       }
     }
 
+    /*VALIDATE ORDER*/
     $scope.validateOrder = function (cart) {
-      debugger
       if (cart.discount < 0 || cart.discount > 100) {
         formCreateSale.$valid = false
         return false
@@ -321,7 +347,6 @@ saleControllers.controller('saleController', [
         return obj
       })
       // Construct order post
-      debugger
       var order = {
         order: {
           payment_method : "cash",
@@ -335,57 +360,26 @@ saleControllers.controller('saleController', [
         }
       }
       // Create order
-      if(!$rootScope.goToLogin) {
-        saleService.create(order)
-          .$promise
-            .then(function(res) {
-              debugger
-              saleService.list()
-                .$promise
-                  .then(function (res) {
-                    $rootScope.sales = res
-                    $rootScope.listSales = res
-                  })
-              $state.go('tab.sale-list');
-            }, function (error) {
-              if (error.data.detail === "Signature has expired.") {
-                if(!$rootScope.goToLogin) {
-                  $scope.showAlertExpired()
-                }
-              }
-            })
-      }
-    }
-
-    /* UPDATE SALE */
-    $scope.update = function (sale, confirm) {
-      if (!confirm) {
-        $rootScope.selectedSale = sale;
-        $state.go('tab.sale-update', {'id': sale.id});
-      } else {
-        saleService.update($rootScope.selectedSale)
-          .$promise
-            .then(function(res) {
-              $scope.sales = saleService.list();
-              $state.go('tab.sale-list');
-            }, function (error) {
-              if (error.data.detail === "Signature has expired.") {
-                debugger
-              }
-            })
-      }
-    }
-
-    /* DETAIL SALE */
-    $scope.detail = function (sale) {
-      $rootScope.selectedSale = sale;
-      $state.go('tab.sale-detail', {'id': sale.id});
+      saleService.create(order)
+        .$promise
+          .then(function(res) {
+            saleService.list()
+              .$promise
+                .then(function (res) {
+                  $rootScope.sales = res
+                  $rootScope.listSales = res
+                })
+            $state.go('tab.sale-list');
+          }, function (error) {
+            if (error.data.detail === "Signature has expired.") {
+              $scope.showAlertExpired()
+            }
+          })
     }
 
     $scope.cancel = function () {
       $state.go('tab.sale-list');
     }
-
 
     /* BUTTON ADD */
     $scope.addItem = function (product,service) {
@@ -449,6 +443,35 @@ saleControllers.controller('saleController', [
       getCartTotal();
     }
 
+    /* TOTAL PRICE CART */
+    function getCartTotal () {
+      $scope.cart.totalCart = 0;
+      $scope.cart.tax = 0;
+      for (var i = 0; i < $scope.cart.products.length; i++) {
+        var acum = $scope.cart.products[i].item.retail_price * $scope.cart.products[i].qty
+        $scope.cart.totalCart += acum
+        if ($scope.cart.products[i].item.extra)
+          var tax =  $scope.cart.products[i].item.extra.tax_rate || 0
+        else  var tax = 0
+        $scope.cart.acumTax = (acum * tax) / 100
+        $scope.cart.tax += $scope.cart.acumTax
+      }
+      for (var i = 0; i < $scope.cart.services.length; i++) {
+        var acum = $scope.cart.services[i].item.price * $scope.cart.services[i].item.qtySelected;
+        $scope.cart.totalCart += acum
+        if ($scope.cart.services[i].item.extra)
+          var tax =  $scope.cart.services[i].item.extra.tax_rate || 0
+        else  var tax = 0
+        $scope.cart.acumTax = (acum * tax) / 100
+        $scope.cart.tax += $scope.cart.acumTax
+      }
+      $rootScope.maxPercentPoints = $rootScope.maxPercentPoints || JSON.parse(localStorage.getItem("maxPercentPoints"))
+      $scope.maxRangePoints = $scope.cart.totalCart * $rootScope.maxPercentPoints /100
+      if ($scope.maxRangePoints > $scope.points)
+        $scope.maxRangePoints = $scope.points
+      return true
+    }
+
     /* FILTER IF THERE ITEM IN CART */
     function filterCartById (product,service) {
       if (product) {
@@ -481,35 +504,28 @@ saleControllers.controller('saleController', [
       }
     }
 
-    /* TOTAL PRICE CART */
-    function getCartTotal () {
-      $scope.cart.totalCart = 0;
-      $scope.cart.tax = 0;
-      for (var i = 0; i < $scope.cart.products.length; i++) {
-        var acum = $scope.cart.products[i].item.retail_price * $scope.cart.products[i].qty
-        $scope.cart.totalCart += acum
-        if ($scope.cart.products[i].item.extra)
-          var tax =  $scope.cart.products[i].item.extra.tax_rate || 0
-        else  var tax = 0
-        $scope.cart.acumTax = (acum * tax) / 100
-        $scope.cart.tax += $scope.cart.acumTax
+    /* UPDATE SALE */
+    $scope.update = function (sale, confirm) {
+      if (!confirm) {
+        $rootScope.selectedSale = sale;
+        $state.go('tab.sale-update', {'id': sale.id});
+      } else {
+        saleService.update($rootScope.selectedSale)
+          .$promise
+            .then(function(res) {
+              $scope.sales = saleService.list();
+              $state.go('tab.sale-list');
+            }, function (error) {
+              if (error.data.detail === "Signature has expired.") {
+                debugger
+              }
+            })
       }
-      for (var i = 0; i < $scope.cart.services.length; i++) {
-        var acum = $scope.cart.services[i].item.price * $scope.cart.services[i].item.qtySelected;
-        $scope.cart.totalCart += acum
-        if ($scope.cart.services[i].item.extra)
-          var tax =  $scope.cart.services[i].item.extra.tax_rate || 0
-        else  var tax = 0
-        $scope.cart.acumTax = (acum * tax) / 100
-        $scope.cart.tax += $scope.cart.acumTax
-      }
-      $rootScope.maxPercentPoints = $rootScope.maxPercentPoints || JSON.parse(localStorage.getItem("maxPercentPoints"))
-      $scope.maxRangePoints = $scope.cart.totalCart * $rootScope.maxPercentPoints /100
-      if ($scope.maxRangePoints > $scope.points)
-        $scope.maxRangePoints = $scope.points
-      return true
     }
 
-  }
-]);
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+    })
 
+  }
+
+])

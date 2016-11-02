@@ -12,6 +12,7 @@ authControllers.controller('signupController', [
     $location
   )
   {
+    if (localStorage.token) $state.go('tab.sale-list');
     $scope.user = {}
 
     $scope.create = function () {

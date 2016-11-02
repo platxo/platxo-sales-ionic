@@ -100,7 +100,6 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
       $scope.showAlertExpired = function() {
-        $rootScope.goToLogin = true;
         var alertPopup = $ionicPopup.alert({
           title: 'Expired Session!',
           template: 'Login Please'
