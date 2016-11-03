@@ -31,9 +31,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	display: none;
 }
 
-.sale-qty-acum {
-  top: 40% !important;
-}
+// .sale-qty-acum {
+//   top: 40% !important;
+// }
 
 .sale-button-add, .sale-button-remove {
   top: 6px !important;
@@ -69,4 +69,31 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .offPadding-bottom {
 	padding-bottom: 0;
+}
+
+.badgeSale {
+	background: #2196F3;
+	color: #fff;
+	height: 25px;
+	text-align: center;
+	width: 25px;
+	line-height: 25px;
+	border-radius: 50%;
+	position: relative;
+	top: 23px;
+	margin: 0 20px;
+}
+
+.contentButtons {
+	display: flex;
+}
+.button {
+	&AddItem {
+		font-size: 1.5em;
+		line-height: 70px;
+	}
+	&RemoveItem {
+		font-size: 1.5em;
+		line-height: 70px;
+	}
 }

@@ -16,7 +16,7 @@
         <span class="input-label">Products</span>
       </label>
       <div class="item row" ng-repeat="item in cart.products">
-        <div class="col col-40">
+        <div class="col col-60">
           <div>
             {{item.item.product_type_name}}
           </div>
@@ -27,7 +27,13 @@
             {{item.item.brand_name}}
           </div>
         </div>
-        <div class="col col-15 center" ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">
+        <div class="contentButtons">
+          <div type="button" class="buttonRemoveItem icon ion-minus-circled button-light sale-button-add" ng-click="removeItem(item.item,null)"></div>
+          <div class="badgeSale positive">{{item.qty}}</div>
+          <div type="button" class="buttonAddItem icon ion-plus-circled button-light sale-button-remove" ng-click="addItem(item.item,null)"></div>
+          
+        </div>
+        <!-- <div class="col col-15 center" ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">
           <button type="button" class="button icon ion-plus-circled button-light sale-button-remove" ng-click="addItem(item.item,null)"></button>
         </div>
         <div class="col col-15 center" ng-if="item.item.qtySelected > 0">
@@ -35,7 +41,7 @@
         </div>
         <div class="col">
           <span class="badge badge-positive sale-qty-acum">{{item.qty}}</span>
-        </div>
+        </div> -->
       </div>
 
       <!-- SERVICES -->
