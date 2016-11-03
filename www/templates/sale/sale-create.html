@@ -18,13 +18,13 @@
       <div class="item row" ng-repeat="item in cart.products">
         <div class="col col-40">
           <div>
-            {{item.item.extra.product_type_name}}
+            {{item.item.product_type_name}}
           </div>
           <div>
             {{item.item.name}}
           </div>
           <div>
-            {{item.item.extra.brand_name}}
+            {{item.item.brand_name}}
           </div>
         </div>
         <div class="col col-15 center" ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">

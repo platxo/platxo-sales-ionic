@@ -19,7 +19,7 @@ serviceControllers.controller('serviceController', [
           $scope.services = res;
           $scope.hideLoading()
         }, function (error) {
-          $rootScope.evaluateError()
+          $rootScope.evaluateError(error)
           $scope.hideLoading()
         })
 
@@ -30,7 +30,7 @@ serviceControllers.controller('serviceController', [
             $scope.services = res
             $scope.$broadcast('scroll.refreshComplete');
           }, function (err) {
-            $rootScope.evaluateError()
+            $rootScope.evaluateError(error)
           })
     }
 
@@ -46,7 +46,7 @@ serviceControllers.controller('serviceController', [
             .then(function (res) {
               $scope.services = res;
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       }
     })

@@ -44,7 +44,8 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
       })
     };
 
-    $rootScope.evaluateError = function () {
+    $rootScope.evaluateError = function (error) {
+      debugger
       if (error.data.detail === "Signature has expired.") {
         debugger
         $scope.showAlertExpired()
