@@ -181,7 +181,7 @@ saleControllers.controller('saleCreateCtrl', [
       scope: $scope,
       controller: 'saleController',
       animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
+      focusFirstInput: false
     }).then(function(modal) {
       $scope.customerModal = modal;
     });
@@ -259,7 +259,7 @@ saleControllers.controller('saleCreateCtrl', [
       scope: $scope,
       controller: 'productController',
       animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
+      focusFirstInput: false
     }).then(function(modal) {
       $scope.productmodal = modal;
     });
@@ -284,7 +284,7 @@ saleControllers.controller('saleCreateCtrl', [
       scope: $scope,
       controller: 'serviceController',
       animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
-      focusFirstInput: true
+      focusFirstInput: false
     }).then(function(modal) {
       $scope.servicemodal = modal;
     });
