@@ -44,6 +44,13 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
       })
     };
 
+    $rootScope.evaluateError = function () {
+      if (error.data.detail === "Signature has expired.") {
+        debugger
+        $scope.showAlertExpired()
+      }
+    }
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
