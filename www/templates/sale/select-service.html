@@ -5,13 +5,12 @@
   <ion-content padding="true">
     <search></search>
     <ion-list>
-      <div collection-repeat="service in services | orderBy:'name' | filter:search.value">
-        <!-- <div class="col col-50"> -->
+      <div collection-repeat="service in services | orderBy:'name' | filter:search.value"
+            item-render-buffer="1">
           <ion-checkbox ng-click="addItem(null,service)" ng-model="service.isChecked">
             <p>{{service.name}}</p>
             <p>{{service.price | currency : $ : 0}}</p>
           </ion-checkbox>
-        <!-- </div> -->
       </div>
       <!-- <ion-item class="item row">
         <div class="col col-10 center">

@@ -2,7 +2,7 @@
 	<ion-content padding="true">
 		<search></search>
 		<ion-checkbox 
-			collection-repeat="bs in business | orderBy:'name' | filter:search.value"
+			ng-repeat="bs in business | orderBy:'name' | filter:search.value"
 			ng-value="bs.id"
 			ng-click="selectBs(bs)">
 			{{bs.name}}

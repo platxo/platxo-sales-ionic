@@ -9,7 +9,8 @@
 			<search></search>
 			<ion-item collection-repeat="service in services | orderBy:'name' | filter:search.value"
 								class="item item-button-right item-thumbnail-left"
-								ng-click="detail(service)" >
+								ng-click="detail(service)"
+								item-render-buffer="1">
 				<img ng-src="{{service.picture_url}}">
 				<h2>{{ service.name }}</h2>
 				<h4>{{ service.service_type_name }}</h4>

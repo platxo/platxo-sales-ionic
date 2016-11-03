@@ -6,7 +6,7 @@
         <label class="item-divider"">
           <span class="input-label">Products</span>
         </label>
-        <div collection-repeat="item in selectedSale.products">
+        <div ng-repeat="item in selectedSale.products">
           <div>
             Category : {{item.details.product_category_name}}
           </div>
@@ -26,7 +26,7 @@
         <label class="item-divider"">
           <span class="input-label">Services</span>
         </label>
-        <div collection-repeat="item in selectedSale.services">
+        <div ng-repeat="item in selectedSale.services">
           <div>
             Category : {{item.details.service_category_name}}
           </div>

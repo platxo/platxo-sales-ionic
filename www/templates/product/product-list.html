@@ -9,7 +9,8 @@
 			<search></search>
 			<ion-item collection-repeat="product in products | orderBy:'name' | filter:search.value"
 								class="item item-button-right item-thumbnail-left"
-								ng-click="detail(product)" >
+								ng-click="detail(product)" 
+								item-render-buffer="1">
 				<img ng-src="{{product.picture_url}}">
 				<h2>{{product.name}}</h2>
 				<h4>{{product.product_type_name}} | {{product.brand_name}}</h4>
