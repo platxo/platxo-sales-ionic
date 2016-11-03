@@ -3,6 +3,7 @@
     <h1 class="title">Select Service</h1><button class="button icon ion-android-cancel" ng-click="serviceCloseModal()"></button>
   </ion-header-bar>
   <ion-content padding="true">
+    <ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh(false,false,true)"></ion-refresher>
     <search></search>
     <ion-list>
       <div collection-repeat="service in services | orderBy:'name' | filter:search.value"

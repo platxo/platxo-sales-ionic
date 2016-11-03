@@ -3,6 +3,7 @@
     <h1 class="title">Select Customer</h1><button class="button icon ion-android-cancel" ng-click="customerCloseModal()"></button>
   </ion-header-bar>
   <ion-content padding="true">
+    <ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh(true,false,false)"></ion-refresher>
     <search></search>
     <ion-radio
       ng-if="filterCustomers"

@@ -85,6 +85,18 @@ saleControllers.controller('saleController', [
       $state.go('tab.sale-detail', {'id': sale.id});
     }
 
+    $scope.refresh = function () {
+      saleService.list()
+        .$promise
+          .then(function (res) {
+            $rootScope.sales = res
+            $rootScope.listSales = res
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (error) {
+            $rootScope.evaluateError()
+          })
+    }
+
     $scope.$on('$stateChangeSuccess', function(event, toState) {
       if (toState.name === 'tab.sale-list') {
         saleService.list()
@@ -509,6 +521,45 @@ saleControllers.controller('saleCreateCtrl', [
             .then(function(res) {
               $scope.sales = saleService.list();
               $state.go('tab.sale-list');
+            }, function (error) {
+              $rootScope.evaluateError()
+            })
+      }
+    }
+
+    $scope.refresh = function (customers,products,services) {
+      if (customers) {
+        customerService.list()
+          .$promise
+            .then(function (res) {
+              $scope.customers = res
+              $scope.$broadcast('scroll.refreshComplete');
+            },function (error) {
+              $rootScope.evaluateError()
+            })
+      } else if (products) {
+        productService.list()
+          .$promise
+            .then(function (res) {
+              $scope.products = res
+              for (var i = $scope.products.length - 1; i >= 0; i--) {
+                $scope.products[i].qtySelected = 0
+                $scope.products[i].isChecked = false
+              }
+              $scope.$broadcast('scroll.refreshComplete');
+            }, function (error) {
+              $rootScope.evaluateError()
+            })
+      } else if (services) {
+        serviceService.list()
+          .$promise
+            .then(function (res) {
+              $scope.services = res
+              for (var i = $scope.services.length - 1; i >= 0; i--) {
+                $scope.services[i].qtySelected = 0
+                $scope.services[i].isChecked = false
+              }
+              $scope.$broadcast('scroll.refreshComplete');
             }, function (error) {
               $rootScope.evaluateError()
             })

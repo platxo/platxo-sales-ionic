@@ -5,6 +5,7 @@
 	</ion-nav-buttons>
 
 	<ion-content padding="true">
+		<ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
 			<search></search>
 			<ion-item collection-repeat="service in services | orderBy:'name' | filter:search.value"

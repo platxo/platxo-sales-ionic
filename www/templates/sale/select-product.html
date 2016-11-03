@@ -3,6 +3,7 @@
     <h1 class="title">Select Product</h1><button class="button icon ion-android-cancel" ng-click="productCloseModal()"></button>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh(false,true,false)"></ion-refresher>
     <search></search>
     <ion-list>
       <div collection-repeat="product in products | orderBy:'name' | filter:search.value"

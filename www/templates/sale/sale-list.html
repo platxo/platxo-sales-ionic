@@ -9,6 +9,7 @@
 	</ion-nav-buttons>
 
 	<ion-content padding="true">
+		<ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
 			<div class="button-bar">
 			  <button class="button button-balanced button-outline button-small" ng-click="dayFilter(sales)">Day</button>

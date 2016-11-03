@@ -23,6 +23,17 @@ productControllers.controller('productController', [
           $scope.hideLoading()
         })
 
+    $scope.refresh = function () {
+      productService.list()
+        .$promise
+          .then(function (res) {
+            $scope.products = res
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (err) {
+            $rootScope.evaluateError()
+          })
+    }
+
     $scope.detail = function (product) {
       $rootScope.selectedProduct = product;
       $state.go('tab.product-detail', { 'id': product.id });
