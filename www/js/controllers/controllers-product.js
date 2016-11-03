@@ -12,15 +12,15 @@ productControllers.controller('productController', [
     productService
   )
   {
+    $scope.showLoading()
     productService.list()
       .$promise
         .then(function (res) {
           $scope.products = res;
+          $scope.hideLoading()
         }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-            $scope.showAlertExpired()
-          }
+          $rootScope.evaluateError()
+          $scope.hideLoading()
         })
 
     $scope.detail = function (product) {
@@ -35,10 +35,7 @@ productControllers.controller('productController', [
             .then(function (res) {
               $scope.products = res;
             }, function (error) {
-              if (error.data.detail === "Signature has expired.") {
-                debugger
-                $scope.showAlertExpired()
-              }
+              $rootScope.evaluateError()
             })
       }
     })

@@ -12,15 +12,18 @@ businessControllers.controller('businessListCtrl', [
     businessService
   )
   {
+    $scope.showLoading()
     businessService.list()
       .$promise
         .then(function(res) {
           $rootScope.business = res;
+          $scope.hideLoading()
         }, function (error) {
           if (error.data.detail === "Signature has expired.") {
             debugger
             $scope.showAlertExpired()
           }
+          $scope.hideLoading()
         })
 
 	  $scope.update = function () {
@@ -30,10 +33,7 @@ businessControllers.controller('businessListCtrl', [
       	    $scope.business = businessService.list();
       	    $state.go('business-list');
           }, function (error) {
-            if (error.data.detail === "Signature has expired.") {
-              debugger
-              $scope.showAlertExpired()
-            }
+            $rootScope.evaluateError()
           })
 	  }
 
@@ -56,10 +56,7 @@ businessControllers.controller('businessListCtrl', [
             .then(function(res) {
               $rootScope.business = res;
             }, function (error) {
-              if (error.data.detail === "Signature has expired.") {
-                debugger
-                $scope.showAlertExpired()
-              }
+              $rootScope.evaluateError()
             })
       }
 	  })

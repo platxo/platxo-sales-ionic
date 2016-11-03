@@ -12,17 +12,15 @@ serviceControllers.controller('serviceController', [
     serviceService
   )
   {
+    $scope.showLoading()
     serviceService.list()
       .$promise
         .then(function (res) {
           $scope.services = res;
+          $scope.hideLoading()
         }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-            if(!$rootScope.goToLogin) {
-              $scope.showAlertExpired()
-            }
-          }
+          $rootScope.evaluateError()
+          $scope.hideLoading()
         })
 
     $scope.detail = function (service) {
@@ -37,10 +35,7 @@ serviceControllers.controller('serviceController', [
             .then(function (res) {
               $scope.services = res;
             }, function (error) {
-              if (error.data.detail === "Signature has expired.") {
-                debugger
-                $scope.showAlertExpired()
-              }
+              $rootScope.evaluateError()
             })
       }
     })

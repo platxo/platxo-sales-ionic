@@ -51,6 +51,7 @@ authControllers.controller('loginController', [
     $scope.user = {}
 
     $scope.create = function () {
+      $scope.showLoading()
       loginService.create($scope.user)
         .$promise
           .then(function (response) {
@@ -80,8 +81,10 @@ authControllers.controller('loginController', [
                     $location.path('/login');
                   })
             }
+            $scope.hideLoading()
           }, function (reason) {
             $scope.user.password = "";
+            $scope.hideLoading()
             $scope.errors = reason;
           })
     }

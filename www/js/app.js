@@ -28,7 +28,6 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
-
   $ionicPlatform.ready(function() {
 
     $rootScope.logout = function(forced) {
@@ -129,6 +128,24 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
           // POST api/points
           console.log('Has created account CRM');
         })
+      }
+    }
+  }
+}])
+
+.directive('loading', [ '$ionicPopup', '$rootScope', '$ionicLoading', function ($ionicPopup, $rootScope, $ionicLoading) {
+  return {
+    restrict: 'E',  
+    controller: function ($scope) {
+      $scope.showLoading = function () {
+        $ionicLoading.show({
+          template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+          noBackdrop: true
+        });
+      }
+
+      $scope.hideLoading = function () {
+        $ionicLoading.hide();
       }
     }
   }
