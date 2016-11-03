@@ -390,26 +390,40 @@ saleControllers.controller('saleCreateCtrl', [
     /* BUTTON ADD */
     $scope.addItem = function (product,service) {
       if (product) {
-        var selectActual = filterCartById(product,null)
-        if (!selectActual) {
-          product.qtySelected = 1;
-          product.isChecked = true;
-          $scope.cart.products.push({ item: product, qty: 1 });
+        if (product.isChecked) {
+          var selectActual = filterCartById(product,null)
+          if (!selectActual) {
+            product.qtySelected = 1;
+            product.isChecked = true;
+            $scope.cart.products.push({ item: product, qty: 1 });
+          } else {
+            selectActual.qty++;
+            product.qtySelected++;
+          }
+          product.qty--;
+          console.log($scope.cart.products);
         } else {
-          selectActual.qty++;
-          product.qtySelected++;
+          if (filterCartByIndex(product,null) != undefined) {
+            product.qtySelected = 0;
+            $scope.cart.products.splice(filterCartByIndex(product,null),1);
+          }
         }
-        product.qty--;
-        console.log($scope.cart.products);
       }
       if (service) {
-        var selectActual = filterCartById(null,service)
-        if (!selectActual) {
-          service.qtySelected = 1;
-          service.isChecked = true;
-          $scope.cart.services.push({ item: service});
-        } else service.qtySelected++;
-        console.log($scope.cart.services);
+        if (service.isChecked) {
+          var selectActual = filterCartById(null,service)
+          if (!selectActual) {
+            service.qtySelected = 1;
+            service.isChecked = true;
+            $scope.cart.services.push({ item: service});
+          } else service.qtySelected++;
+          console.log($scope.cart.services);
+        } else {
+          if (filterCartByIndex(null,service) != undefined) {
+            service.qtySelected = 0;
+            $scope.cart.services.splice(filterCartByIndex(null,service),1);
+          }
+        }
       }
       getCartTotal();
     }
