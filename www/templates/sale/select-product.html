@@ -8,8 +8,9 @@
       <div collection-repeat="product in products | orderBy:'name' | filter:search.value"
            item-render-buffer="1">
         <ion-checkbox ng-click="addItem(product)" ng-model="product.isChecked">
-          <p>{{product.product_type_name}} {{product.name}} {{product.brand_name}}</p>
-          <p>{{product.retail_price | currency : $ : 0}}</p>
+          <h2>{{product.name}} - {{product.retail_price | currency : $ : 0}}</h2>
+          <h4>{{product.product_type_name}} | {{product.brand_name}}</h4>
+          <h4>{{product.product_category_name}}</h4>
         </ion-checkbox>
       </div>
     </ion-list>
