@@ -48,7 +48,7 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
       debugger
       if (error.data.detail === "Signature has expired.") {
         debugger
-        $scope.showAlertExpired()
+        $rootScope.showAlertExpired()
       }
     }
 
@@ -106,7 +106,7 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
     restrict: 'E',
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
-      $scope.showAlertExpired = function() {
+      $rootScope.showAlertExpired = function() {
         var alertPopup = $ionicPopup.alert({
           title: 'Expired Session!',
           template: 'Login Please'
