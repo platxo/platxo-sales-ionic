@@ -28,10 +28,17 @@
           </div>
         </div>
         <div class="contentButtons">
-          <div type="button" class="buttonRemoveItem icon ion-minus-circled button-light sale-button-add" ng-click="removeItem(item.item,null)"></div>
+          <div type="button"
+               class="buttonRemoveItem icon ion-minus-circled button-light sale-button-add"
+               ng-click="removeItem(item.item,null)"
+               ng-if="item.item.qtySelected > 0">
+          </div>
           <div class="badgeSale positive">{{item.qty}}</div>
-          <div type="button" class="buttonAddItem icon ion-plus-circled button-light sale-button-remove" ng-click="addItem(item.item,null)"></div>
-          
+          <div type="button"
+               class="buttonAddItem icon ion-plus-circled button-light sale-button-remove"
+               ng-click="addItem(item.item,null)"
+               ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">
+          </div>
         </div>
       </div>
 

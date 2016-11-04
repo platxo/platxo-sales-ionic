@@ -394,7 +394,7 @@ saleControllers.controller('saleCreateCtrl', [
     }
 
     /* BUTTON ADD */
-    $scope.addItem = function (product,service) {
+    $scope.addItem = function (product,service,codeQR) {
       if (product) {
         if (product.isChecked) {
           var selectActual = filterCartById(product,null)
@@ -430,6 +430,26 @@ saleControllers.controller('saleCreateCtrl', [
             $scope.cart.services.splice(filterCartByIndex(null,service),1);
           }
         }
+      }
+      if (codeQR) {
+        debugger
+        var productFromQR = filterCartById(null,null,codeQR)
+        if (productFromQR) {
+          debugger
+          productFromQR.qtySelected = 1;
+          productFromQR.isChecked = true;
+          $scope.cart.products.push({ item: productFromQR, qty: 1 });
+        } 
+        productFromQR.qty--;
+        // else {
+        //   debugger
+        //   productFromQR.qty++;
+        //   product.qtySelected++;
+        // }
+        console.log($scope.cart.products);
+        // for (var i = $scope.products.length - 1; i >= 0; i--) {
+        //   $scope.products[i]
+        // }
       }
       getCartTotal();
     }
@@ -499,7 +519,7 @@ saleControllers.controller('saleCreateCtrl', [
     }
 
     /* FILTER IF THERE ITEM IN CART */
-    function filterCartById (product,service) {
+    function filterCartById (product,service,qr) {
       if (product) {
         for (var i = 0; i < $scope.cart.products.length; i++) {
           if ($scope.cart.products[i].item.id === product.id && $scope.cart.products[i].item.name  === product.name)
@@ -511,6 +531,13 @@ saleControllers.controller('saleCreateCtrl', [
         for (var i = 0; i < $scope.cart.services.length; i++) {
           if ($scope.cart.services[i].item.id === service.id && $scope.cart.services[i].item.name  === service.name)
             return $scope.cart.services[i]
+        }
+        return null
+      }
+      if (qr) {
+        for (var i = 0; i < $scope.products.length; i++) {
+          if ($scope.products[i].id == qr)
+            return $scope.products[i]
         }
         return null
       }
@@ -587,17 +614,11 @@ saleControllers.controller('saleCreateCtrl', [
     }
 
     $scope.scan = function () {
-      debugger
       $cordovaBarcodeScanner.scan()
         .then( function (data) {
-          debugger
-          // var product = data.text
-          // if (product){
-          //   $location.path('/tab/product-detail/' + product);
-          // } else {
-          //   $state.go('tab.product-list');
-          // }
+          $scope.addItem(null,null,data.text)
         }, function (err) {
+          debugger
           alert("Scanning failed: " + err);
         });
     }
