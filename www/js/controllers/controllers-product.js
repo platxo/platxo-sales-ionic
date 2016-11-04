@@ -19,7 +19,7 @@ productControllers.controller('productController', [
           $scope.products = res;
           $scope.hideLoading()
         }, function (error) {
-          $rootScope.evaluateError()
+          $rootScope.evaluateError(error)
           $scope.hideLoading()
         })
 
@@ -30,7 +30,7 @@ productControllers.controller('productController', [
             $scope.products = res
             $scope.$broadcast('scroll.refreshComplete');
           }, function (err) {
-            $rootScope.evaluateError()
+            $rootScope.evaluateError(error)
           })
     }
 
@@ -46,7 +46,7 @@ productControllers.controller('productController', [
             .then(function (res) {
               $scope.products = res;
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       }
     })

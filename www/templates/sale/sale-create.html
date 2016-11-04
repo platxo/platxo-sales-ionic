@@ -33,15 +33,6 @@
           <div type="button" class="buttonAddItem icon ion-plus-circled button-light sale-button-remove" ng-click="addItem(item.item,null)"></div>
           
         </div>
-        <!-- <div class="col col-15 center" ng-if="item.item.quantity > 0 && item.item.qtySelected < item.item.quantity">
-          <button type="button" class="button icon ion-plus-circled button-light sale-button-remove" ng-click="addItem(item.item,null)"></button>
-        </div>
-        <div class="col col-15 center" ng-if="item.item.qtySelected > 0">
-          <button type="button" class="button icon ion-minus-circled button-light sale-button-add" ng-click="removeItem(item.item,null)"></button>
-        </div>
-        <div class="col">
-          <span class="badge badge-positive sale-qty-acum">{{item.qty}}</span>
-        </div> -->
       </div>
 
       <!-- SERVICES -->
@@ -79,6 +70,8 @@
           </div>
         </div>
       </div>
+      
+      <div class="spacer" style="height:20px;"></div>
 
       <!-- DISCOUNT -->
       <div class="row item item-light">
@@ -158,8 +151,6 @@
         </div>
       </div>
 
-      <div class="spacer" style="height:20px;"></div>
-
       <!-- TAX -->
       <div class="row item item-light">
         <div class="col col-75">
@@ -169,6 +160,8 @@
           {{ cart.tax | currency : $ : 0 }}
         </div>
       </div>
+
+      <div class="spacer" style="height:20px;"></div>
 
       <!-- TOTAL -->
       <div class="row item item-positive">

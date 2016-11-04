@@ -22,7 +22,7 @@ saleControllers.controller('saleController', [
           $rootScope.listSales = res
           $scope.hideLoading()
         }, function (error) {
-          $rootScope.evaluateError()
+          $rootScope.evaluateError(error)
           $scope.hideLoading()
         })
 
@@ -93,7 +93,7 @@ saleControllers.controller('saleController', [
             $rootScope.listSales = res
             $scope.$broadcast('scroll.refreshComplete');
           }, function (error) {
-            $rootScope.evaluateError()
+            $rootScope.evaluateError(error)
           })
     }
 
@@ -104,7 +104,7 @@ saleControllers.controller('saleController', [
             .then(function (res) {
               $scope.sales = res;
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       }
     })
@@ -175,7 +175,7 @@ saleControllers.controller('saleCreateCtrl', [
               })
         }, function (error) {
           debugger
-          $rootScope.evaluateError()
+          $rootScope.evaluateError(error)
           $scope.hideLoading()
           $scope.sales = {}
         })
@@ -251,7 +251,7 @@ saleControllers.controller('saleCreateCtrl', [
             $scope.customerModal.hide();
             $state.go('tab.sale-list');
           }, function (error) {
-            $rootScope.evaluateError()
+            $rootScope.evaluateError(error)
             $scope.customerModal.hide();
           })
     }
@@ -376,10 +376,12 @@ saleControllers.controller('saleCreateCtrl', [
                 .then(function (res) {
                   $rootScope.sales = res
                   $rootScope.listSales = res
+                }, function (error) {
+                  $rootScope.evaluateError(error)
                 })
             $state.go('tab.sale-list');
           }, function (error) {
-            $rootScope.evaluateError()
+            $rootScope.evaluateError(error)
           })
     }
 
@@ -536,7 +538,7 @@ saleControllers.controller('saleCreateCtrl', [
               $scope.sales = saleService.list();
               $state.go('tab.sale-list');
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       }
     }
@@ -549,7 +551,7 @@ saleControllers.controller('saleCreateCtrl', [
               $scope.customers = res
               $scope.$broadcast('scroll.refreshComplete');
             },function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       } else if (products) {
         productService.list()
@@ -562,7 +564,7 @@ saleControllers.controller('saleCreateCtrl', [
               }
               $scope.$broadcast('scroll.refreshComplete');
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       } else if (services) {
         serviceService.list()
@@ -575,12 +577,20 @@ saleControllers.controller('saleCreateCtrl', [
               }
               $scope.$broadcast('scroll.refreshComplete');
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       }
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState) {
+      saleService.list()
+        .$promise
+          .then(function (res) {
+            $rootScope.sales = res
+            $rootScope.listSales = res
+          }, function (error) {
+            $rootScope.evaluateError(error)
+          })
     })
 
   }

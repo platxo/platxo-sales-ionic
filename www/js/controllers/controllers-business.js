@@ -33,7 +33,7 @@ businessControllers.controller('businessListCtrl', [
       	    $scope.business = businessService.list();
       	    $state.go('business-list');
           }, function (error) {
-            $rootScope.evaluateError()
+            $rootScope.evaluateError(error)
           })
 	  }
 
@@ -56,7 +56,7 @@ businessControllers.controller('businessListCtrl', [
             .then(function(res) {
               $rootScope.business = res;
             }, function (error) {
-              $rootScope.evaluateError()
+              $rootScope.evaluateError(error)
             })
       }
 	  })
