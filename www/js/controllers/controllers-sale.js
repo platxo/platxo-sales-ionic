@@ -431,26 +431,6 @@ saleControllers.controller('saleCreateCtrl', [
           }
         }
       }
-      if (codeQR) {
-        debugger
-        var productFromQR = filterCartById(null,null,codeQR)
-        if (productFromQR) {
-          debugger
-          productFromQR.qtySelected = 1;
-          productFromQR.isChecked = true;
-          $scope.cart.products.push({ item: productFromQR, qty: 1 });
-        } 
-        productFromQR.qty--;
-        // else {
-        //   debugger
-        //   productFromQR.qty++;
-        //   product.qtySelected++;
-        // }
-        console.log($scope.cart.products);
-        // for (var i = $scope.products.length - 1; i >= 0; i--) {
-        //   $scope.products[i]
-        // }
-      }
       getCartTotal();
     }
 
@@ -519,7 +499,7 @@ saleControllers.controller('saleCreateCtrl', [
     }
 
     /* FILTER IF THERE ITEM IN CART */
-    function filterCartById (product,service,qr) {
+    function filterCartById (product,service) {
       if (product) {
         for (var i = 0; i < $scope.cart.products.length; i++) {
           if ($scope.cart.products[i].item.id === product.id && $scope.cart.products[i].item.name  === product.name)
@@ -534,10 +514,16 @@ saleControllers.controller('saleCreateCtrl', [
         }
         return null
       }
+    }
+
+    /* FILTER IF THERE ITEM QR IN ALL PRODUCTS  */
+    function filterByQR (qr) {
       if (qr) {
         for (var i = 0; i < $scope.products.length; i++) {
-          if ($scope.products[i].id == qr)
-            return $scope.products[i]
+          if ($scope.products[i].id == qr) {
+            $scope.products[i].isChecked = true
+            $scope.addItem($scope.products[i])
+          }
         }
         return null
       }
@@ -616,7 +602,7 @@ saleControllers.controller('saleCreateCtrl', [
     $scope.scan = function () {
       $cordovaBarcodeScanner.scan()
         .then( function (data) {
-          $scope.addItem(null,null,data.text)
+          filterByQR(data.text)
         }, function (err) {
           debugger
           alert("Scanning failed: " + err);
