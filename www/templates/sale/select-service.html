@@ -8,24 +8,12 @@
     <ion-list>
       <div collection-repeat="service in services | orderBy:'name' | filter:search.value"
             item-render-buffer="1">
-          <ion-checkbox ng-click="addItem(null,service)" ng-model="service.isChecked">
-            <p>{{service.name}}</p>
-            <p>{{service.price | currency : $ : 0}}</p>
-          </ion-checkbox>
+        <ion-checkbox ng-click="addItem(null,service)" ng-model="service.isChecked">
+          <h2>{{service.name}} - {{service.price | currency : $ : 0}}</h2>
+          <h4>{{service.service_type_name}}</h4>
+          <h4>{{service.service_category_name}}</h4>
+        </ion-checkbox>
       </div>
-      <!-- <ion-item class="item row">
-        <div class="col col-10 center">
-          <button type="button" class="button icon ion-plus-circled button-light" ng-click="addItem(null,service)"></button>
-        </div>
-        <div class="col col-10 center" ng-if="service.qtySelected > 0">
-          <button type="button" class="button icon ion-minus-circled button-light" ng-click="removeItem(null,service)"></button>
-        </div>
-        <div class="col">
-          <span class="badge badge-positive">{{service.qtySelected}}</span>
-        </div>
-      </ion-item> -->
-
     </ion-list>
-
   </ion-content>
 </ion-modal-view>
