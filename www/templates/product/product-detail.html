@@ -5,18 +5,21 @@
       <div class="item item-body">
         <h2>Id: {{selectedProduct.id}}</h2>
         <h2>Name: {{selectedProduct.name}}</h2>
-        <h2>Brand: {{selectedProduct.brand}}</h2>
+        <h2>Brand: {{selectedProduct.brand_name}}</h2>
         <h2>Description: {{selectedProduct.description}}</h2>
-        <h2>Supplier: {{selectedProduct.supplier}}</h2>
-        <h2>Location: {{selectedProduct.location}}</h2>
-        <h2>Section: {{selectedProduct.section}}</h2>
-        <h2>Category: {{selectedProduct.product_category}}</h2>
-        <h2>Type: {{selectedProduct.product_type}}</h2>
+        <h2>Supplier: {{selectedProduct.supplier_name}}</h2>
+        <h2>Location: {{selectedProduct.location_name}}</h2>
+        <h2>Section: {{selectedProduct.section_name}}</h2>
+        <h2>Category: {{selectedProduct.product_category_name}}</h2>
+        <h2>Type: {{selectedProduct.product_type_name}}</h2>
         <h2>Price: {{selectedProduct.retail_price | currency : $ : 0 }}</h2>
         <h2>Inventory: {{selectedProduct.inventory }}</h2>
         <h2>Quantity: {{selectedProduct.quantity}}</h2>
         <h2>Created: {{selectedProduct.created | date:'medium'}}</h2>
         <h2>Updated: {{selectedProduct.updated | date:'medium'}}</h2>
+        <h3>
+            {{selectedProduct}}
+        </h3>
       </div>
     </div>
 	</ion-content>
