@@ -9821,9 +9821,6 @@ a.button {
 .hidden {
   display: none; }
 
-.sale-button-add, .sale-button-remove {
-  top: 6px !important; }
-
 .toggle-sales {
   position: absolute !important;
   top: 24% !important; }
@@ -9873,3 +9870,28 @@ a.button {
 .buttonRemoveItem {
   font-size: 1.5em;
   line-height: 70px; }
+
+.saleList {
+  position: relative; }
+  .saleList .num {
+    font-size: 1em; }
+    .saleList .num span {
+      color: #2196F3; }
+  .saleList strong {
+    font-size: .9em; }
+  .saleList .badgeInfo {
+    display: inline-block;
+    border: 1px solid #2196F3;
+    height: 19px;
+    text-align: center;
+    width: 19px;
+    line-height: 16px;
+    border-radius: 50%;
+    font-size: .8em;
+    margin-left: 8px; }
+    .saleList .badgeInfo.Prod {
+      right: 35px;
+      bottom: 15px; }
+    .saleList .badgeInfo.Serv {
+      right: 0;
+      bottom: 15px; }
