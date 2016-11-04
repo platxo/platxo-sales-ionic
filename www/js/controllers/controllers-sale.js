@@ -122,6 +122,8 @@ saleControllers.controller('saleCreateCtrl', [
   'customerService',
   'businessService',
   '$rootScope',
+  '$cordovaBarcodeScanner',
+  '$location',
   function (
     $scope,
     $state,
@@ -131,7 +133,9 @@ saleControllers.controller('saleCreateCtrl', [
     $ionicModal,
     customerService,
     businessService,
-    $rootScope
+    $rootScope,
+    $cordovaBarcodeScanner,
+    $location
   )
   {
     $scope.showLoading()
@@ -580,6 +584,22 @@ saleControllers.controller('saleCreateCtrl', [
               $rootScope.evaluateError(error)
             })
       }
+    }
+
+    $scope.scan = function () {
+      debugger
+      $cordovaBarcodeScanner.scan()
+        .then( function (data) {
+          debugger
+          // var product = data.text
+          // if (product){
+          //   $location.path('/tab/product-detail/' + product);
+          // } else {
+          //   $state.go('tab.product-list');
+          // }
+        }, function (err) {
+          alert("Scanning failed: " + err);
+        });
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState) {
