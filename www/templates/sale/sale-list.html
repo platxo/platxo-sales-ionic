@@ -18,7 +18,7 @@
 			<div class="spacer" style="height:20px;"></div>
 			<search></search>
 			<ion-item ng-click="detail(sale)"
-								collection-repeat="sale in listSales | orderBy:'name' | filter:search.value"
+								collection-repeat="sale in listSales | orderBy:sale.name | filter:search.value"
 								class="item item-button-right saleList"
 								item-render-buffer="1">
 				<h3 class="num"><span>#</span> {{sale.name}}</h3>
