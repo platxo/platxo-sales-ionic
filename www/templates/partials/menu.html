@@ -1,9 +1,13 @@
-<ion-popover-view style="height: 120px;" class="hidden">
+<ion-popover-view style="height: 165px;" class="hidden">
   <ion-content>
     <ion-list>
       <ion-item href="#/profile">
         <i class="icon ion-person"></i>
         {{currentUser.username}}
+      </ion-item>
+      <ion-item ui-sref="business-list" ng-click="closeMenu()">
+        <i class="icon ion-briefcase"></i>
+        {{currentBusinessName}}
       </ion-item>
       <ion-item ng-click="closeMenu(true)">
         <i class="icon ion-power"></i>
