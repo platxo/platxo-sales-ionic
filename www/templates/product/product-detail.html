@@ -1,23 +1,34 @@
 <ion-view view-title="Product Detail">
 	<ion-content padding="true">
     <div class="list card">
-      <div class="item item-divider">{{selectedProduct.name}}</div>
-      <div class="item item-body">
+      <h2 class="item item-divider">{{selectedProduct.name}}</h2>
+      <div class="item item-body item-text-wrap">
+        <ion-spinner ng-hide="selectedProduct.id != null" icon="dots"></ion-spinner>
+        <img class="full-image" ng-src="{{selectedProduct.picture_url}}">
         <h2>Id: {{selectedProduct.id}}</h2>
         <h2>Name: {{selectedProduct.name}}</h2>
+        <h2>Category: {{selectedProduct.product_category_name}}</h2>
+        <h2>Type: {{selectedProduct.product_type_name}}</h2>
         <h2>Brand: {{selectedProduct.brand_name}}</h2>
         <h2>Description: {{selectedProduct.description}}</h2>
         <h2>Supplier: {{selectedProduct.supplier_name}}</h2>
         <h2>Location: {{selectedProduct.location_name}}</h2>
         <h2>Section: {{selectedProduct.section_name}}</h2>
-        <h2>Category: {{selectedProduct.product_category_name}}</h2>
-        <h2>Type: {{selectedProduct.product_type_name}}</h2>
         <h2>Price: {{selectedProduct.retail_price | currency : $ : 0 }}</h2>
+        <h2>Tax: {{selectedProduct.tax_name }}</h2>
         <h2>Inventory: {{selectedProduct.inventory }}</h2>
+        <h2>Stock: {{selectedProduct.stock }}</h2>
         <h2>Quantity: {{selectedProduct.quantity}}</h2>
+      </div>
+      <div class="item item-divider">
         <h2>Created: {{selectedProduct.created | date:'medium'}}</h2>
         <h2>Updated: {{selectedProduct.updated | date:'medium'}}</h2>
       </div>
     </div>
-	</ion-content>
+    <div class="item item-image">
+      <ion-spinner ng-hide="selectedProduct.id != null" icon="dots"></ion-spinner>
+      <img ng-src="{{storagecode}}/{{selectedProduct.id}}.png">
+    </div>
+    <button ng-click="print()" class="button button-balanced  button-block button-outline icon-left ion-ios-printer-outline">Print</button>
+    </ion-content>
 </ion-view>

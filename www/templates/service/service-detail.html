@@ -3,16 +3,20 @@
     <div class="list card">
       <div class="item item-divider">{{selectedService.name}}</div>
       <div class="item item-body">
+        <ion-spinner ng-hide="selectedService.id != null" icon="dots"></ion-spinner>
+        <img class="full-image" ng-src="{{selectedService.picture_url}}">
         <h2>Id: {{selectedService.id}}</h2>
         <h2>Name: {{selectedService.name}}</h2>
-        <h2>Description: {{selectedService.description}}</h2>
-        <h2>Supplier: {{selectedService.supplier}}</h2>
         <h2>Category: {{selectedService.service_category_name}}</h2>
         <h2>Type: {{selectedService.service_type_name}}</h2>
+        <h2>Description: {{selectedService.description}}</h2>
         <h2>Price: {{selectedService.price | currency : $ : 0 }}</h2>
-        <h2>Created: {{selectedService.created | date:'medium'}}</h2>
-        <h2>Updated: {{selectedService.updated | date:'medium'}}</h2>
+        <h2>Tax: {{selectService.tax_name }}</h2>
       </div>
+      <div class="item item-divider">
+				<h2>Created: {{selectedService.created | date:'medium'}}</h2>
+        <h2>Updated: {{selectedService.updated | date:'medium'}}</h2>
+  		</div>
     </div>
   </ion-content>
 </ion-view>

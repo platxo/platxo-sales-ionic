@@ -90,3 +90,58 @@ authControllers.controller('loginController', [
     }
 
 }]);
+
+authControllers.controller('forgotPasswordController', [
+  '$scope',
+  '$state',
+  'forgotPasswordService',
+  'validateService',
+  'resetPasswordService',
+  function(
+    $scope,
+    $state,
+    forgotPasswordService,
+    validateService,
+    resetPasswordService
+  )
+  {
+    if (localStorage.token) $state.go('tab.product-list');
+    $scope.step1 = true
+
+    $scope.sendEmail = function (data) {
+      $scope.email = data.email
+      forgotPasswordService.send(data)
+      .$promise
+        .then (function (res) {
+          $scope.step1 = false
+          $scope.step2 = true
+        }, function (err) {
+          $scope.email = ''
+        })
+    }
+
+    $scope.sendCode = function (data) {
+      data.email = $scope.email;
+      validateService.send(data)
+      .$promise
+        .then (function (res) {
+          $scope.forgotToken = res.token
+          $scope.step3 = true
+          $scope.step2 = false
+        }, function (err) {
+
+        })
+    }
+
+    $scope.sendPassword = function (data) {
+      data.token = $scope.forgotToken
+      resetPasswordService.send(data)
+      .$promise
+        .then (function (res) {
+          $state.go('login')
+        }, function (err) {
+
+        })
+    }
+	}
+]);
