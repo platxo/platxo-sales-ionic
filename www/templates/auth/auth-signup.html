@@ -2,27 +2,22 @@
   <ion-content padding="true">
     <form name="signupForm" class="list" ng-submit="signupForm.$valid && create()" novalidate>
       <label class="item item-input">
-        <span class="input-label">First name</span>
-        <input ng-model="user.first_name" type="text" required>
+          <input ng-model="user.first_name" type="text" placeholder="First name" required>
       </label>
       <label class="item item-input">
-        <span class="input-label">Last name</span>
-        <input ng-model="user.last_name" type="text" required>
+          <input ng-model="user.last_name" type="text" placeholder="Last name" required>
       </label>
       <label class="item item-input">
-        <span class="input-label">Username</span>
-        <input ng-model="user.username" type="text" required>
+          <input ng-model="user.username" type="text" placeholder="Username" autocapitalize="off" required>
       </label>
       <label class="item item-input">
-        <span class="input-label">Email</span>
-        <input ng-model="user.email" type="email" required>
+          <input ng-model="user.email" type="email" placeholder="Email" required>
       </label>
       <label class="item item-input">
-        <span class="input-label">Password</span>
-        <input ng-model="user.password" type="password" required>
+          <input ng-model="user.password" type="password" placeholder="Password" required>
       </label>
-      <button type="submit" ng-disabled="!signupForm.$valid" class="button button-balanced button-block button-outline">SignUp</button>
-      <button type="" ui-sref="login" class="button button-positive button-block button-outline">Login</button>
+      <button type="submit" ng-disabled="!signupForm.$valid" class="button button-balanced button-block button-outline icon-left ion-android-person-add">SignUp</button>
+      <button type="" ui-sref="login" class="button button-positive button-block button-outline icon-left ion-log-in">Login</button>
     </form>
   </ion-content>
 </ion-view>

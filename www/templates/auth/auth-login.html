@@ -2,12 +2,10 @@
   <ion-content padding="true">
     <form name="loginForm" class="list" ng-submit="loginForm.$valid && create()" novalidate>
       <label class="item item-input">
-        <span class="input-label">Username</span>
-        <input ng-model="user.username" type="text" autocapitalize="off" required>
+          <input ng-model="user.username" type="text" placeholder="Username or Email" autocapitalize="off" required>
       </label>
       <label class="item item-input">
-        <span class="input-label">Password</span>
-        <input ng-model="user.password" type="password" required>
+          <input ng-model="user.password" type="password" placeholder="Password" required>
       </label>
       <div class="spacer" style="height: 40px;"></div>
       <button type="submit" ng-disabled="!loginForm.$valid" class="button button-balanced button-block button-outline icon-left ion-log-in">Login</button>
