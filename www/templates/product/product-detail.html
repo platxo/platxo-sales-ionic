@@ -2,7 +2,7 @@
 	<ion-content padding="true">
     <div class="list card">
       <h2 class="item item-divider">{{selectedProduct.name}}</h2>
-      <div class="item item-body item-text-wrap">
+      <div class="item item-body-list item-text-wrap">
         <ion-spinner ng-hide="selectedProduct.id != null" icon="dots"></ion-spinner>
         <img class="full-image" ng-src="{{selectedProduct.picture_url}}">
         <h2>Id: {{selectedProduct.id}}</h2>

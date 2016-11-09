@@ -9895,3 +9895,6 @@ a.button {
     .saleList .badgeInfo.Serv {
       right: 0;
       bottom: 15px; }
+
+.item-body-list h2 {
+  margin: 6px 0; }
