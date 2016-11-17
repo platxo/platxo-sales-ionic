@@ -160,6 +160,7 @@ saleControllers.controller('saleCreateCtrl', [
           productService.list()
             .$promise
               .then(function (res) {
+                $scope.hideLoading()
                 $scope.products = res
                 for (var i = $scope.products.length - 1; i >= 0; i--) {
                   $scope.products[i].qtySelected = 0
@@ -174,7 +175,6 @@ saleControllers.controller('saleCreateCtrl', [
                         $scope.services[i].qtySelected = 0
                         $scope.services[i].isChecked = false
                       }
-                      $scope.hideLoading()
                     })
               })
         }, function (error) {
@@ -262,7 +262,7 @@ saleControllers.controller('saleCreateCtrl', [
 
     /*
      *
-     * PRODUCTS 
+     * PRODUCTS
      *
      */
 
@@ -287,7 +287,7 @@ saleControllers.controller('saleCreateCtrl', [
 
     /*
      *
-     * SERVICES 
+     * SERVICES
      *
      */
 
@@ -312,7 +312,7 @@ saleControllers.controller('saleCreateCtrl', [
 
     /*
      *
-     * SALE 
+     * SALE
      *
      */
 
@@ -449,7 +449,7 @@ saleControllers.controller('saleCreateCtrl', [
             selectActual.qty--;
             product.qtySelected--;
           }
-        } 
+        }
         product.qty++;
         console.log($scope.cart.products);
       }
@@ -463,7 +463,7 @@ saleControllers.controller('saleCreateCtrl', [
               $scope.cart.services.splice(filterCartByIndex(null,service),1);
             }
           } else service.qtySelected--;
-        } 
+        }
         console.log($scope.cart.services);
       }
       getCartTotal();
