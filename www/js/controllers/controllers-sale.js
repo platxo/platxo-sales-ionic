@@ -219,7 +219,7 @@ saleControllers.controller('saleCreateCtrl', [
       var haveCRMcount = function () {
         if(customer.points.length > 0) {
           for (x in customer.points) {
-            if (customer.points[x].business === $rootScope.currentBusiness) {
+            if (customer.points[x].business === $rootScope.currentBusiness.id) {
               $scope.points = customer.points[x].balance
               $rootScope.maxPercentPoints = $rootScope.maxPercentPoints || JSON.parse(localStorage.getItem("maxPercentPoints"))
               $scope.maxRangePoints = $scope.cart.totalCart * $rootScope.maxPercentPoints /100
@@ -243,13 +243,13 @@ saleControllers.controller('saleCreateCtrl', [
     $scope.addCustomer = function (customer) {
       $rootScope.business = $rootScope.business
       for (x in $rootScope.business) {
-        if ($rootScope.currentBusiness === $rootScope.business[x].id) {
+        if ($rootScope.currentBusiness.id === $rootScope.business[x].id) {
           var businessToUpdate = $rootScope.business[x];
         }
       }
       businessToUpdate.customers.push(customer.id)
 
-      businessService.update({id: $rootScope.currentBusiness}, businessToUpdate)
+      businessService.update({id: $rootScope.currentBusiness.id}, businessToUpdate)
         .$promise
           .then(function(res) {
             $scope.sales = saleService.list();
@@ -349,6 +349,7 @@ saleControllers.controller('saleCreateCtrl', [
 
     /* CREATE SALE */
     $scope.create = function (cart) {
+      $scope.showLoading()
       // Parser products
       var products = cart.products.map(function (product) {
         var obj = {id: product.item.id, qty: product.qty}
@@ -364,7 +365,7 @@ saleControllers.controller('saleCreateCtrl', [
         order: {
           payment_method : "cash",
           customer: $rootScope.currentCustomer,
-          business: $rootScope.currentBusiness,
+          business: $rootScope.currentBusiness.id,
           employee:  $rootScope.currentEmployee.id,
           products: products,
           services: services,
@@ -384,9 +385,11 @@ saleControllers.controller('saleCreateCtrl', [
                 }, function (error) {
                   $rootScope.evaluateError(error)
                 })
+            $scope.hideLoading()
             $state.go('tab.sale-list');
           }, function (error) {
             $rootScope.evaluateError(error)
+            $scope.hideLoading()
           })
     }
 

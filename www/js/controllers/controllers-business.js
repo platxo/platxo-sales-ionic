@@ -44,8 +44,7 @@ businessControllers.controller('businessListCtrl', [
     $scope.selectBs = function(bs) {
       $rootScope.maxPercentPoints = bs.crm_points
       localStorage.setItem("maxPercentPoints", JSON.stringify($rootScope.maxPercentPoints));
-      $rootScope.currentBusiness = bs.id;
-      $rootScope.currentBusinessName = bs.name;
+      $rootScope.currentBusiness = bs;
       localStorage.setItem("currentBusiness", JSON.stringify($rootScope.currentBusiness));
       $state.go('tab.sale-list');
     }

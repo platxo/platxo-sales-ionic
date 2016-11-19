@@ -21,7 +21,6 @@ var sales = angular.module('sales', [
   'businessServices',
   'salesDirectives'
 ])
-
 sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
   $rootScope.version = 'http://development.';
   $rootScope.baseUrl = 'platxo-bi.appspot.com';

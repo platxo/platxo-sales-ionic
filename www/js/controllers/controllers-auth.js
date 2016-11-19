@@ -61,6 +61,7 @@ authControllers.controller('loginController', [
             $rootScope.currentUser = response.user;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
             localStorage.setItem('user', JSON.stringify($rootScope.currentUser));
+            $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
             $http.defaults.headers.common['Authorization'] = 'JWT ' + $rootScope.token;
             if (response.user.is_employee) {
               $rootScope.businessUser = response.user.employee.business
