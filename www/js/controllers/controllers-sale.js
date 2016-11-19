@@ -103,6 +103,7 @@ saleControllers.controller('saleController', [
           .$promise
             .then(function (res) {
               $scope.sales = res;
+              $rootScope.listSales = res
             }, function (error) {
               $rootScope.evaluateError(error)
             })
@@ -621,5 +622,4 @@ saleControllers.controller('saleCreateCtrl', [
     })
 
   }
-
 ])
