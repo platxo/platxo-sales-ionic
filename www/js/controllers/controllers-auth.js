@@ -76,10 +76,7 @@ authControllers.controller('loginController', [
                     $rootScope.businessUser = response.employee.business
                     $state.go('business-list');
                   }, function (error) {
-                    if (error.data.detail === "Signature has expired.") {
-                      debugger
-                    }
-                    $location.path('/login');
+                    $rootScope.evaluateError()
                   })
             }
             $scope.hideLoading()
