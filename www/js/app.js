@@ -46,10 +46,36 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
 
     $rootScope.evaluateError = function (error) {
       debugger
+      // Options default error
+      var options = {
+        title: 'Error Connection!',
+        template: 'Try your connection',
+        doneAlert: function () {
+
+        }
+      }
       if (error.data.detail === "Signature has expired.") {
         debugger
-        $rootScope.showAlertExpired()
+        var options = {
+          title: 'Expired Session!',
+          template: 'Login Please',
+          doneAlert: function () {
+            $rootScope.logout()
+          }
+        }
       }
+      if (error.data.non_field_errors[0] === "Unable to login with provided credentials.") {
+        var options = {
+          title: 'Credentials invalid!',
+          template: 'Login again Please',
+          doneAlert: function () {
+            $state.go('login');
+          }
+        }
+      }
+
+      $rootScope.showAlert(options)
+
     }
 
     if(window.cordova && window.cordova.plugins.Keyboard) {

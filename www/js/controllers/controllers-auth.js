@@ -76,14 +76,14 @@ authControllers.controller('loginController', [
                     $rootScope.businessUser = response.employee.business
                     $state.go('business-list');
                   }, function (error) {
-                    $rootScope.evaluateError()
+                    $rootScope.evaluateError(error)
                   })
             }
             $scope.hideLoading()
-          }, function (reason) {
+          }, function (error) {
             $scope.user.password = "";
             $scope.hideLoading()
-            $scope.errors = reason;
+            $rootScope.evaluateError(error)
           })
     }
 

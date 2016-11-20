@@ -44,14 +44,13 @@ salesDirectives.directive('expired', [ '$ionicPopup', '$rootScope', '$location',
     restrict: 'E',
     templateUrl: 'templates/partials/expired.html',
     controller: function ($scope) {
-      $rootScope.showAlertExpired = function() {
+      $rootScope.showAlert = function(options) {
         var alertPopup = $ionicPopup.alert({
-          title: 'Expired Session!',
-          template: 'Login Please'
+          title: options.title,
+          template: options.template
         });
 
         alertPopup.then(function(res) {
-          console.log('Thank you for not eating my delicious ice cream cone');
           $rootScope.logout()
         })
       }
