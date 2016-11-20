@@ -45,7 +45,6 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
     };
 
     $rootScope.evaluateError = function (error) {
-      debugger
       // Options default error
       var options = {
         title: 'Error Connection!',
@@ -55,7 +54,6 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
         }
       }
       if (error.data.detail === "Signature has expired.") {
-        debugger
         var options = {
           title: 'Expired Session!',
           template: 'Login Please',

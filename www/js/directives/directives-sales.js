@@ -51,7 +51,7 @@ salesDirectives.directive('expired', [ '$ionicPopup', '$rootScope', '$location',
         });
 
         alertPopup.then(function(res) {
-          $rootScope.logout()
+          options.doneAlert
         })
       }
     }
