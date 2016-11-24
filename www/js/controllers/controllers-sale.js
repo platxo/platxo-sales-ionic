@@ -31,10 +31,9 @@ saleControllers.controller('saleController', [
       $rootScope.salesMonth = []
       $rootScope.salesWeek = []
       var currentDate = new Date()
-      var currentDay = currentDate.getDay()
       for (x in $rootScope.sales) {
         var dateEvaluate = new Date($rootScope.sales[x].created_at)
-        if (dateEvaluate.getDay() === currentDay) {
+        if (dateEvaluate.getDay() === currentDate.getDay() && dateEvaluate.getDay() === currentDate.getDate()) {
           $rootScope.salesDay.push($rootScope.sales[x])
         }
       }
@@ -89,6 +88,7 @@ saleControllers.controller('saleController', [
       saleService.list()
         .$promise
           .then(function (res) {
+            debugger
             $rootScope.sales = res
             $rootScope.listSales = res
             $scope.$broadcast('scroll.refreshComplete');
@@ -102,7 +102,8 @@ saleControllers.controller('saleController', [
         saleService.list()
           .$promise
             .then(function (res) {
-              $scope.sales = res;
+              debugger
+              $rootScope.sales = res;
               $rootScope.listSales = res
             }, function (error) {
               $rootScope.evaluateError(error)
