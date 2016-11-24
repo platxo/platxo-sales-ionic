@@ -31,9 +31,10 @@ saleControllers.controller('saleController', [
       $rootScope.salesMonth = []
       $rootScope.salesWeek = []
       var currentDate = new Date()
+      debugger
       for (x in $rootScope.sales) {
         var dateEvaluate = new Date($rootScope.sales[x].created_at)
-        if (dateEvaluate.getDay() === currentDate.getDay() && dateEvaluate.getDay() === currentDate.getDate()) {
+        if (dateEvaluate.getDay() === currentDate.getDay() && dateEvaluate.getDate() === currentDate.getDate()) {
           $rootScope.salesDay.push($rootScope.sales[x])
         }
       }
