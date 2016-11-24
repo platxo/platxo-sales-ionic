@@ -31,14 +31,13 @@ saleControllers.controller('saleController', [
       $rootScope.salesMonth = []
       $rootScope.salesWeek = []
       var currentDate = new Date()
-      debugger
       for (x in $rootScope.sales) {
         var dateEvaluate = new Date($rootScope.sales[x].created_at)
         if (dateEvaluate.getDay() === currentDate.getDay() && dateEvaluate.getDate() === currentDate.getDate()) {
           $rootScope.salesDay.push($rootScope.sales[x])
         }
       }
-      $scope.listSales = $rootScope.salesDay;
+      $rootScope.listSales = $rootScope.salesDay;
     }
 
     $scope.monthFilter = function () {
@@ -53,7 +52,7 @@ saleControllers.controller('saleController', [
           $rootScope.salesMonth.push($rootScope.sales[x])
         }
       }
-      $scope.listSales = $rootScope.salesMonth;
+      $rootScope.listSales = $rootScope.salesMonth;
     }
 
     $scope.weekFilter = function () {
@@ -76,7 +75,7 @@ saleControllers.controller('saleController', [
           $rootScope.salesWeek.push($rootScope.sales[x])
         }
       }
-      $scope.listSales = $rootScope.salesWeek;
+      $rootScope.listSales = $rootScope.salesWeek;
     }
 
     /* DETAIL SALE */
@@ -89,7 +88,6 @@ saleControllers.controller('saleController', [
       saleService.list()
         .$promise
           .then(function (res) {
-            debugger
             $rootScope.sales = res
             $rootScope.listSales = res
             $scope.$broadcast('scroll.refreshComplete');
@@ -103,7 +101,6 @@ saleControllers.controller('saleController', [
         saleService.list()
           .$promise
             .then(function (res) {
-              debugger
               $rootScope.sales = res;
               $rootScope.listSales = res
             }, function (error) {
@@ -181,7 +178,6 @@ saleControllers.controller('saleCreateCtrl', [
                     })
               })
         }, function (error) {
-          debugger
           $rootScope.evaluateError(error)
           $scope.hideLoading()
           $scope.sales = {}
