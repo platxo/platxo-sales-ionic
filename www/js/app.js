@@ -29,6 +29,20 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
 
+  $rootScope.logout = function(forced) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('allBusiness');
+    localStorage.removeItem('currentBusiness');
+    localStorage.removeItem('maxPercentPoints');
+    $http.defaults.headers.common['Authorization'] = undefined;
+    $ionicHistory.clearCache().then(function() {
+      $ionicHistory.clearHistory();
+      $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
+      $state.go('login');
+    })
+  };
+
   $rootScope.evaluateError = function (error) {
     // Options default error
     var options = {
@@ -59,20 +73,6 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
     $rootScope.showAlert(options)
 
   }
-
-  $rootScope.logout = function(forced) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('allBusiness');
-    localStorage.removeItem('currentBusiness');
-    localStorage.removeItem('maxPercentPoints');
-    $http.defaults.headers.common['Authorization'] = undefined;
-    $ionicHistory.clearCache().then(function() {
-      $ionicHistory.clearHistory();
-      $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
-      $state.go('login');
-    })
-  };
 
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
