@@ -28,54 +28,53 @@ sales.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) {
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
-  $ionicPlatform.ready(function() {
 
-    $rootScope.logout = function(forced) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('allBusiness');
-      localStorage.removeItem('currentBusiness');
-      localStorage.removeItem('maxPercentPoints');
-      $http.defaults.headers.common['Authorization'] = undefined;
-      $ionicHistory.clearCache().then(function() {
-        $ionicHistory.clearHistory();
-        $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
-        $state.go('login');
-      })
-    };
+  $rootScope.evaluateError = function (error) {
+    // Options default error
+    var options = {
+      title: 'Error Connection!',
+      template: 'Try your connection',
+      doneAlert: function () {
 
-    $rootScope.evaluateError = function (error) {
-      // Options default error
+      }
+    }
+    if (error.data.detail === "Signature has expired.") {
       var options = {
-        title: 'Error Connection!',
-        template: 'Try your connection',
+        title: 'Expired Session!',
+        template: 'Login Please',
         doneAlert: function () {
-
+          $rootScope.logout()
         }
       }
-      if (error.data.detail === "Signature has expired.") {
-        var options = {
-          title: 'Expired Session!',
-          template: 'Login Please',
-          doneAlert: function () {
-            $rootScope.logout()
-          }
+    } else if (error.data.non_field_errors[0] === "Unable to login with provided credentials.") {
+      var options = {
+        title: 'Credentials invalid!',
+        template: 'Login again Please',
+        doneAlert: function () {
+          $state.go('login');
         }
       }
-      if (error.data.non_field_errors[0] === "Unable to login with provided credentials.") {
-        var options = {
-          title: 'Credentials invalid!',
-          template: 'Login again Please',
-          doneAlert: function () {
-            $state.go('login');
-          }
-        }
-      }
-
-      $rootScope.showAlert(options)
-
     }
 
+    $rootScope.showAlert(options)
+
+  }
+
+  $rootScope.logout = function(forced) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('allBusiness');
+    localStorage.removeItem('currentBusiness');
+    localStorage.removeItem('maxPercentPoints');
+    $http.defaults.headers.common['Authorization'] = undefined;
+    $ionicHistory.clearCache().then(function() {
+      $ionicHistory.clearHistory();
+      $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
+      $state.go('login');
+    })
+  };
+
+  $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
